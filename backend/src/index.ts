@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { MikroORM } from "@mikro-orm/core";
 import { __prod__ } from "./constants";
 // import { Post } from "./entities/Post";
@@ -7,19 +8,29 @@ import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { HelloResolver } from "./resolvers/hello";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
+import { CategoriaResolver } from "./resolvers/categoria";
+// import { Categoria } from "./entities/Categoria";
 
 const main = async () => {
   const orm = await MikroORM.init(microConfig);
   await orm.getMigrator().up();
 
+  // const categoria = orm.em.create(Categoria, {
+  //   nombre: "Autocad Basico",
+  // });
+
+  // await orm.em.persistAndFlush(categoria);
+
   const app = express();
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [HelloResolver],
+      resolvers: [HelloResolver, CategoriaResolver],
       validate: false,
     }),
+
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
+    context: () => ({ em: orm.em }),
   });
 
   await apolloServer.start();

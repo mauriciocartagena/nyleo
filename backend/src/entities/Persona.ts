@@ -1,34 +1,44 @@
-import { Entity, PrimaryKey, Property } from "@mikro-orm/core";
 import { Field, ObjectType, Int } from "type-graphql";
+import { Estudiante } from "./Estudiante";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BaseEntity,
+  OneToMany,
+} from "typeorm";
 
 @ObjectType()
 @Entity()
-export class Persona {
+export class Persona extends BaseEntity {
   @Field(() => Int)
-  @PrimaryKey()
+  @PrimaryGeneratedColumn()
   id_persona!: number;
 
+  @OneToMany(() => Estudiante, (estudiante) => estudiante.id_persona)
+  estudiantes: Estudiante[];
+
   @Field()
-  @Property({ type: "text", length: 255 })
+  @Column({ type: "character varying" })
   nombre!: string;
 
   @Field()
-  @Property({ type: "text", length: 255 })
+  @Column({ type: "character varying" })
   primer_apellido!: string;
 
   @Field()
-  @Property({ type: "text", length: 255 })
+  @Column({ type: "character varying" })
   segundo_apellido: string;
 
   @Field()
-  @Property({ type: "text", length: 255 })
+  @Column({ type: "character varying", unique: true })
   dni!: string;
 
   @Field(() => Int)
-  @Property()
+  @Column()
   numero!: Number;
 
   @Field()
-  @Property({ type: "text", length: 255 })
+  @Column({ type: "character varying", unique: true })
   email: string;
 }

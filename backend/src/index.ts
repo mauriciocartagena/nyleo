@@ -1,19 +1,36 @@
 import "reflect-metadata";
-import { MikroORM } from "@mikro-orm/core";
+// import { MikroORM } from "@mikro-orm/core";
 import { __prod__ } from "./constants";
-// import { Post } from "./entities/Post";
-import microConfig from "./mikro-orm.config";
+// import microConfig from "./mikro-orm.config";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { HelloResolver } from "./resolvers/hello";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { CategoriaResolver } from "./resolvers/categoria";
-// import { Categoria } from "./entities/Categoria";
+import { createConnection } from "typeorm";
+import { Categoria } from "./entities/Categoria";
+import { Persona } from "./entities/Persona";
+import { Estudiante } from "./entities/Estudiante";
+import { Grupo } from "./entities/Grupo";
+import { Fecha } from "./entities/Fecha";
+import { Turno } from "./entities/Turno";
+import { Curso } from "./entities/Curso";
 
 const main = async () => {
-  const orm = await MikroORM.init(microConfig);
-  await orm.getMigrator().up();
+  const conn = await createConnection({
+    type: "postgres",
+    database: "nyleo",
+    username: "user",
+    password: "password",
+    logging: true,
+    synchronize: true,
+    entities: [Persona, Estudiante, Categoria, Grupo, Fecha, Turno, Curso],
+  });
+  console.log("This connection", conn.isConnected);
+
+  // const orm = await MikroORM.init(microConfig);
+  // await orm.getMigrator().up();
 
   const app = express();
 
@@ -24,7 +41,7 @@ const main = async () => {
     }),
 
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
-    context: () => ({ em: orm.em }),
+    context: () => ({}),
   });
 
   await apolloServer.start();

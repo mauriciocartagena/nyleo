@@ -15,12 +15,6 @@ const main = async () => {
   const orm = await MikroORM.init(microConfig);
   await orm.getMigrator().up();
 
-  // const categoria = orm.em.create(Categoria, {
-  //   nombre: "Autocad Basico",
-  // });
-
-  // await orm.em.persistAndFlush(categoria);
-
   const app = express();
 
   const apolloServer = new ApolloServer({

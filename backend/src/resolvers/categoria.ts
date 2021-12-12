@@ -1,59 +1,66 @@
-import { Arg, Ctx, Query, Resolver, Int, Mutation } from "type-graphql";
+import { Arg, Query, Resolver, Int, Mutation } from "type-graphql";
 import { Categoria } from "../entities/Categoria";
-import { MyContext } from "../types";
+import { getConnection } from "typeorm";
 
 @Resolver()
 export class CategoriaResolver {
   @Query(() => [Categoria])
-  categorias(@Ctx() { em }: MyContext): Promise<Categoria[]> {
-    return em.find(Categoria, {});
+  async categorias(): Promise<Categoria[]> {
+    const categoria = getConnection();
+
+    return categoria.manager.find(Categoria);
   }
 
   @Query(() => Categoria, { nullable: true })
   categoria(
-    @Arg("id_categoria", () => Int) id_categoria: number,
-    @Ctx() { em }: MyContext
-  ): Promise<Categoria | null> {
-    return em.findOne(Categoria, { id_categoria });
+    @Arg("id_categoria", () => Int) id_categoria: number
+  ): Promise<Categoria | null | undefined> {
+    const conn = getConnection();
+
+    const resp = conn.manager.findOne(Categoria, { id_categoria });
+    return resp;
   }
 
   @Mutation(() => Categoria)
   async crearCategoria(
-    @Arg("nombre") nombre: string,
-    @Ctx() { em }: MyContext
+    @Arg("nombre") nombre: string
   ): Promise<Categoria | null> {
-    const categoria = em.create(Categoria, { nombre });
-    await em.persistAndFlush(categoria);
+    const conn = getConnection();
 
-    return categoria;
+    const categoria = conn.manager.create(Categoria, { nombre });
+
+    const resp = await conn.manager.save(categoria);
+
+    return resp;
   }
 
   @Mutation(() => Categoria, { nullable: true })
   async actualizarCategoria(
     @Arg("id_categoria") id_categoria: number,
-    @Arg("nombre", () => String, { nullable: true }) nombre: string,
-    @Ctx() { em }: MyContext
+    @Arg("nombre", () => String, { nullable: true }) nombre: string
   ): Promise<Categoria | null> {
-    const categoria = await em.findOne(Categoria, { id_categoria });
+    const conn = getConnection();
+
+    const categoria = await conn.manager.findOne(Categoria, { id_categoria });
 
     if (!categoria) {
       return null;
     }
     if (typeof nombre !== "undefined") {
       categoria.nombre = nombre;
-      await em.persistAndFlush(categoria);
+
+      await conn.manager.update(Categoria, { id_categoria }, categoria);
     }
     return categoria;
   }
 
   @Mutation(() => Boolean)
   async eliminarCategoria(
-    @Arg("id_categoria") id_categoria: number,
-
-    @Ctx() { em }: MyContext
+    @Arg("id_categoria") id_categoria: number
   ): Promise<boolean> {
+    const conn = getConnection();
     try {
-      em.nativeDelete(Categoria, { id_categoria });
+      conn.manager.delete(Categoria, { id_categoria });
     } catch {
       return false;
     }

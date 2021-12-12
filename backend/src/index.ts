@@ -41,7 +41,10 @@ const main = async () => {
     }),
 
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
-    context: () => ({}),
+    context: ({ req, res }) => ({
+      req,
+      res,
+    }),
   });
 
   await apolloServer.start();

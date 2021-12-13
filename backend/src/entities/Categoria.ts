@@ -19,6 +19,8 @@ export class Categoria extends BaseEntity {
   @Column({ type: "character varying", unique: true })
   nombre!: string;
 
-  @OneToMany(() => Grupo, (grupo) => grupo.id_categoria)
+  @OneToMany(() => Grupo, (grupo) => grupo.id_categoria, {
+    cascade: ["insert", "update"],
+  })
   grupos!: Grupo[];
 }

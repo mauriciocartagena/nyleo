@@ -27,6 +27,8 @@ export class Turno extends BaseEntity {
   @Column({ type: "time" })
   hora_fin!: Date;
 
-  @OneToMany(() => Grupo, (grupo) => grupo.id_turno)
+  @OneToMany(() => Grupo, (grupo) => grupo.id_turno, {
+    cascade: ["insert", "update"],
+  })
   grupos: Grupo[];
 }

@@ -1,24 +1,25 @@
 import { Arg, Query, Resolver, Int, Mutation } from "type-graphql";
-import { Categoria } from "../entities/Categoria";
 import { getConnection } from "typeorm";
+import { Categoria } from "../entities/Categoria";
 
 @Resolver()
 export class CategoriaResolver {
   @Query(() => [Categoria])
   async categorias(): Promise<Categoria[]> {
     const conn = getConnection();
+
     const resp = await conn.manager.find(Categoria);
 
     return resp;
   }
 
   @Query(() => Categoria, { nullable: true })
-  categoria(
+  async categoria(
     @Arg("id_categoria", () => Int) id_categoria: number
   ): Promise<Categoria | null | undefined> {
     const conn = getConnection();
 
-    const resp = conn.manager.findOne(Categoria, { id_categoria });
+    const resp = await conn.manager.findOne(Categoria, { id_categoria });
     return resp;
   }
 

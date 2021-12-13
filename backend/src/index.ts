@@ -15,6 +15,8 @@ import { Turno } from "./entities/Turno";
 import { Curso } from "./entities/Curso";
 import { HelloResolver } from "./resolvers/hello";
 import { CategoriaResolver } from "./resolvers/categoria";
+import { GrupoResolver } from "./resolvers/grupo";
+import { EstudianteResolver } from "./resolvers/estudiante";
 
 const main = async () => {
   const conn = await createConnection({
@@ -35,7 +37,12 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [HelloResolver, CategoriaResolver],
+      resolvers: [
+        HelloResolver,
+        CategoriaResolver,
+        GrupoResolver,
+        EstudianteResolver,
+      ],
       validate: false,
     }),
 

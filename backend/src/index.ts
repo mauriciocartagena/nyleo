@@ -5,17 +5,16 @@ import { __prod__ } from "./constants";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
-import { HelloResolver } from "./resolvers/hello";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
-import { CategoriaResolver } from "./resolvers/categoria";
 import { createConnection } from "typeorm";
 import { Categoria } from "./entities/Categoria";
 import { Persona } from "./entities/Persona";
 import { Estudiante } from "./entities/Estudiante";
 import { Grupo } from "./entities/Grupo";
-import { Fecha } from "./entities/Fecha";
 import { Turno } from "./entities/Turno";
 import { Curso } from "./entities/Curso";
+import { HelloResolver } from "./resolvers/hello";
+import { CategoriaResolver } from "./resolvers/categoria";
 
 const main = async () => {
   const conn = await createConnection({
@@ -25,7 +24,7 @@ const main = async () => {
     password: "password",
     logging: true,
     synchronize: true,
-    entities: [Persona, Estudiante, Categoria, Grupo, Fecha, Turno, Curso],
+    entities: [Persona, Estudiante, Categoria, Grupo, Turno, Curso],
   });
   console.log("This connection", conn.isConnected);
 

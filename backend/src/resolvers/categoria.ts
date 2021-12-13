@@ -6,9 +6,10 @@ import { getConnection } from "typeorm";
 export class CategoriaResolver {
   @Query(() => [Categoria])
   async categorias(): Promise<Categoria[]> {
-    const categoria = getConnection();
+    const conn = getConnection();
+    const resp = await conn.manager.find(Categoria);
 
-    return categoria.manager.find(Categoria);
+    return resp;
   }
 
   @Query(() => Categoria, { nullable: true })

@@ -1,10 +1,10 @@
 import { Field, Int, ObjectType } from "type-graphql";
 import {
   Column,
-  Entity,
-  PrimaryGeneratedColumn,
-  BaseEntity,
   OneToMany,
+  PrimaryGeneratedColumn,
+  Entity,
+  BaseEntity,
 } from "typeorm";
 import { Grupo } from "./Grupo";
 
@@ -22,5 +22,5 @@ export class Categoria extends BaseEntity {
   @OneToMany(() => Grupo, (grupo) => grupo.id_categoria, {
     cascade: ["insert", "update"],
   })
-  grupos!: Grupo[];
+  grupos: Grupo[];
 }

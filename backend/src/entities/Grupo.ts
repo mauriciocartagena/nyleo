@@ -6,16 +6,17 @@ import {
   BaseEntity,
   Entity,
   Column,
+  OneToMany,
 } from "typeorm";
-import { Categoria } from "./Categoria";
 import { Turno } from "./Turno";
-import { OneToMany } from "typeorm";
 import { Curso } from "./Curso";
+import { Categoria } from "./Categoria";
 
 @ObjectType()
 @Entity()
 export class Grupo extends BaseEntity {
   @Field(() => Int)
+  @Column()
   @PrimaryGeneratedColumn()
   id_grupo!: number;
 
@@ -35,15 +36,19 @@ export class Grupo extends BaseEntity {
   @Column({ type: "character varying" })
   dia_final: string;
 
+  @Field()
+  @Column()
+  @ManyToOne(() => Turno, (turno) => turno.grupos, { cascade: true })
+  @JoinColumn({ name: "id_turno", referencedColumnName: "id_turno" })
+  id_turno: Turno;
+
+  @Field()
+  @Column()
   @ManyToOne(() => Categoria, (categoria) => categoria.grupos, {
     cascade: true,
   })
   @JoinColumn({ name: "id_categoria", referencedColumnName: "id_categoria" })
   id_categoria: Categoria;
-
-  @ManyToOne(() => Turno, (turno) => turno.grupos, { cascade: true })
-  @JoinColumn({ name: "id_turno", referencedColumnName: "id_turno" })
-  id_turno: Turno;
 
   @OneToMany(() => Curso, (curso) => curso.grupo, {
     cascade: ["insert", "update"],

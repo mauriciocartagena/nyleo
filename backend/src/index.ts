@@ -7,16 +7,16 @@ import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { createConnection } from "typeorm";
-import { Categoria } from "./entities/Categoria";
+import { Grupo } from "./entities/Grupo";
 import { Persona } from "./entities/Persona";
 import { Estudiante } from "./entities/Estudiante";
-import { Grupo } from "./entities/Grupo";
+import { Categoria } from "./entities/Categoria";
 import { Turno } from "./entities/Turno";
 import { Curso } from "./entities/Curso";
 import { HelloResolver } from "./resolvers/hello";
-import { CategoriaResolver } from "./resolvers/categoria";
 import { GrupoResolver } from "./resolvers/grupo";
 import { EstudianteResolver } from "./resolvers/estudiante";
+import { CategoriaResolver } from "./resolvers/categoria";
 import { TurnoResolver } from "./resolvers/turno";
 
 const main = async () => {
@@ -27,7 +27,7 @@ const main = async () => {
     password: "password",
     logging: true,
     synchronize: true,
-    entities: [Persona, Estudiante, Categoria, Grupo, Turno, Curso],
+    entities: [Persona, Estudiante, Grupo, Turno, Categoria, Curso],
   });
   console.log("This connection", conn.isConnected);
 
@@ -40,8 +40,8 @@ const main = async () => {
     schema: await buildSchema({
       resolvers: [
         HelloResolver,
-        CategoriaResolver,
         GrupoResolver,
+        CategoriaResolver,
         EstudianteResolver,
         TurnoResolver,
       ],

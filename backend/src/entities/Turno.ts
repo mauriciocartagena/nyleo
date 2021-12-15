@@ -16,7 +16,7 @@ export class Turno extends BaseEntity {
   id_turno!: number;
 
   @Field()
-  @Column({ unique: true })
+  @Column({ type: "character varying", unique: true })
   nombre!: string;
 
   @Field()

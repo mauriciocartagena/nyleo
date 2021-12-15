@@ -1,15 +1,19 @@
 import { Query, Arg, Int, Mutation } from "type-graphql";
 import { Grupo } from "../entities/Grupo";
 import { getConnection } from "typeorm";
+import { Categoria } from "../entities/Categoria";
+import { Turno } from "../entities/Turno";
 
 export class GrupoResolver {
-  @Query(() => [Grupo])
+  @Query(() => [Grupo, { Categoria, Turno }])
   async grupos(): Promise<Grupo[]> {
     const conn = getConnection();
 
-    const resp = await conn.manager.find(Grupo);
+    const grupos = await conn.getRepository(Grupo).find({
+      relations: ["id_categoria", "id_turno"],
+    });
 
-    return resp;
+    return grupos;
   }
 
   @Query(() => Grupo, { nullable: true })

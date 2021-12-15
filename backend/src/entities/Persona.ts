@@ -15,7 +15,9 @@ export class Persona extends BaseEntity {
   @PrimaryGeneratedColumn()
   id_persona!: number;
 
-  @OneToMany(() => Estudiante, (estudiante) => estudiante.id_persona)
+  @OneToMany(() => Estudiante, (estudiante) => estudiante.id_persona, {
+    cascade: true,
+  })
   estudiantes: Estudiante[];
 
   @Field()

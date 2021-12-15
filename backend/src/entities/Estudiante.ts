@@ -6,7 +6,10 @@ import { Curso } from "./Curso";
 @ObjectType()
 @Entity()
 export class Estudiante extends BaseEntity {
-  @ManyToOne(() => Persona, (persona) => persona.estudiantes, { primary: true })
+  @ManyToOne(() => Persona, (persona) => persona.estudiantes, {
+    primary: true,
+    onDelete: "CASCADE",
+  })
   @JoinColumn({ name: "id_persona" })
   id_persona: Persona;
 

@@ -16,16 +16,16 @@ export class Turno extends BaseEntity {
   id_turno!: number;
 
   @Field()
-  @Column()
+  @Column({ unique: true })
   nombre!: string;
 
   @Field()
   @Column({ type: "time" })
-  hora_inicio!: Date;
+  hora_inicio!: string;
 
   @Field()
   @Column({ type: "time" })
-  hora_fin!: Date;
+  hora_final!: string;
 
   @OneToMany(() => Grupo, (grupo) => grupo.id_turno, {
     cascade: ["insert", "update"],

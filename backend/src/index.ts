@@ -17,6 +17,7 @@ import { HelloResolver } from "./resolvers/hello";
 import { CategoriaResolver } from "./resolvers/categoria";
 import { GrupoResolver } from "./resolvers/grupo";
 import { EstudianteResolver } from "./resolvers/estudiante";
+import { TurnoResolver } from "./resolvers/turno";
 
 const main = async () => {
   const conn = await createConnection({
@@ -42,6 +43,7 @@ const main = async () => {
         CategoriaResolver,
         GrupoResolver,
         EstudianteResolver,
+        TurnoResolver,
       ],
       validate: false,
     }),

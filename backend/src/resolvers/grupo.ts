@@ -35,7 +35,7 @@ export class GrupoResolver {
     @Arg("dia_inicio") dia_inicio: string,
     @Arg("id_categoria") id_categoria: number,
     @Arg("id_turno") id_turno: number
-  ): Promise<Grupo | null> {
+  ): Promise<Grupo[]> {
     const conn = getConnection();
 
     const grupo = await conn

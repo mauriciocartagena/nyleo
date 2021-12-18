@@ -29,6 +29,7 @@ export class Turno extends BaseEntity {
 
   @OneToMany(() => Grupo, (grupo) => grupo.id_turno, {
     cascade: ["insert", "update"],
+    eager: true,
   })
   grupos: Grupo[];
 }

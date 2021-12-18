@@ -8,9 +8,7 @@ export class CategoriaResolver {
   async categorias(): Promise<Categoria[]> {
     const conn = getConnection();
 
-    const resp = await conn.manager.find(Categoria);
-
-    return resp;
+    return conn.manager.find(Categoria);
   }
 
   @Query(() => Categoria, { nullable: true })
@@ -19,8 +17,7 @@ export class CategoriaResolver {
   ): Promise<Categoria | null | undefined> {
     const conn = getConnection();
 
-    const resp = await conn.manager.findOne(Categoria, { id_categoria });
-    return resp;
+    return conn.manager.findOne(Categoria, { id_categoria });
   }
 
   @Mutation(() => Categoria)
@@ -31,9 +28,7 @@ export class CategoriaResolver {
 
     const categoria = conn.manager.create(Categoria, { nombre });
 
-    const resp = await conn.manager.save(categoria);
-
-    return resp;
+    return conn.manager.save(categoria);
   }
 
   @Mutation(() => Categoria, { nullable: true })
@@ -62,7 +57,7 @@ export class CategoriaResolver {
   ): Promise<boolean> {
     const conn = getConnection();
     try {
-      conn.manager.delete(Categoria, { id_categoria });
+      await conn.manager.delete(Categoria, { id_categoria });
     } catch {
       return false;
     }

@@ -38,7 +38,9 @@ export class Grupo extends BaseEntity {
 
   @Field()
   @Column()
-  @ManyToOne(() => Turno, (turno) => turno.grupos, { cascade: true })
+  @ManyToOne(() => Turno, (turno) => turno.grupos, {
+    cascade: true,
+  })
   @JoinColumn({ name: "id_turno", referencedColumnName: "id_turno" })
   id_turno: Turno;
 

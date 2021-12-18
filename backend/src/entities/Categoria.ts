@@ -21,6 +21,7 @@ export class Categoria extends BaseEntity {
 
   @OneToMany(() => Grupo, (grupo) => grupo.id_categoria, {
     cascade: ["insert", "update"],
+    eager: true,
   })
   grupos: Grupo[];
 }

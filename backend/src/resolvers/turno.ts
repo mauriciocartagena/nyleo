@@ -8,9 +8,7 @@ export class TurnoResolver {
   async turnos(): Promise<Turno[]> {
     const conn = getConnection();
 
-    const resp = await conn.manager.find(Turno);
-
-    return resp;
+    return conn.manager.find(Turno);
   }
 
   @Query(() => Turno, { nullable: true })
@@ -19,9 +17,7 @@ export class TurnoResolver {
   ): Promise<Turno | null | undefined> {
     const conn = getConnection();
 
-    const resp = await conn.manager.findOne(Turno, { id_turno });
-
-    return resp;
+    return conn.manager.findOne(Turno, { id_turno });
   }
 
   @Mutation(() => Turno)
@@ -38,9 +34,7 @@ export class TurnoResolver {
       hora_final,
     });
 
-    const resp = await conn.manager.save(turno);
-
-    return resp;
+    return conn.manager.save(turno);
   }
 
   @Mutation(() => Turno, { nullable: true })
@@ -77,7 +71,7 @@ export class TurnoResolver {
   async eliminarTurno(@Arg("id_turno") id_turno: number): Promise<boolean> {
     const conn = getConnection();
     try {
-      conn.manager.delete(Turno, { id_turno });
+      await conn.manager.delete(Turno, { id_turno });
     } catch {
       return false;
     }

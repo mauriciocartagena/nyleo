@@ -9,7 +9,7 @@ export class EstudianteResolver {
   async estudiantes(): Promise<Persona[]> {
     const conn = getConnection();
 
-    const estudiantes = await conn
+    return conn
       .createQueryBuilder(Persona, "persona")
       .innerJoin(
         Estudiante,
@@ -17,8 +17,6 @@ export class EstudianteResolver {
         "persona.id_persona = estudiante.id_persona"
       )
       .getMany();
-
-    return estudiantes;
   }
 
   @Query(() => [Persona])
@@ -27,12 +25,10 @@ export class EstudianteResolver {
   ): Promise<Persona[]> {
     const conn = getConnection();
 
-    const estudiante = await conn
+    return conn
       .createQueryBuilder(Persona, "persona")
       .innerJoin(Estudiante, "estudiante", "persona.id_persona = " + id_persona)
       .getMany();
-
-    return estudiante;
   }
 
   @Mutation(() => Persona)

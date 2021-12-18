@@ -7,12 +7,10 @@ export class CursoResolver {
   @Query(() => [Curso])
   async cursos(): Promise<Curso[]> {
     const conn = getConnection();
-    const resp = conn.getRepository(Curso).find({
+
+    return conn.getRepository(Curso).find({
       relations: ["id_grupo", "id_persona"],
     });
-
-    console.log(resp);
-    return resp;
   }
   @Query(() => Curso, { nullable: true })
   async curso(

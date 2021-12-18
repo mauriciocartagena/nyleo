@@ -40,6 +40,7 @@ export class Grupo extends BaseEntity {
   @Column()
   @ManyToOne(() => Turno, (turno) => turno.grupos, {
     cascade: true,
+    eager: true,
   })
   @JoinColumn({ name: "id_turno", referencedColumnName: "id_turno" })
   id_turno: Turno;
@@ -53,7 +54,7 @@ export class Grupo extends BaseEntity {
   id_categoria!: Categoria;
 
   @OneToMany(() => Curso, (curso) => curso.id_grupo, {
-    cascade: ["insert", "update"],
+    cascade: true,
   })
   cursos: Curso[];
 }

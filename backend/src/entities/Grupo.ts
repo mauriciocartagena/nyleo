@@ -50,10 +50,10 @@ export class Grupo extends BaseEntity {
     cascade: true,
   })
   @JoinColumn({ name: "id_categoria", referencedColumnName: "id_categoria" })
-  id_categoria: Categoria;
+  id_categoria!: Categoria;
 
-  @OneToMany(() => Curso, (curso) => curso.grupo, {
+  @OneToMany(() => Curso, (curso) => curso.id_grupo, {
     cascade: ["insert", "update"],
   })
-  cursos!: Curso[];
+  cursos: Curso[];
 }

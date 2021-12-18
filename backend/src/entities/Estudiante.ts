@@ -1,7 +1,6 @@
 import { ObjectType } from "type-graphql";
-import { Entity, ManyToOne, BaseEntity, JoinColumn, OneToMany } from "typeorm";
+import { Entity, ManyToOne, BaseEntity, JoinColumn } from "typeorm";
 import { Persona } from "./Persona";
-import { Curso } from "./Curso";
 
 @ObjectType()
 @Entity()
@@ -12,7 +11,4 @@ export class Estudiante extends BaseEntity {
   })
   @JoinColumn({ name: "id_persona" })
   id_persona: Persona;
-
-  @OneToMany(() => Curso, (curso) => curso.id_persona)
-  cursos: Curso[];
 }

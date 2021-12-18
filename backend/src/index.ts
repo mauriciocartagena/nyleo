@@ -7,17 +7,18 @@ import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { createConnection } from "typeorm";
-import { Grupo } from "./entities/Grupo";
+import { Curso } from "./entities/Curso";
 import { Persona } from "./entities/Persona";
 import { Estudiante } from "./entities/Estudiante";
+import { Grupo } from "./entities/Grupo";
 import { Categoria } from "./entities/Categoria";
 import { Turno } from "./entities/Turno";
-import { Curso } from "./entities/Curso";
 import { HelloResolver } from "./resolvers/hello";
 import { GrupoResolver } from "./resolvers/grupo";
 import { EstudianteResolver } from "./resolvers/estudiante";
 import { CategoriaResolver } from "./resolvers/categoria";
 import { TurnoResolver } from "./resolvers/turno";
+import { CursoResolver } from "./resolvers/curso";
 
 const main = async () => {
   const conn = await createConnection({
@@ -44,6 +45,7 @@ const main = async () => {
         CategoriaResolver,
         EstudianteResolver,
         TurnoResolver,
+        CursoResolver,
       ],
       validate: false,
     }),

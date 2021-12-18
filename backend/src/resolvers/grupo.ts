@@ -1,9 +1,9 @@
-import { Query, Arg, Int, Mutation } from "type-graphql";
+import { Query, Arg, Int, Mutation, Resolver } from "type-graphql";
 import { Grupo } from "../entities/Grupo";
 import { getConnection } from "typeorm";
 import { Categoria } from "../entities/Categoria";
 import { Turno } from "../entities/Turno";
-
+@Resolver()
 export class GrupoResolver {
   @Query(() => [Grupo, { Categoria, Turno }])
   async grupos(): Promise<Grupo[]> {
@@ -29,8 +29,8 @@ export class GrupoResolver {
     @Arg("fecha_final") fecha_final: Date,
     @Arg("dia_final") dia_final: string,
     @Arg("dia_inicio") dia_inicio: string,
-    @Arg("id_categoria") id_categoria: number,
-    @Arg("id_turno") id_turno: number
+    @Arg("id_categoria", () => Int) id_categoria: number,
+    @Arg("id_turno", () => Int) id_turno: number
   ): Promise<Grupo[]> {
     const conn = getConnection();
 
@@ -53,13 +53,13 @@ export class GrupoResolver {
 
   @Mutation(() => [Grupo])
   async actualizarGrupo(
-    @Arg("id_grupo") id_grupo: number,
+    @Arg("id_grupo", () => Int) id_grupo: number,
     @Arg("fecha_inicio") fecha_inicio: Date,
     @Arg("fecha_final") fecha_final: Date,
     @Arg("dia_inicio") dia_inicio: string,
     @Arg("dia_final") dia_final: string,
-    @Arg("id_categoria") id_categoria: number,
-    @Arg("id_turno") id_turno: number
+    @Arg("id_categoria", () => Int) id_categoria: number,
+    @Arg("id_turno", () => Int) id_turno: number
   ): Promise<Grupo[] | null> {
     const conn = getConnection();
 
@@ -96,7 +96,9 @@ export class GrupoResolver {
     return null;
   }
   @Mutation(() => Boolean)
-  async eliminarGrupo(@Arg("id_grupo") id_grupo: number): Promise<boolean> {
+  async eliminarGrupo(
+    @Arg("id_grupo", () => Int) id_grupo: number
+  ): Promise<boolean> {
     const conn = getConnection();
     try {
       await conn.manager.delete(Grupo, { id_grupo });

@@ -1,7 +1,12 @@
 import React from "react";
+import { LayoutPage } from "../layout/LayoutPage";
 
 interface StudentPageProps {}
 
 export const StudentPage: React.FC<StudentPageProps> = () => {
-  return <div>Estudent Page</div>;
+  return (
+    <LayoutPage>
+      <div>Estudent Page</div>
+    </LayoutPage>
+  );
 };

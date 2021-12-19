@@ -1,4 +1,5 @@
-import { FlexProps, Flex, Icon, Link } from "@chakra-ui/react";
+import { FlexProps, Flex, Icon } from "@chakra-ui/react";
+import Link from "next/link";
 import React, { ReactText } from "react";
 import { IconType } from "react-icons";
 
@@ -16,7 +17,7 @@ export const NavItem: React.FC<NavItemProps> = ({
   ...rest
 }: NavItemProps) => {
   return (
-    <Link href={route} style={{ textDecoration: "none" }}>
+    <Link href={route}>
       <Flex
         align="center"
         p="4"

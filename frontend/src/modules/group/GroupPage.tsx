@@ -1,7 +1,12 @@
 import React from "react";
+import { LayoutPage } from "../layout/LayoutPage";
 
 interface GroupPageProps {}
 
 export const GroupPage: React.FC<GroupPageProps> = () => {
-  return <div>Group Page</div>;
+  return (
+    <LayoutPage>
+      <div>Group Page</div>
+    </LayoutPage>
+  );
 };

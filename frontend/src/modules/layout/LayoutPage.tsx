@@ -1,19 +1,21 @@
-import React, { ReactNode } from "react";
 import {
+  useDisclosure,
   Box,
   useColorModeValue,
   Drawer,
   DrawerContent,
-  useDisclosure,
 } from "@chakra-ui/react";
-import { SideBarContent } from "./SideBarContent";
-import { MobileNav } from "./MobileNav";
+import React, { ReactNode } from "react";
+import { MobileNav } from "./menu/MobileNav";
+import { SideBarContent } from "./menu/SideBarContent";
 
-export default function SidebarWithHeader({
+interface LayoutPageProps {}
+
+export const LayoutPage: React.FC<LayoutPageProps> = ({
   children,
 }: {
   children: ReactNode;
-}) {
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -42,4 +44,4 @@ export default function SidebarWithHeader({
       </Box>
     </Box>
   );
-}
+};

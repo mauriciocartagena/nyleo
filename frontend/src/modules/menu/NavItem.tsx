@@ -7,14 +7,16 @@ interface NavItemProps {}
 interface NavItemProps extends FlexProps {
   icon: IconType;
   children: ReactText;
+  route: string;
 }
 export const NavItem: React.FC<NavItemProps> = ({
   icon,
   children,
+  route,
   ...rest
 }: NavItemProps) => {
   return (
-    <Link style={{ textDecoration: "none" }}>
+    <Link href={route} style={{ textDecoration: "none" }}>
       <Flex
         align="center"
         p="4"

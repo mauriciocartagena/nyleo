@@ -24,13 +24,14 @@ interface SideBarContenProps extends BoxProps {
 interface LinkItemProps {
   name: string;
   icon: IconType;
+  route: string;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Estudiantes", icon: FaUsers },
-  { name: "Materias", icon: FaBook },
-  { name: "Grupos", icon: FaLayerGroup },
-  { name: "Turnos", icon: FaClock },
-  { name: "Cursos", icon: FaDiscourse },
+  { name: "Estudiantes", icon: FaUsers, route: "/student" },
+  { name: "Materias", icon: FaBook, route: "/" },
+  { name: "Grupos", icon: FaLayerGroup, route: "/group" },
+  { name: "Turnos", icon: FaClock, route: "/turn" },
+  { name: "Cursos", icon: FaDiscourse, route: "/course" },
 ];
 
 export const SideBarContent: React.FC<SideBarContenProps> = ({
@@ -55,7 +56,7 @@ export const SideBarContent: React.FC<SideBarContenProps> = ({
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} route={link.route}>
           {link.name}
         </NavItem>
       ))}

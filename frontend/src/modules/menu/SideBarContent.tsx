@@ -28,7 +28,7 @@ interface LinkItemProps {
 }
 const LinkItems: Array<LinkItemProps> = [
   { name: "Estudiantes", icon: FaUsers, route: "/student" },
-  { name: "Materias", icon: FaBook, route: "/" },
+  { name: "Materias", icon: FaBook, route: "/subject" },
   { name: "Grupos", icon: FaLayerGroup, route: "/group" },
   { name: "Turnos", icon: FaClock, route: "/turn" },
   { name: "Cursos", icon: FaDiscourse, route: "/course" },

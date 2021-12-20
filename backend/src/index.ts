@@ -19,6 +19,8 @@ import { EstudianteResolver } from "./resolvers/estudiante";
 import { CategoriaResolver } from "./resolvers/categoria";
 import { TurnoResolver } from "./resolvers/turno";
 import { CursoResolver } from "./resolvers/curso";
+import { Usuario } from "./entities/Usuario";
+import { UsuarioResolver } from "./resolvers/usuario";
 
 const main = async () => {
   const conn = await createConnection({
@@ -28,7 +30,7 @@ const main = async () => {
     password: "password",
     logging: true,
     synchronize: true,
-    entities: [Persona, Estudiante, Grupo, Turno, Categoria, Curso],
+    entities: [Persona, Estudiante, Grupo, Turno, Categoria, Curso, Usuario],
   });
   console.log("This connection", conn.isConnected);
 
@@ -46,6 +48,7 @@ const main = async () => {
         EstudianteResolver,
         TurnoResolver,
         CursoResolver,
+        UsuarioResolver,
       ],
       validate: false,
     }),

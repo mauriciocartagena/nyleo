@@ -46,6 +46,7 @@ export class GrupoResolver {
         id_categoria,
         id_turno,
       })
+      .returning("*")
       .execute();
 
     return grupo.raw[0];

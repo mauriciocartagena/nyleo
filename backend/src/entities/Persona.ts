@@ -1,6 +1,7 @@
 import { Field, ObjectType, Int } from "type-graphql";
 import { Estudiante } from "./Estudiante";
 import { Curso } from "./Curso";
+import { Usuario } from "./Usuario";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -39,7 +40,7 @@ export class Persona extends BaseEntity {
 
   @Field(() => Int)
   @Column()
-  numero!: Number;
+  numero!: number;
 
   @Field()
   @Column({ type: "character varying", unique: true })
@@ -49,4 +50,9 @@ export class Persona extends BaseEntity {
     cascade: ["insert", "update"],
   })
   cursos: Curso[];
+
+  @OneToMany(() => Usuario, (usuario) => usuario.id_persona, {
+    cascade: true,
+  })
+  usuarios: Estudiante[];
 }

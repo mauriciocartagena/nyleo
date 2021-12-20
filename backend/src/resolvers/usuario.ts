@@ -1,4 +1,4 @@
-import { Arg, Field, InputType, Mutation, Resolver, ObjectType, Ctx } from "type-graphql";
+import { Arg, Field, InputType, Mutation, Resolver, ObjectType, Ctx, Query } from "type-graphql";
 import argon2 from "argon2";
 import { getConnection } from "typeorm";
 import { Usuario } from "../entities/Usuario";
@@ -45,6 +45,21 @@ class UserResponse {
 
 @Resolver()
 export class UsuarioResolver {
+  @Query(() => Usuario, { nullable: true })
+  async me(@Ctx() { req }: MyContext): Promise<Usuario | null | undefined> {
+    const conn = getConnection();
+
+    // you are not logged in
+    if (!req.session.userId) {
+      return null;
+    }
+
+    return conn.getRepository(Usuario).findOne({
+      relations: ["id_persona"],
+      where: { id_persona: req.session.userId },
+    });
+  }
+
   @Mutation(() => UserResponse)
   async registrarUsuario(@Arg("options") options: UsuarioPasswordInput): Promise<UserResponse> {
     const conn = getConnection();

@@ -2,13 +2,7 @@ import { Field, ObjectType, Int } from "type-graphql";
 import { Estudiante } from "./Estudiante";
 import { Curso } from "./Curso";
 import { Usuario } from "./Usuario";
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  BaseEntity,
-  OneToMany,
-} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from "typeorm";
 
 @ObjectType()
 @Entity()

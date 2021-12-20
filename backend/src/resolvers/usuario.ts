@@ -61,7 +61,7 @@ export class UsuarioResolver {
   }
 
   @Mutation(() => UserResponse)
-  async registrarUsuario(@Arg("options") options: UsuarioPasswordInput): Promise<UserResponse> {
+  async registrarUsuario(@Arg("options") options: UsuarioPasswordInput, @Ctx() { req }: MyContext): Promise<UserResponse> {
     const conn = getConnection();
 
     if (options.usuario.length <= 2) {
@@ -115,6 +115,9 @@ export class UsuarioResolver {
         };
       }
     }
+
+    // store user id session
+    req.session.userId = usuario.id_persona.id_persona;
 
     return usuario;
   }

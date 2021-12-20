@@ -1,14 +1,7 @@
-import {
-  Arg,
-  Field,
-  InputType,
-  Mutation,
-  Resolver,
-  ObjectType,
-} from "type-graphql";
-import argon2 from "argon2";
-import { getConnection } from "typeorm";
-import { Usuario } from "../entities/Usuario";
+import { Arg, Field, InputType, Mutation, Resolver, ObjectType } from 'type-graphql';
+import argon2 from 'argon2';
+import { getConnection } from 'typeorm';
+import { Usuario } from '../entities/Usuario';
 
 @InputType()
 class UsuarioPasswordInput {
@@ -51,31 +44,67 @@ class UserResponse {
 
 @Resolver()
 export class UsuarioResolver {
-  @Mutation(() => Usuario)
-  async registrarUsuario(@Arg("options") options: UsuarioPasswordInput) {
+  @Mutation(() => UserResponse)
+  async registrarUsuario(@Arg('options') options: UsuarioPasswordInput): Promise<UserResponse> {
     const conn = getConnection();
 
+    if (options.usuario.length <= 2) {
+      return {
+        errors: [
+          {
+            field: 'usuario',
+            message: 'Usuario debe tener mas de 2 caracteres',
+          },
+        ],
+      };
+    }
+
+    if (options.password.length <= 2) {
+      return {
+        errors: [
+          {
+            field: 'password',
+            message: 'Contraseña debe tener mas de 2 caracteres',
+          },
+        ],
+      };
+    }
+
     const hashedPassword = await argon2.hash(options.password);
+    let usuario;
 
-    const user = await conn
-      .createQueryBuilder()
-      .insert()
-      .into("usuario")
-      .values({
-        id_persona: options.id_persona,
-        usuario: options.usuario,
-        password: hashedPassword,
-      })
-      .returning("*")
-      .execute();
+    try {
+      const user = await conn
+        .createQueryBuilder()
+        .insert()
+        .into('usuario')
+        .values({
+          id_persona: options.id_persona,
+          usuario: options.usuario,
+          password: hashedPassword,
+        })
+        .returning('*')
+        .execute();
 
-    return user.raw[0];
+      usuario = user.raw[0];
+    } catch (error) {
+      if (error.code === '23505') {
+        return {
+          errors: [
+            {
+              field: 'usuario',
+              message: 'Usuario ya existe',
+            },
+          ],
+        };
+      }
+    }
+
+    return usuario;
   }
 
   @Mutation(() => UserResponse)
-  async login(
-    @Arg("options") options: LoginUsuarioPasswordInput
-  ): Promise<UserResponse> {
+  async login(@Arg('options') options: LoginUsuarioPasswordInput): Promise<UserResponse> {
     const conn = getConnection();
 
     const usuario = await conn.getRepository(Usuario).findOne({
@@ -86,8 +115,8 @@ export class UsuarioResolver {
       return {
         errors: [
           {
-            field: "usuario",
-            message: "Usuario no existe",
+            field: 'usuario',
+            message: 'Usuario no existe',
           },
         ],
       };
@@ -99,8 +128,8 @@ export class UsuarioResolver {
       return {
         errors: [
           {
-            field: "contraseña",
-            message: "Contraseña incorrecta",
+            field: 'contraseña',
+            message: 'Contraseña incorrecta',
           },
         ],
       };

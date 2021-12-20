@@ -1,6 +1,6 @@
-import { Arg, Query, Resolver, Int, Mutation } from "type-graphql";
-import { getConnection } from "typeorm";
-import { Turno } from "../entities/Turno";
+import { Arg, Query, Resolver, Int, Mutation } from 'type-graphql';
+import { getConnection } from 'typeorm';
+import { Turno } from '../entities/Turno';
 
 @Resolver()
 export class TurnoResolver {
@@ -12,20 +12,14 @@ export class TurnoResolver {
   }
 
   @Query(() => Turno, { nullable: true })
-  async turno(
-    @Arg("id_turno", () => Int) id_turno: number
-  ): Promise<Turno | null | undefined> {
+  async turno(@Arg('id_turno', () => Int) id_turno: number): Promise<Turno | null | undefined> {
     const conn = getConnection();
 
     return conn.manager.findOne(Turno, { id_turno });
   }
 
   @Mutation(() => Turno)
-  async crearTurno(
-    @Arg("nombre") nombre: string,
-    @Arg("hora_inicio") hora_inicio: string,
-    @Arg("hora_final") hora_final: string
-  ): Promise<Turno | null> {
+  async crearTurno(@Arg('nombre') nombre: string, @Arg('hora_inicio') hora_inicio: string, @Arg('hora_final') hora_final: string): Promise<Turno | null> {
     const conn = getConnection();
 
     const turno = conn.manager.create(Turno, {
@@ -39,10 +33,10 @@ export class TurnoResolver {
 
   @Mutation(() => Turno, { nullable: true })
   async actualizarTurno(
-    @Arg("id_turno") id_turno: number,
-    @Arg("nombre") nombre: string,
-    @Arg("hora_inicio") hora_inicio: string,
-    @Arg("hora_final") hora_final: string
+    @Arg('id_turno') id_turno: number,
+    @Arg('nombre') nombre: string,
+    @Arg('hora_inicio') hora_inicio: string,
+    @Arg('hora_final') hora_final: string
   ): Promise<Turno | null> {
     const conn = getConnection();
 
@@ -51,13 +45,7 @@ export class TurnoResolver {
     if (!turno) {
       return null;
     }
-    if (
-      typeof nombre !== "undefined" &&
-      nombre !== "" &&
-      nombre !== null &&
-      hora_inicio !== null &&
-      hora_final !== null
-    ) {
+    if (typeof nombre !== 'undefined' && nombre !== '' && nombre !== null && hora_inicio !== null && hora_final !== null) {
       turno.nombre = nombre;
       turno.hora_inicio = hora_inicio;
       turno.hora_final = hora_final;
@@ -68,7 +56,7 @@ export class TurnoResolver {
   }
 
   @Mutation(() => Boolean)
-  async eliminarTurno(@Arg("id_turno") id_turno: number): Promise<boolean> {
+  async eliminarTurno(@Arg('id_turno') id_turno: number): Promise<boolean> {
     const conn = getConnection();
     try {
       await conn.manager.delete(Turno, { id_turno });

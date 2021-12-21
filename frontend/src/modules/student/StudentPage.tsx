@@ -1,50 +1,23 @@
-import React from "react";
-import { useQuery } from "urql";
+import React, { useMemo } from "react";
+import { Table } from "./Table";
+
+import { useEstudiantesQuery } from "../../generated/graphql";
+import { COLUMNS } from "./columns";
 
 interface StudentPageProps {}
 
-const STUDENT_QUERY = `
-  query {
-    estudiantes {
-      id_persona
-    }
-  }
-`;
-
 export const StudentPage: React.FC<StudentPageProps> = ({}) => {
-  const [{ data, fetching }] = useQuery({ query: STUDENT_QUERY });
+  const [{ data, fetching }] = useEstudiantesQuery();
 
-  console.log(data, fetching);
+  const resp = useMemo(() => data?.estudiantes, [data]);
+
+  if (fetching) {
+    return <div>Loadings...</div>;
+  }
 
   return (
-    <table className="table-auto">
-      <thead>
-        <tr>
-          <th className="">Nombre</th>
-          <th className="">Primer Apellido</th>
-          <th className="">Segundo Apellido</th>
-          <th className="">DNI</th>
-          <th className="">Celular</th>
-          <th className="">Email</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Intro to CSS</td>
-          <td>Adam</td>
-          <td>858</td>
-        </tr>
-        <tr className="">
-          <td>A Long and Winding Tour of the History of UI Frameworks and Tools and the Impact on Design</td>
-          <td>Adam</td>
-          <td>112</td>
-        </tr>
-        <tr>
-          <td>Intro to JavaScript</td>
-          <td>Chris</td>
-          <td>1,280</td>
-        </tr>
-      </tbody>
-    </table>
+    <div>
+      <Table columns={COLUMNS} data={resp}></Table>
+    </div>
   );
 };

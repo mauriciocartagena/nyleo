@@ -1,7 +1,6 @@
 /* eslint-disable global-require */
 module.exports = {
   darkMode: "class",
-
   content: ["./src/**/*.tsx", "./public/index.html"],
   options: {
     safelist: ["h-8", "h-11"],

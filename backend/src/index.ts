@@ -24,6 +24,7 @@ import { TurnoResolver } from "./resolvers/turno";
 import { CursoResolver } from "./resolvers/curso";
 import { Usuario } from "./entities/Usuario";
 import { UsuarioResolver } from "./resolvers/usuario";
+import cors from "cors";
 
 const main = async () => {
   const conn = await createConnection({
@@ -48,6 +49,13 @@ const main = async () => {
   redis.on("error", function (error) {
     console.error(error);
   });
+
+  app.use(
+    cors({
+      origin: "http://localhost:3000",
+      credentials: true,
+    })
+  );
 
   app.use(
     session({

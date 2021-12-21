@@ -1,10 +1,3 @@
-import { DarkModeSwitch } from "../components/DarkModeSwitch";
-import { LayoutPage } from "../modules/layout/LayoutPage";
-
-const Index = () => (
-  <LayoutPage>
-    <DarkModeSwitch />
-  </LayoutPage>
-);
+const Index = () => <div>Hello World</div>;
 
 export default Index;

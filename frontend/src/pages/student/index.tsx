@@ -1,3 +1,3 @@
-import { StudentPage } from "../../modules/estudent/StudentPage";
+import { StudentPage } from "../../modules/student/StudentPage";
 
 export default StudentPage;

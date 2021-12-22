@@ -1,4 +1,4 @@
-import { ChakraProvider } from "@chakra-ui/react";
+import { Button, ChakraProvider } from "@chakra-ui/react";
 import { createClient, Provider } from "urql";
 import "../styles/globals.css";
 

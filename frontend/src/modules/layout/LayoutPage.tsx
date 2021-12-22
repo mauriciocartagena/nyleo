@@ -1,5 +1,20 @@
 import React, { ReactNode, ReactText } from "react";
-import { IconButton, Box, CloseButton, Flex, Icon, useColorModeValue, Drawer, DrawerContent, Text, useDisclosure, BoxProps, FlexProps } from "@chakra-ui/react";
+import {
+  IconButton,
+  Box,
+  CloseButton,
+  Flex,
+  Icon,
+  useColorModeValue,
+  Drawer,
+  DrawerContent,
+  Text,
+  useDisclosure,
+  BoxProps,
+  FlexProps,
+  Button,
+  useColorMode,
+} from "@chakra-ui/react";
 import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu } from "react-icons/fi";
 import { IconType } from "react-icons";
 import Link from "next/link";
@@ -21,8 +36,9 @@ const LinkItems: Array<LinkItemProps> = [
 
 export const LayoutPage: React.FC<LayoutPageProps> = ({ children }: { children: ReactNode }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
-    <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
+    <Box minH="100vh">
       <SidebarContent onClose={() => onClose} display={{ base: "none", md: "block" }} />
       <Drawer autoFocus={false} isOpen={isOpen} placement="left" onClose={onClose} returnFocusOnClose={false} onOverlayClick={onClose} size="full">
         <DrawerContent>
@@ -43,9 +59,11 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+  const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Box
-      bg={useColorModeValue("white", "gray.900")}
+      // bg={useColorModeValue("white", "gray.900")}
+      bg={useColorModeValue("gray.50", "")}
       borderRight="1px"
       borderRightColor={useColorModeValue("gray.200", "gray.700")}
       w={{ base: "full", md: 60 }}
@@ -59,6 +77,10 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </Text>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
+      <Flex align="center" p="4" mx="4" borderRadius="lg">
+        <Button onClick={toggleColorMode}>Modo Oscuro {colorMode === "dark" ? "Claro" : "Oscuro"}</Button>
+      </Flex>
+
       {LinkItems.map((link) => (
         <NavItem key={link.name} icon={link.icon} route={link.route}>
           {link.name}
@@ -84,7 +106,7 @@ const NavItem = ({ icon, children, route, ...rest }: NavItemProps) => {
         role="group"
         cursor="pointer"
         _hover={{
-          bg: "cyan.400",
+          bg: "blue.500",
           color: "white",
         }}
         {...rest}

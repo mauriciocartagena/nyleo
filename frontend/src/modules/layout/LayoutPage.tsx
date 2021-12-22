@@ -78,7 +78,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       <Flex align="center" p="4" mx="4" borderRadius="lg">
-        <Button onClick={toggleColorMode}>Modo Oscuro {colorMode === "dark" ? "Claro" : "Oscuro"}</Button>
+        <Button onClick={toggleColorMode}>Modo {colorMode === "dark" ? "Claro" : "Oscuro"}</Button>
       </Flex>
 
       {LinkItems.map((link) => (

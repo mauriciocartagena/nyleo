@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Table } from "./Table";
+import { DataTable } from "./DataTable";
 
 import { useEstudiantesQuery } from "../../generated/graphql";
 import { COLUMNS } from "./columns";
@@ -11,13 +11,15 @@ export const StudentPage: React.FC<StudentPageProps> = ({}) => {
 
   const resp = useMemo(() => data?.estudiantes, [data]);
 
+  const columns = useMemo(() => COLUMNS, [COLUMNS]);
+
   if (fetching) {
     return <div>Loadings...</div>;
   }
 
   return (
     <div>
-      <Table columns={COLUMNS} data={resp}></Table>
+      <DataTable columns={columns} data={resp}></DataTable>
     </div>
   );
 };

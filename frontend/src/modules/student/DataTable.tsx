@@ -1,21 +1,100 @@
 import React from "react";
 import { usePagination, useSortBy, useTable } from "react-table";
-import { Table, Tbody, Td, Th, Thead, Tr, Box, Flex, IconButton, Input, Spacer, Text, Center, Heading, Select, Stack, useColorModeValue } from "@chakra-ui/react";
+import XLSX from "xlsx";
+import Papa from "papaparse";
+import {
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+  Box,
+  Flex,
+  IconButton,
+  Input,
+  Spacer,
+  Text,
+  Center,
+  Heading,
+  Select,
+  Stack,
+  useColorModeValue,
+  Button,
+} from "@chakra-ui/react";
 import { ArrowLeftIcon, ChevronLeftIcon, ChevronRightIcon, ArrowRightIcon } from "@chakra-ui/icons";
+import { useExportData } from "react-table-plugins";
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
+import { UserOptions } from "jspdf-autotable";
 
 interface DataTableProps {
   columns: any;
   data: any;
 }
 
+interface JsPDFCustom extends jsPDF {
+  autoTable: (options: UserOptions) => void;
+}
+
 export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
+  const getExportFileBlob = ({ columns, data, fileType, fileName }) => {
+    if (fileType === "csv") {
+      // CSV example
+      const headerNames = columns.map((col) => col.exportValue);
+      const csvString = Papa.unparse({ fields: headerNames, data });
+      return new Blob([csvString], { type: "text/csv" });
+    } else if (fileType === "xlsx") {
+      // XLSX example
+
+      const header = columns.map((c) => c.exportValue);
+      const compatibleData = data.map((row) => {
+        const obj = {};
+        header.forEach((col, index) => {
+          obj[col] = row[index];
+        });
+        return obj;
+      });
+
+      let wb = XLSX.utils.book_new();
+      let ws1 = XLSX.utils.json_to_sheet(compatibleData, {
+        header,
+      });
+      XLSX.utils.book_append_sheet(wb, ws1, "React Table Data");
+      XLSX.writeFile(wb, `${fileName}.xlsx`);
+
+      return false;
+    }
+    // PDF example
+    if (fileType === "pdf") {
+      const headerNames = columns.map((column) => column.exportValue);
+
+      const doc = new jsPDF() as JsPDFCustom;
+      doc.autoTable({
+        head: [headerNames],
+        body: data,
+        margin: { top: 20 },
+        styles: {
+          valign: "middle",
+          halign: "center",
+        },
+      });
+      doc.save(`${fileName}.pdf`);
+
+      return false;
+    }
+
+    return false;
+  };
   const tableInstance = useTable(
     {
       columns: columns,
       data: data,
+      getExportFileBlob,
     },
     useSortBy,
-    usePagination
+    usePagination,
+    useExportData
   );
 
   const {
@@ -32,6 +111,7 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
     setPageSize,
     nextPage,
     previousPage,
+    exportData,
     state: { pageIndex, pageSize },
   } = tableInstance;
   return (
@@ -41,7 +121,58 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
           Lista de Estudiantes
         </Heading>
       </Center>
+
       <Box shadow="md" rounded="lg" overflowY="auto" overflowX="auto">
+        <Box p={3} overflowY="auto" overflowX="auto">
+          <Button
+            m={2}
+            onClick={() => {
+              exportData("csv", true);
+            }}
+          >
+            Export All as CSV
+          </Button>
+          <Button
+            m={2}
+            onClick={() => {
+              exportData("csv", false);
+            }}
+          >
+            Export Current View as CSV
+          </Button>
+          <Button
+            m={2}
+            onClick={() => {
+              exportData("xlsx", true);
+            }}
+          >
+            Export All as xlsx
+          </Button>
+          <Button
+            m={2}
+            onClick={() => {
+              exportData("xlsx", false);
+            }}
+          >
+            Export Current View as xlsx
+          </Button>
+          <Button
+            onClick={() => {
+              exportData("pdf", true);
+            }}
+            m={2}
+          >
+            Export All as PDF
+          </Button>
+          <Button
+            m={2}
+            onClick={() => {
+              exportData("pdf", false);
+            }}
+          >
+            Export Current View as PDF
+          </Button>
+        </Box>
         <Table {...getTableProps()} colorScheme="blackAlpha" as="table" bg={useColorModeValue("white", "gray.700")}>
           <Thead as="thead" p="0" position="sticky" zIndex="1" top="0px" style={{ overflow: "scroll" }} bg={useColorModeValue("gray.200", "teal.500")}>
             {headerGroups.map((headerGroup) => (

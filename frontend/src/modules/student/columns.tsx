@@ -1,3 +1,5 @@
+import { Button } from "@chakra-ui/react";
+
 export const COLUMNS = [
   {
     Header: "ID Persona",
@@ -26,5 +28,31 @@ export const COLUMNS = [
   {
     Header: "Email",
     accessor: "email",
+  },
+  {
+    Header: "Editar",
+    accessor: () => "editar",
+    Cell: (tableProps: any) => (
+      <Button
+        onClick={() => {
+          console.log(tableProps.row.original.id_persona);
+        }}
+      >
+        Editar
+      </Button>
+    ),
+  },
+  {
+    Header: "Eliminar",
+    accessor: () => "delete",
+    Cell: (tableProps: any) => (
+      <Button
+        onClick={() => {
+          console.log(tableProps.row.original.id_persona);
+        }}
+      >
+        Eliminar
+      </Button>
+    ),
   },
 ];

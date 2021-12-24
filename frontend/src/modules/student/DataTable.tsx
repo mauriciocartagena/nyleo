@@ -92,6 +92,9 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
       columns: columns,
       data: data,
       getExportFileBlob,
+      initialState: {
+        hiddenColumns: ["id_persona"],
+      },
     },
     useSortBy,
     usePagination,
@@ -131,6 +134,12 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
           <ButtonExport formatName="xlsx" exportData={exportData} allData={false} name="Exportar vista actual como XLSX" />
           <ButtonExport formatName="pdf" exportData={exportData} allData={true} name="Exportar todo en PDF" />
           <ButtonExport formatName="pdf" exportData={exportData} allData={false} name="Exportar vista actual como PDF" />
+        </Box>
+
+        <Box alignContent="center" pb={3}>
+          <Flex justifyContent="flex-end">
+            <Button>Nuevo Estudiante</Button>
+          </Flex>
         </Box>
         <Table {...getTableProps()} colorScheme="blackAlpha" as="table" bg={useColorModeValue("white", "gray.700")}>
           <Thead as="thead" p="0" position="sticky" zIndex="1" top="0px" style={{ overflow: "scroll" }} bg={useColorModeValue("gray.200", "teal.500")}>

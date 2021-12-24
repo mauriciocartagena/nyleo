@@ -27,6 +27,7 @@ import { useExportData } from "react-table-plugins";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 import { UserOptions } from "jspdf-autotable";
+import { ButtonExport } from "../../ui/ButtonExport";
 
 interface DataTableProps {
   columns: any;
@@ -124,54 +125,12 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
 
       <Box shadow="md" rounded="lg" overflowY="auto" overflowX="auto">
         <Box p={3} overflowY="auto" overflowX="auto">
-          <Button
-            m={2}
-            onClick={() => {
-              exportData("csv", true);
-            }}
-          >
-            Export All as CSV
-          </Button>
-          <Button
-            m={2}
-            onClick={() => {
-              exportData("csv", false);
-            }}
-          >
-            Export Current View as CSV
-          </Button>
-          <Button
-            m={2}
-            onClick={() => {
-              exportData("xlsx", true);
-            }}
-          >
-            Export All as xlsx
-          </Button>
-          <Button
-            m={2}
-            onClick={() => {
-              exportData("xlsx", false);
-            }}
-          >
-            Export Current View as xlsx
-          </Button>
-          <Button
-            onClick={() => {
-              exportData("pdf", true);
-            }}
-            m={2}
-          >
-            Export All as PDF
-          </Button>
-          <Button
-            m={2}
-            onClick={() => {
-              exportData("pdf", false);
-            }}
-          >
-            Export Current View as PDF
-          </Button>
+          <ButtonExport formatName="csv" exportData={exportData} allData={true} name="Exportar todo en CSV" />
+          <ButtonExport formatName="csv" exportData={exportData} allData={false} name="Exportar vista actual como CSV" />
+          <ButtonExport formatName="xlsx" exportData={exportData} allData={true} name="Exportar todo en XLSX" />
+          <ButtonExport formatName="xlsx" exportData={exportData} allData={false} name="Exportar vista actual como XLSX" />
+          <ButtonExport formatName="pdf" exportData={exportData} allData={true} name="Exportar todo en PDF" />
+          <ButtonExport formatName="pdf" exportData={exportData} allData={false} name="Exportar vista actual como PDF" />
         </Box>
         <Table {...getTableProps()} colorScheme="blackAlpha" as="table" bg={useColorModeValue("white", "gray.700")}>
           <Thead as="thead" p="0" position="sticky" zIndex="1" top="0px" style={{ overflow: "scroll" }} bg={useColorModeValue("gray.200", "teal.500")}>

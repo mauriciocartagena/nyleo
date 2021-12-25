@@ -28,7 +28,7 @@ import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 import { UserOptions } from "jspdf-autotable";
 import { ButtonExport } from "../../ui/ButtonExport";
-import { StudentDeleteModal } from "./StudentDeleteModal";
+import { StudentCreateModal } from "./StudenCreateModal";
 
 interface DataTableProps {
   columns: any;
@@ -123,7 +123,7 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
   } = tableInstance;
   return (
     <>
-      <StudentDeleteModal open={isOpen} onRequestClose={() => setIsOpen(false)} />
+      <StudentCreateModal open={isOpen} onRequestClose={() => setIsOpen(false)} />
       <Center p="4">
         <Heading fontStyle="normal" fontSize="4xl" fontWeight="extrabold">
           Lista de Estudiantes
@@ -139,17 +139,16 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
           <ButtonExport formatName="pdf" exportData={exportData} allData={true} name="Exportar todo en PDF" />
           <ButtonExport formatName="pdf" exportData={exportData} allData={false} name="Exportar vista actual como PDF" />
         </Box>
-        <Button
-          onClick={() => {
-            setIsOpen(true);
-          }}
-        >
-          Abrir Modal
-        </Button>
 
         <Box alignContent="center" pb={3}>
           <Flex justifyContent="flex-end">
-            <Button>Nuevo Estudiante</Button>
+            <Button
+              onClick={() => {
+                setIsOpen(true);
+              }}
+            >
+              Nuevo Estudiante
+            </Button>
           </Flex>
         </Box>
         <Table {...getTableProps()} colorScheme="blackAlpha" as="table" bg={useColorModeValue("white", "gray.700")}>

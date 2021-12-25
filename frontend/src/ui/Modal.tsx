@@ -5,7 +5,7 @@ import { Button } from "@chakra-ui/react";
 const customStyles = {
   default: {
     overlay: {
-      backgroundColor: "rgba(0, 0, 0, 0.8)",
+      backgroundColor: "rgba(0, 0, 0,0.9)",
       zIndex: 1000,
     },
     content: {
@@ -52,8 +52,8 @@ export const Modal: React.FC<ReactModal["props"] & { variant?: keyof typeof cust
     <ReactModal style={customStyles[variant]} ariaHideApp={false} shouldCloseOnEsc shouldFocusAfterRender {...props}>
       <div className={`flex flex-col w-full`}>
         <div className={`flex justify-end absolute right-3 top-3`}>
-          <Button onClick={(e) => props?.onRequestClose?.(e)} data-testid="close-modal" bg="gray.900">
-            X
+          <Button onClick={(e) => props?.onRequestClose?.(e)} data-testid="close-modal">
+            x
           </Button>
         </div>
         {children}

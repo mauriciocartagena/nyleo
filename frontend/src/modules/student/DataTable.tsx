@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { usePagination, useSortBy, useTable } from "react-table";
 import XLSX from "xlsx";
 import Papa from "papaparse";
@@ -28,6 +28,7 @@ import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 import { UserOptions } from "jspdf-autotable";
 import { ButtonExport } from "../../ui/ButtonExport";
+import { StudentDeleteModal } from "./StudentDeleteModal";
 
 interface DataTableProps {
   columns: any;
@@ -39,6 +40,8 @@ interface JsPDFCustom extends jsPDF {
 }
 
 export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const getExportFileBlob = ({ columns, data, fileType, fileName }) => {
     if (fileType === "csv") {
       // CSV example
@@ -120,6 +123,7 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
   } = tableInstance;
   return (
     <>
+      <StudentDeleteModal open={isOpen} onRequestClose={() => setIsOpen(false)} />
       <Center p="4">
         <Heading fontStyle="normal" fontSize="4xl" fontWeight="extrabold">
           Lista de Estudiantes
@@ -135,6 +139,13 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
           <ButtonExport formatName="pdf" exportData={exportData} allData={true} name="Exportar todo en PDF" />
           <ButtonExport formatName="pdf" exportData={exportData} allData={false} name="Exportar vista actual como PDF" />
         </Box>
+        <Button
+          onClick={() => {
+            setIsOpen(true);
+          }}
+        >
+          Abrir Modal
+        </Button>
 
         <Box alignContent="center" pb={3}>
           <Flex justifyContent="flex-end">
@@ -142,7 +153,15 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
           </Flex>
         </Box>
         <Table {...getTableProps()} colorScheme="blackAlpha" as="table" bg={useColorModeValue("white", "gray.700")}>
-          <Thead as="thead" p="0" position="sticky" zIndex="1" top="0px" style={{ overflow: "scroll" }} bg={useColorModeValue("gray.200", "teal.500")}>
+          <Thead
+            as="thead"
+            p="0"
+            // position="sticky"
+            zIndex="1"
+            top="0px"
+            style={{ overflow: "scroll" }}
+            bg={useColorModeValue("gray.200", "teal.500")}
+          >
             {headerGroups.map((headerGroup) => (
               <Tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (

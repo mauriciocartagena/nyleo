@@ -9,20 +9,11 @@ export class EstudianteResolver {
   async estudiantes(): Promise<Persona[]> {
     const conn = getConnection();
 
-    return conn
-      .createQueryBuilder(Persona, "persona")
-      .innerJoin(
-        Estudiante,
-        "estudiante",
-        "persona.id_persona = estudiante.id_persona"
-      )
-      .getMany();
+    return conn.createQueryBuilder(Persona, "persona").innerJoin(Estudiante, "estudiante", "persona.id_persona = estudiante.id_persona").getMany();
   }
 
   @Query(() => [Persona])
-  async estudiante(
-    @Arg("id_persona", () => Int) id_persona: number
-  ): Promise<Persona[]> {
+  async estudiante(@Arg("id_persona", () => Int) id_persona: number): Promise<Persona[]> {
     const conn = getConnection();
 
     return conn
@@ -116,18 +107,12 @@ export class EstudianteResolver {
   }
 
   @Mutation(() => Boolean)
-  async eliminarEstudiante(
-    @Arg("id_persona") id_persona: number
-  ): Promise<boolean> {
+  async eliminarEstudiante(@Arg("id_persona") id_persona: number): Promise<boolean> {
     const conn = getConnection();
     try {
       const estudiante = await conn
         .createQueryBuilder(Persona, "persona")
-        .innerJoin(
-          Estudiante,
-          "estudiante",
-          "persona.id_persona = " + id_persona
-        )
+        .innerJoin(Estudiante, "estudiante", "persona.id_persona = " + id_persona)
         .getMany();
 
       conn.manager.delete(Persona, estudiante[0].id_persona);

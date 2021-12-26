@@ -2,15 +2,9 @@ import gql from "graphql-tag";
 import * as Urql from "urql";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -36,6 +30,12 @@ export type Curso = {
   id_persona: Persona;
 };
 
+export type FieldError = {
+  __typename?: "FieldError";
+  field: Scalars["String"];
+  message: Scalars["String"];
+};
+
 export type Grupo = {
   __typename?: "Grupo";
   dia_final: Scalars["String"];
@@ -45,6 +45,11 @@ export type Grupo = {
   id_categoria: Categoria;
   id_grupo: Scalars["Int"];
   id_turno: Turno;
+};
+
+export type LoginUsuarioPasswordInput = {
+  password: Scalars["String"];
+  usuario: Scalars["String"];
 };
 
 export type Mutation = {
@@ -64,6 +69,8 @@ export type Mutation = {
   eliminarEstudiante: Scalars["Boolean"];
   eliminarGrupo: Scalars["Boolean"];
   eliminarTurno: Scalars["Boolean"];
+  login: UserResponse;
+  registrarUsuario: UserResponse;
 };
 
 export type MutationActualizarCategoriaArgs = {
@@ -157,6 +164,14 @@ export type MutationEliminarTurnoArgs = {
   id_turno: Scalars["Float"];
 };
 
+export type MutationLoginArgs = {
+  options: LoginUsuarioPasswordInput;
+};
+
+export type MutationRegistrarUsuarioArgs = {
+  options: UsuarioPasswordInput;
+};
+
 export type Persona = {
   __typename?: "Persona";
   dni: Scalars["String"];
@@ -179,6 +194,7 @@ export type Query = {
   grupo?: Maybe<Grupo>;
   grupos: Array<Grupo>;
   hello: Scalars["String"];
+  me?: Maybe<Usuario>;
   turno?: Maybe<Turno>;
   turnos: Array<Turno>;
 };
@@ -211,6 +227,25 @@ export type Turno = {
   nombre: Scalars["String"];
 };
 
+export type UserResponse = {
+  __typename?: "UserResponse";
+  errors?: Maybe<Array<FieldError>>;
+  usuario?: Maybe<Usuario>;
+};
+
+export type Usuario = {
+  __typename?: "Usuario";
+  id_persona: Persona;
+  password: Scalars["String"];
+  usuario: Scalars["String"];
+};
+
+export type UsuarioPasswordInput = {
+  id_persona: Scalars["Float"];
+  password: Scalars["String"];
+  usuario: Scalars["String"];
+};
+
 export type EstudiantesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type EstudiantesQuery = {
@@ -241,11 +276,6 @@ export const EstudiantesDocument = gql`
   }
 `;
 
-export function useEstudiantesQuery(
-  options: Omit<Urql.UseQueryArgs<EstudiantesQueryVariables>, "query"> = {}
-) {
-  return Urql.useQuery<EstudiantesQuery>({
-    query: EstudiantesDocument,
-    ...options,
-  });
+export function useEstudiantesQuery(options: Omit<Urql.UseQueryArgs<EstudiantesQueryVariables>, "query"> = {}) {
+  return Urql.useQuery<EstudiantesQuery>({ query: EstudiantesDocument, ...options });
 }

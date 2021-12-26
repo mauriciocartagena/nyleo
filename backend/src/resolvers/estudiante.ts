@@ -1,7 +1,27 @@
-import { Resolver, Mutation, Arg, Query, Int } from "type-graphql";
+import { Resolver, Mutation, Arg, Query, Int, ObjectType, Field } from "type-graphql";
 import { getConnection } from "typeorm";
 import { Persona } from "../entities/Persona";
 import { Estudiante } from "../entities/Estudiante";
+import { EstudianteInput } from "./EstudianteInput";
+import { validateRegisterEstudiante } from "../utils/validateRegisterEstudiante";
+
+@ObjectType()
+class FieldErrorEstudiante {
+  @Field()
+  field: string;
+
+  @Field()
+  message: string;
+}
+
+@ObjectType()
+class EstudianteResponse {
+  @Field(() => [FieldErrorEstudiante], { nullable: true })
+  errors?: FieldErrorEstudiante[];
+
+  @Field(() => Persona, { nullable: true })
+  persona?: Persona;
+}
 
 @Resolver()
 export class EstudianteResolver {
@@ -22,25 +42,17 @@ export class EstudianteResolver {
       .getMany();
   }
 
-  @Mutation(() => Persona)
-  async crearEstudiante(
-    @Arg("nombre") nombre: string,
-    @Arg("primer_apellido") primer_apellido: string,
-    @Arg("segundo_apellido") segundo_apellido: string,
-    @Arg("dni") dni: string,
-    @Arg("numero") numero: number,
-    @Arg("email") email: string
-  ): Promise<Persona | null | undefined> {
+  @Mutation(() => EstudianteResponse)
+  async crearEstudiante(@Arg("input") input: EstudianteInput): Promise<EstudianteResponse> {
     const conn = getConnection();
 
-    const persona = conn.manager.create(Persona, {
-      nombre,
-      primer_apellido,
-      segundo_apellido,
-      dni,
-      numero,
-      email,
-    });
+    const errors = validateRegisterEstudiante(input);
+
+    if (errors) {
+      return { errors };
+    }
+
+    const persona = conn.manager.create(Persona, input);
 
     const resp = await conn.manager.save(persona);
 
@@ -54,9 +66,16 @@ export class EstudianteResolver {
         })
         .execute();
 
-      return resp;
+      return { persona: resp };
     } else {
-      return null;
+      return {
+        errors: [
+          {
+            field: "Error",
+            message: "Algo salió mal vuelva a intentarlo.",
+          },
+        ],
+      };
     }
   }
 

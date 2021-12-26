@@ -5,7 +5,7 @@ import { Modal } from "../../ui/Modal";
 import { InputField } from "../../form-fields/InputField";
 import { Button } from "@chakra-ui/react";
 import { useCrearEstudianteMutation } from "../../generated/graphql";
-import { toErrorMap } from "../../utils/toErrorMap";
+import { toErrorMapEstudiante } from "../../utils/toErrorMapEstudiante";
 
 interface StudentCreateModalProps {
   onRequestClose: () => void;
@@ -52,7 +52,7 @@ export const StudentCreateModal: React.FC<StudentCreateModalProps> = ({ open, on
             });
 
             if (response.data?.crearEstudiante.errors) {
-              setErrors(toErrorMap(response.data.crearEstudiante.errors));
+              setErrors(toErrorMapEstudiante(response.data.crearEstudiante.errors));
             } else if (response.data.crearEstudiante.persona) {
               onRequestClose();
             }

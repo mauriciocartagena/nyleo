@@ -2,7 +2,6 @@ import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import { Formik } from "formik";
 import React from "react";
 import { Modal } from "../../ui/Modal";
-import { Input } from "../../ui/Input";
 import { InputField } from "../../form-fields/InputField";
 import { Button } from "@chakra-ui/react";
 
@@ -67,7 +66,7 @@ export const StudentCreateModal: React.FC<StudentCreateModalProps> = ({ open, on
                 </div>
               </div>
               <div className={`flex pt-4 space-x-3 col-span-full items-center`}>
-                <Button type="submit" variantColor="primary" className={`mr-3`}>
+                <Button type="submit" variantcolor="primary" className={`mr-3`}>
                   Registrar
                 </Button>
                 <Button onClick={onRequestClose}>Cancelar</Button>

@@ -3,13 +3,13 @@ import { Formik } from "formik";
 import React from "react";
 import { Modal } from "../../ui/Modal";
 import { InputField } from "../../form-fields/InputField";
-import { Button } from "@chakra-ui/react";
+import { Button } from "../../ui/Button";
 import { useCrearEstudianteMutation } from "../../generated/graphql";
 import { toErrorMapEstudiante } from "../../utils/toErrorMapEstudiante";
+import { ButtonLink } from "../../ui/ButtonLink";
 
 interface StudentCreateModalProps {
   onRequestClose: () => void;
-  open: boolean;
 }
 interface StudentFormData {
   nombre: string;
@@ -32,11 +32,11 @@ const theme = createTheme({
   },
 });
 
-export const StudentCreateModal: React.FC<StudentCreateModalProps> = ({ open, onRequestClose }) => {
+export const StudentCreateModal: React.FC<StudentCreateModalProps> = ({ onRequestClose }) => {
   const [, register] = useCrearEstudianteMutation();
   return (
     <ThemeProvider theme={theme}>
-      <Modal isOpen={open} onRequestClose={onRequestClose}>
+      <Modal isOpen onRequestClose={onRequestClose}>
         <Formik<StudentFormData>
           initialValues={{
             nombre: "",
@@ -46,6 +46,8 @@ export const StudentCreateModal: React.FC<StudentCreateModalProps> = ({ open, on
             email: "",
             numero: null,
           }}
+          validateOnChange={false}
+          validateOnBlur={false}
           onSubmit={async (values, { setErrors }) => {
             const response = await register({
               input: values,
@@ -77,10 +79,12 @@ export const StudentCreateModal: React.FC<StudentCreateModalProps> = ({ open, on
                 </div>
               </div>
               <div className={`flex pt-4 space-x-3 col-span-full items-center`}>
-                <Button isLoading={isSubmitting} type="submit" variantcolor="primary" className={`mr-3`}>
+                <Button loading={isSubmitting} type="submit" className={`mr-3`}>
                   Registrar
                 </Button>
-                <Button onClick={onRequestClose}>Cancelar</Button>
+                <ButtonLink type="button" onClick={onRequestClose}>
+                  Cancelar
+                </ButtonLink>
               </div>
             </form>
           )}

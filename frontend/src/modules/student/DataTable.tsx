@@ -40,8 +40,7 @@ interface JsPDFCustom extends jsPDF {
 }
 
 export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
+  const [open, setOpen] = useState(false);
   const getExportFileBlob = ({ columns, data, fileType, fileName }) => {
     if (fileType === "csv") {
       // CSV example
@@ -123,7 +122,7 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
   } = tableInstance;
   return (
     <>
-      <StudentCreateModal open={isOpen} onRequestClose={() => setIsOpen(false)} />
+      {open ? <StudentCreateModal onRequestClose={() => setOpen(false)} /> : null}
       <Center p="4">
         <Heading fontStyle="normal" fontSize="4xl" fontWeight="extrabold">
           Lista de Estudiantes
@@ -144,7 +143,7 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
           <Flex justifyContent="flex-end">
             <Button
               onClick={() => {
-                setIsOpen(true);
+                setOpen(true);
               }}
             >
               Nuevo Estudiante

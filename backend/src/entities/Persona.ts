@@ -32,9 +32,9 @@ export class Persona extends BaseEntity {
   @Column({ type: "character varying", unique: true })
   dni!: string;
 
-  @Field(() => Int)
+  @Field()
   @Column()
-  numero!: number;
+  numero!: string;
 
   @Field()
   @Column({ type: "character varying", unique: true })

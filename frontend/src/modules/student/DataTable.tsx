@@ -122,7 +122,6 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
   } = tableInstance;
   return (
     <>
-      {open ? <StudentCreateModal onRequestClose={() => setOpen(false)} /> : null}
       <Center p="4">
         <Heading fontStyle="normal" fontSize="4xl" fontWeight="extrabold">
           Lista de Estudiantes
@@ -275,6 +274,7 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
           </Stack>
         </Flex>
       </Flex>
+      {open ? <StudentCreateModal onRequestClose={() => setOpen(false)} /> : null}
     </>
   );
 };

@@ -15,7 +15,7 @@ export class EstudianteInput {
   dni: string;
 
   @Field()
-  numero: number;
+  numero: string;
 
   @Field()
   email: string;

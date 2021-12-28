@@ -17,15 +17,15 @@ export const validateRegisterEstudiante = (input: EstudianteInput) => {
       },
     ];
   }
-  if (input.dni.length <= 7) {
+  if (input.dni.length <= 6) {
     return [
       {
         field: "dni",
-        message: "El dni debe tener más de 7 caracteres",
+        message: "El dni debe tener más de 6 caracteres",
       },
     ];
   }
-  if (input.numero <= 6) {
+  if (input.numero.length <= 6) {
     return [
       {
         field: "numero",

@@ -34,7 +34,7 @@ export type EstudianteInput = {
   dni: Scalars['String'];
   email: Scalars['String'];
   nombre: Scalars['String'];
-  numero: Scalars['Float'];
+  numero: Scalars['String'];
   primer_apellido: Scalars['String'];
   segundo_apellido: Scalars['String'];
 };
@@ -113,7 +113,7 @@ export type MutationActualizarEstudianteArgs = {
   email: Scalars['String'];
   id_persona: Scalars['Float'];
   nombre: Scalars['String'];
-  numero: Scalars['Float'];
+  numero: Scalars['String'];
   primer_apellido: Scalars['String'];
   segundo_apellido?: InputMaybe<Scalars['String']>;
 };
@@ -211,7 +211,7 @@ export type Persona = {
   email: Scalars['String'];
   id_persona: Scalars['Int'];
   nombre: Scalars['String'];
-  numero: Scalars['Int'];
+  numero: Scalars['String'];
   primer_apellido: Scalars['String'];
   segundo_apellido: Scalars['String'];
 };
@@ -289,12 +289,12 @@ export type CrearEstudianteMutationVariables = Exact<{
 }>;
 
 
-export type CrearEstudianteMutation = { __typename?: 'Mutation', crearEstudiante: { __typename?: 'EstudianteResponse', errors?: Array<{ __typename?: 'FieldErrorEstudiante', field: string, message: string }> | null | undefined, persona?: { __typename?: 'Persona', id_persona: number, nombre: string, primer_apellido: string, segundo_apellido: string, dni: string, numero: number, email: string } | null | undefined } };
+export type CrearEstudianteMutation = { __typename?: 'Mutation', crearEstudiante: { __typename?: 'EstudianteResponse', errors?: Array<{ __typename?: 'FieldErrorEstudiante', field: string, message: string }> | null | undefined, persona?: { __typename?: 'Persona', id_persona: number, nombre: string, primer_apellido: string, segundo_apellido: string, dni: string, numero: string, email: string } | null | undefined } };
 
 export type EstudiantesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type EstudiantesQuery = { __typename?: 'Query', estudiantes: Array<{ __typename?: 'Persona', id_persona: number, nombre: string, primer_apellido: string, segundo_apellido: string, dni: string, numero: number, email: string }> };
+export type EstudiantesQuery = { __typename?: 'Query', estudiantes: Array<{ __typename?: 'Persona', id_persona: number, nombre: string, primer_apellido: string, segundo_apellido: string, dni: string, numero: string, email: string }> };
 
 
 export const CrearEstudianteDocument = gql`

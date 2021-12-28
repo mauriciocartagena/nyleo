@@ -88,7 +88,7 @@ export class EstudianteResolver {
     @Arg("segundo_apellido", () => String, { nullable: true })
     segundo_apellido: string,
     @Arg("dni", () => String) dni: string,
-    @Arg("numero", () => Number) numero: number,
+    @Arg("numero", () => String) numero: string,
     @Arg("email", () => String) email: string
   ): Promise<Persona[] | null> {
     const conn = getConnection();

@@ -1,4 +1,5 @@
 import { Button } from "@chakra-ui/react";
+import { ButtonDelete } from "./ButtonDelete";
 
 export const COLUMNS = [
   {
@@ -46,13 +47,7 @@ export const COLUMNS = [
     Header: "Eliminar",
     accessor: () => "delete",
     Cell: (tableProps: any) => (
-      <Button
-        onClick={() => {
-          console.log(tableProps.row.original.id_persona);
-        }}
-      >
-        Eliminar
-      </Button>
+      <ButtonDelete id_persona={tableProps.row.original.id_persona} />
     ),
   },
 ];

@@ -22,7 +22,12 @@ import {
   useColorModeValue,
   Button,
 } from "@chakra-ui/react";
-import { ArrowLeftIcon, ChevronLeftIcon, ChevronRightIcon, ArrowRightIcon } from "@chakra-ui/icons";
+import {
+  ArrowLeftIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ArrowRightIcon,
+} from "@chakra-ui/icons";
 import { useExportData } from "react-table-plugins";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
@@ -130,12 +135,42 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
 
       <Box shadow="md" rounded="lg" overflowY="auto" overflowX="auto">
         <Box p={3} overflowY="auto" overflowX="auto">
-          <ButtonExport formatName="csv" exportData={exportData} allData={true} name="Exportar todo en CSV" />
-          <ButtonExport formatName="csv" exportData={exportData} allData={false} name="Exportar vista actual como CSV" />
-          <ButtonExport formatName="xlsx" exportData={exportData} allData={true} name="Exportar todo en XLSX" />
-          <ButtonExport formatName="xlsx" exportData={exportData} allData={false} name="Exportar vista actual como XLSX" />
-          <ButtonExport formatName="pdf" exportData={exportData} allData={true} name="Exportar todo en PDF" />
-          <ButtonExport formatName="pdf" exportData={exportData} allData={false} name="Exportar vista actual como PDF" />
+          <ButtonExport
+            formatName="csv"
+            exportData={exportData}
+            allData={true}
+            name="Exportar todo en CSV"
+          />
+          <ButtonExport
+            formatName="csv"
+            exportData={exportData}
+            allData={false}
+            name="Exportar vista actual como CSV"
+          />
+          <ButtonExport
+            formatName="xlsx"
+            exportData={exportData}
+            allData={true}
+            name="Exportar todo en XLSX"
+          />
+          <ButtonExport
+            formatName="xlsx"
+            exportData={exportData}
+            allData={false}
+            name="Exportar vista actual como XLSX"
+          />
+          <ButtonExport
+            formatName="pdf"
+            exportData={exportData}
+            allData={true}
+            name="Exportar todo en PDF"
+          />
+          <ButtonExport
+            formatName="pdf"
+            exportData={exportData}
+            allData={false}
+            name="Exportar vista actual como PDF"
+          />
         </Box>
 
         <Box alignContent="center" pb={3}>
@@ -149,7 +184,12 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
             </Button>
           </Flex>
         </Box>
-        <Table {...getTableProps()} colorScheme="blackAlpha" as="table" bg={useColorModeValue("white", "gray.700")}>
+        <Table
+          {...getTableProps()}
+          colorScheme="blackAlpha"
+          as="table"
+          bg={useColorModeValue("white", "gray.700")}
+        >
           <Thead
             as="thead"
             p="0"
@@ -162,7 +202,14 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
             {headerGroups.map((headerGroup) => (
               <Tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
-                  <Th textAlign="center" textColor={useColorModeValue("gray.900", "gray.100")} p="1em" className="th1" key={columns} {...column.getHeaderProps()}>
+                  <Th
+                    textAlign="center"
+                    textColor={useColorModeValue("gray.900", "gray.100")}
+                    p="1em"
+                    className="th1"
+                    key={columns}
+                    {...column.getHeaderProps()}
+                  >
                     {column.render("Header")}
                   </Th>
                 ))}
@@ -175,7 +222,9 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
               return (
                 <Tr {...row.getRowProps()}>
                   {row.cells.map((cell) => {
-                    return <Td {...cell.getCellProps()}>{cell.render("Cell")}</Td>;
+                    return (
+                      <Td {...cell.getCellProps()}>{cell.render("Cell")}</Td>
+                    );
                   })}
                 </Tr>
               );
@@ -243,7 +292,16 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
             onClick={() => gotoPage(pageCount - 1)}
             colorScheme="teal"
           />
-          <Text mr="4" alignSelf="center" borderRightColor="" defaultValue={pageSize + 1} borderColor="gray.300" fontWeight="bold" fontSize="sm" whiteSpace="nowrap">
+          <Text
+            mr="4"
+            alignSelf="center"
+            borderRightColor=""
+            defaultValue={pageSize + 1}
+            borderColor="gray.300"
+            fontWeight="bold"
+            fontSize="sm"
+            whiteSpace="nowrap"
+          >
             Registros por página
           </Text>
           <Input
@@ -274,7 +332,9 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
           </Stack>
         </Flex>
       </Flex>
-      {open ? <StudentCreateModal onRequestClose={() => setOpen(false)} /> : null}
+      {open ? (
+        <StudentCreateModal onRequestClose={() => setOpen(false)} />
+      ) : null}
     </>
   );
 };

@@ -1,0 +1,3 @@
+mutation EliminarEstudiante($id_persona: Int!) {
+  eliminarEstudiante(id_persona: $id_persona)
+}

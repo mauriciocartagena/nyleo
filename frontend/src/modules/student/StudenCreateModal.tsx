@@ -19,7 +19,9 @@ interface StudentFormData {
   numero: string;
 }
 
-export const StudentCreateModal: React.FC<StudentCreateModalProps> = ({ onRequestClose }) => {
+export const StudentCreateModal: React.FC<StudentCreateModalProps> = ({
+  onRequestClose,
+}) => {
   const [, register] = useCrearEstudianteMutation();
   return (
     <Modal isOpen onRequestClose={onRequestClose}>
@@ -39,7 +41,9 @@ export const StudentCreateModal: React.FC<StudentCreateModalProps> = ({ onReques
           });
 
           if (response.data?.crearEstudiante.errors) {
-            setErrors(toErrorMapEstudiante(response.data.crearEstudiante.errors));
+            setErrors(
+              toErrorMapEstudiante(response.data.crearEstudiante.errors)
+            );
           } else if (response.data.crearEstudiante.persona) {
             onRequestClose();
           }
@@ -47,23 +51,60 @@ export const StudentCreateModal: React.FC<StudentCreateModalProps> = ({ onReques
       >
         {({ isSubmitting, values }) => (
           <Form>
-            <InputField name="nombre" label="Nombre" placeholder="Ingrese nombre" autoFocus maxLength={60} value={values.nombre} />
+            <InputField
+              name="nombre"
+              label="Nombre"
+              placeholder="Ingrese nombre"
+              autoFocus
+              maxLength={60}
+              value={values.nombre}
+            />
 
             <div className={`flex mt-3`}>
-              <InputField name="primer_apellido" label="Primer Apellido" placeholder="Ingrese Primer apellido" maxLength={60} value={values.primer_apellido} />
+              <InputField
+                name="primer_apellido"
+                label="Primer Apellido"
+                placeholder="Ingrese Primer apellido"
+                maxLength={60}
+                value={values.primer_apellido}
+              />
             </div>
             <div className={`flex mt-3`}>
-              <InputField name="segundo_apellido" label="Segundo Apellido" placeholder="Ingrese Segundo apellido" maxLength={60} value={values.segundo_apellido} />
+              <InputField
+                name="segundo_apellido"
+                label="Segundo Apellido"
+                placeholder="Ingrese Segundo apellido"
+                maxLength={60}
+                value={values.segundo_apellido}
+              />
             </div>
             <div className={`flex mt-3`}>
-              <InputField name="email" label="Email" placeholder="Ingrese Email" maxLength={60} value={values.email} />
+              <InputField
+                name="email"
+                label="Email"
+                placeholder="Ingrese Email"
+                maxLength={60}
+                value={values.email}
+              />
             </div>
             <div className={`grid grid-cols-2 gap-4 focus:outline-none w-full`}>
               <div className={`flex mt-3`}>
-                <InputField name="dni" label="DNI" placeholder="Ingrese DNI" maxLength={30} value={values.dni} />
+                <InputField
+                  name="dni"
+                  label="DNI"
+                  placeholder="Ingrese DNI"
+                  maxLength={30}
+                  value={values.dni}
+                />
               </div>
               <div className={`flex mt-3`}>
-                <InputField name="numero" label="Numero" placeholder="Ingrese Numero" maxLength={60} value={values.numero} />
+                <InputField
+                  name="numero"
+                  label="Numero"
+                  placeholder="Ingrese Numero"
+                  maxLength={60}
+                  value={values.numero}
+                />
               </div>
             </div>
             <div className={`flex pt-4 space-x-3 col-span-full items-center`}>

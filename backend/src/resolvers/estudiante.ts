@@ -1,4 +1,12 @@
-import { Resolver, Mutation, Arg, Query, Int, ObjectType, Field } from "type-graphql";
+import {
+  Resolver,
+  Mutation,
+  Arg,
+  Query,
+  Int,
+  ObjectType,
+  Field,
+} from "type-graphql";
 import { getConnection } from "typeorm";
 import { Persona } from "../entities/Persona";
 import { Estudiante } from "../entities/Estudiante";
@@ -29,11 +37,20 @@ export class EstudianteResolver {
   async estudiantes(): Promise<Persona[]> {
     const conn = getConnection();
 
-    return conn.createQueryBuilder(Persona, "persona").innerJoin(Estudiante, "estudiante", "persona.id_persona = estudiante.id_persona").getMany();
+    return conn
+      .createQueryBuilder(Persona, "persona")
+      .innerJoin(
+        Estudiante,
+        "estudiante",
+        "persona.id_persona = estudiante.id_persona"
+      )
+      .getMany();
   }
 
   @Query(() => [Persona])
-  async estudiante(@Arg("id_persona", () => Int) id_persona: number): Promise<Persona[]> {
+  async estudiante(
+    @Arg("id_persona", () => Int) id_persona: number
+  ): Promise<Persona[]> {
     const conn = getConnection();
 
     return conn
@@ -43,7 +60,9 @@ export class EstudianteResolver {
   }
 
   @Mutation(() => EstudianteResponse)
-  async crearEstudiante(@Arg("input") input: EstudianteInput): Promise<EstudianteResponse> {
+  async crearEstudiante(
+    @Arg("input") input: EstudianteInput
+  ): Promise<EstudianteResponse> {
     const conn = getConnection();
 
     const errors = validateRegisterEstudiante(input);
@@ -52,11 +71,11 @@ export class EstudianteResolver {
       return { errors };
     }
 
-    const persona = conn.manager.create(Persona, input);
+    try {
+      const persona = conn.manager.create(Persona, input);
 
-    const resp = await conn.manager.save(persona);
+      const resp = await conn.manager.save(persona);
 
-    if (resp) {
       await conn
         .createQueryBuilder()
         .insert()
@@ -67,12 +86,33 @@ export class EstudianteResolver {
         .execute();
 
       return { persona: resp };
-    } else {
+    } catch (error) {
+      if (error.detail.includes("already exists")) {
+        if (error.detail.includes("email")) {
+          return {
+            errors: [
+              {
+                field: "email",
+                message: "El email ya está en uso",
+              },
+            ],
+          };
+        } else if (error.detail.includes("dni")) {
+          return {
+            errors: [
+              {
+                field: "dni",
+                message: "El dni ya está en uso",
+              },
+            ],
+          };
+        }
+      }
       return {
         errors: [
           {
             field: "Error",
-            message: "Algo salió mal vuelva a intentarlo.",
+            message: "Error al crear el estudiante",
           },
         ],
       };
@@ -126,12 +166,18 @@ export class EstudianteResolver {
   }
 
   @Mutation(() => Boolean)
-  async eliminarEstudiante(@Arg("id_persona") id_persona: number): Promise<boolean> {
+  async eliminarEstudiante(
+    @Arg("id_persona") id_persona: number
+  ): Promise<boolean> {
     const conn = getConnection();
     try {
       const estudiante = await conn
         .createQueryBuilder(Persona, "persona")
-        .innerJoin(Estudiante, "estudiante", "persona.id_persona = " + id_persona)
+        .innerJoin(
+          Estudiante,
+          "estudiante",
+          "persona.id_persona = " + id_persona
+        )
         .getMany();
 
       conn.manager.delete(Persona, estudiante[0].id_persona);

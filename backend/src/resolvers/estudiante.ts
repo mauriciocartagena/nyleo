@@ -121,7 +121,7 @@ export class EstudianteResolver {
 
   @Mutation(() => [Persona], { nullable: true })
   async actualizarEstudiante(
-    @Arg("id_persona") id_persona: number,
+    @Arg("id_persona", () => Int) id_persona: number,
     @Arg("nombre", () => String) nombre: string,
     @Arg("primer_apellido", () => String)
     primer_apellido: string,
@@ -167,7 +167,7 @@ export class EstudianteResolver {
 
   @Mutation(() => Boolean)
   async eliminarEstudiante(
-    @Arg("id_persona") id_persona: number
+    @Arg("id_persona", () => Int) id_persona: number
   ): Promise<boolean> {
     const conn = getConnection();
     try {

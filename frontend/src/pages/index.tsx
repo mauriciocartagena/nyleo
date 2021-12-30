@@ -1,3 +1,8 @@
-const Index = () => <div>Hello World</div>;
+import { withUrqlClient } from "next-urql";
+import { createUrlClient } from "../utils/createUrqlClient";
 
-export default Index;
+const Index = () => {
+  return <div>Hello World</div>;
+};
+
+export default withUrqlClient(createUrlClient)(Index);

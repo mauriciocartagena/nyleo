@@ -33,8 +33,7 @@ import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 import { UserOptions } from "jspdf-autotable";
 import { ButtonExport } from "../../ui/ButtonExport";
-import { StudentCreateModal } from "./StudenCreateModal";
-
+import StudentCreateModal from "./StudenCreateModal";
 interface DataTableProps {
   columns: any;
   data: any;
@@ -94,6 +93,7 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
 
     return false;
   };
+
   const tableInstance = useTable(
     {
       columns: columns,
@@ -333,7 +333,7 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
         </Flex>
       </Flex>
       {open ? (
-        <StudentCreateModal onRequestClose={() => setOpen(false)} />
+        <StudentCreateModal pageProps onRequestClose={() => setOpen(false)} />
       ) : null}
     </>
   );

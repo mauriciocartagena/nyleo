@@ -6,6 +6,8 @@ import { Button } from "../../ui/Button";
 import { useCrearEstudianteMutation } from "../../generated/graphql";
 import { toErrorMapEstudiante } from "../../utils/toErrorMapEstudiante";
 import { ButtonLink } from "../../ui/ButtonLink";
+import { withUrqlClient } from "next-urql";
+import { createUrlClient } from "../../utils/createUrqlClient";
 
 interface StudentCreateModalProps {
   onRequestClose: () => void;
@@ -19,10 +21,10 @@ interface StudentFormData {
   numero: string;
 }
 
-export const StudentCreateModal: React.FC<StudentCreateModalProps> = ({
+const StudentCreateModal: React.FC<StudentCreateModalProps> = ({
   onRequestClose,
 }) => {
-  const [, register] = useCrearEstudianteMutation();
+  const [, crearEstudiante] = useCrearEstudianteMutation();
   return (
     <Modal isOpen onRequestClose={onRequestClose}>
       <Formik<StudentFormData>
@@ -36,7 +38,7 @@ export const StudentCreateModal: React.FC<StudentCreateModalProps> = ({
         }}
         validateOnBlur={false}
         onSubmit={async (values, { setErrors }) => {
-          const response = await register({
+          const response = await crearEstudiante({
             input: values,
           });
 
@@ -121,3 +123,4 @@ export const StudentCreateModal: React.FC<StudentCreateModalProps> = ({
     </Modal>
   );
 };
+export default withUrqlClient(createUrlClient)(StudentCreateModal);

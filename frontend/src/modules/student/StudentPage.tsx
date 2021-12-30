@@ -3,13 +3,15 @@ import { DataTable } from "./DataTable";
 
 import { useEstudiantesQuery } from "../../generated/graphql";
 import { COLUMNS } from "./columns";
+import { withUrqlClient } from "next-urql";
+import { createUrlClient } from "../../utils/createUrqlClient";
 
 interface StudentPageProps {}
 
-export const StudentPage: React.FC<StudentPageProps> = ({}) => {
-  const [{ data, fetching }] = useEstudiantesQuery();
+const StudentPage: React.FC<StudentPageProps> = () => {
+  const [{ data: estudiantes, fetching }] = useEstudiantesQuery();
 
-  const resp = useMemo(() => data?.estudiantes, [data]);
+  const resp = useMemo(() => estudiantes?.estudiantes, [estudiantes]);
 
   const columns = useMemo(() => COLUMNS, [COLUMNS]);
 
@@ -17,9 +19,6 @@ export const StudentPage: React.FC<StudentPageProps> = ({}) => {
     return <div>Loadings...</div>;
   }
 
-  return (
-    <div>
-      <DataTable columns={columns} data={resp}></DataTable>
-    </div>
-  );
+  return <DataTable columns={columns} data={resp} />;
 };
+export default withUrqlClient(createUrlClient)(StudentPage);

@@ -1,5 +1,6 @@
 import { Button } from "@chakra-ui/react";
 import ButtonDelete from "./ButtonDelete";
+import ButtonEdit from "./ButtonEdit";
 
 export const COLUMNS = [
   {
@@ -34,13 +35,7 @@ export const COLUMNS = [
     Header: "Editar",
     accessor: () => "editar",
     Cell: (tableProps: any) => (
-      <Button
-        onClick={() => {
-          console.log(tableProps.row.original.id_persona);
-        }}
-      >
-        Editar
-      </Button>
+      <ButtonEdit pageProps id_persona={tableProps.row.original.id_persona} />
     ),
   },
   {

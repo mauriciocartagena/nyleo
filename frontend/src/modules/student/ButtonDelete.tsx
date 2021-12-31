@@ -14,6 +14,7 @@ const ButtonDelete: React.FC<ButtonDeleteProps> = ({ id_persona }) => {
   return (
     <Button
       size="small"
+      style={{ backgroundColor: "RGB(200, 53, 56)", color: "white" }}
       onClick={async () => {
         try {
           await eliminarEstudiante({ id_persona });

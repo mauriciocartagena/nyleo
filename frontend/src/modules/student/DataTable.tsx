@@ -176,6 +176,10 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
         <Box alignContent="center" pb={3}>
           <Flex justifyContent="flex-end">
             <Button
+              style={{
+                backgroundColor: "RGB(58, 143, 54)",
+                color: "white",
+              }}
               onClick={() => {
                 setOpen(true);
               }}

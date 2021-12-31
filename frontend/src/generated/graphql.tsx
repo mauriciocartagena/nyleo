@@ -39,6 +39,16 @@ export type EstudianteInput = {
   segundo_apellido: Scalars['String'];
 };
 
+export type EstudianteInputEditar = {
+  dni: Scalars['String'];
+  email: Scalars['String'];
+  id_persona: Scalars['Float'];
+  nombre: Scalars['String'];
+  numero: Scalars['String'];
+  primer_apellido: Scalars['String'];
+  segundo_apellido: Scalars['String'];
+};
+
 export type EstudianteResponse = {
   __typename?: 'EstudianteResponse';
   errors?: Maybe<Array<FieldErrorEstudiante>>;
@@ -77,7 +87,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   actualizarCategoria?: Maybe<Categoria>;
   actualizarCurso: Curso;
-  actualizarEstudiante?: Maybe<Array<Persona>>;
+  actualizarEstudiante: EstudianteResponse;
   actualizarGrupo: Array<Grupo>;
   actualizarTurno?: Maybe<Turno>;
   crearCategoria: Categoria;
@@ -109,13 +119,7 @@ export type MutationActualizarCursoArgs = {
 
 
 export type MutationActualizarEstudianteArgs = {
-  dni: Scalars['String'];
-  email: Scalars['String'];
-  id_persona: Scalars['Int'];
-  nombre: Scalars['String'];
-  numero: Scalars['String'];
-  primer_apellido: Scalars['String'];
-  segundo_apellido?: InputMaybe<Scalars['String']>;
+  input: EstudianteInputEditar;
 };
 
 
@@ -286,6 +290,13 @@ export type UsuarioPasswordInput = {
 
 export type RegularEstudianteFragment = { __typename?: 'Persona', id_persona: number, nombre: string, primer_apellido: string, segundo_apellido: string, dni: string, numero: string, email: string };
 
+export type ActualizarEstudianteMutationVariables = Exact<{
+  input: EstudianteInputEditar;
+}>;
+
+
+export type ActualizarEstudianteMutation = { __typename?: 'Mutation', actualizarEstudiante: { __typename?: 'EstudianteResponse', errors?: Array<{ __typename?: 'FieldErrorEstudiante', field: string, message: string }> | null | undefined, persona?: { __typename?: 'Persona', id_persona: number, nombre: string, primer_apellido: string, segundo_apellido: string, dni: string, numero: string, email: string } | null | undefined } };
+
 export type CrearEstudianteMutationVariables = Exact<{
   input: EstudianteInput;
 }>;
@@ -316,6 +327,23 @@ export const RegularEstudianteFragmentDoc = gql`
   email
 }
     `;
+export const ActualizarEstudianteDocument = gql`
+    mutation ActualizarEstudiante($input: EstudianteInputEditar!) {
+  actualizarEstudiante(input: $input) {
+    errors {
+      field
+      message
+    }
+    persona {
+      ...RegularEstudiante
+    }
+  }
+}
+    ${RegularEstudianteFragmentDoc}`;
+
+export function useActualizarEstudianteMutation() {
+  return Urql.useMutation<ActualizarEstudianteMutation, ActualizarEstudianteMutationVariables>(ActualizarEstudianteDocument);
+};
 export const CrearEstudianteDocument = gql`
     mutation CrearEstudiante($input: EstudianteInput!) {
   crearEstudiante(input: $input) {

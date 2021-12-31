@@ -17,6 +17,9 @@ export const createUrlClient = (ssrExchange: any) => ({
           eliminarEstudiante: (_result, args, cache) => {
             cache.invalidate({ __typename: "Query", estudiantes: true });
           },
+          actualizarEstudiante: (_result, args, cache) => {
+            cache.invalidate("Query", "estudiantes");
+          },
         },
       },
     }),

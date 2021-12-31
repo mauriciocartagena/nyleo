@@ -35,7 +35,16 @@ export const COLUMNS = [
     Header: "Editar",
     accessor: () => "editar",
     Cell: (tableProps: any) => (
-      <ButtonEdit pageProps id_persona={tableProps.row.original.id_persona} />
+      <ButtonEdit
+        pageProps
+        id_persona={tableProps.row.original.id_persona}
+        nombre={tableProps.row.original.nombre}
+        primer_apellido={tableProps.row.original.primer_apellido}
+        segundo_apellido={tableProps.row.original.segundo_apellido}
+        dni={tableProps.row.original.dni}
+        email={tableProps.row.original.email}
+        numero={tableProps.row.original.numero}
+      />
     ),
   },
   {

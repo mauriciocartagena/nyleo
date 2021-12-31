@@ -1,0 +1,11 @@
+mutation ActualizarEstudiante($input: EstudianteInputEditar!) {
+  actualizarEstudiante(input: $input) {
+    errors {
+      field
+      message
+    }
+    persona {
+      ...RegularEstudiante
+    }
+  }
+}

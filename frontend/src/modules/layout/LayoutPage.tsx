@@ -15,7 +15,14 @@ import {
   Button,
   useColorMode,
 } from "@chakra-ui/react";
-import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu } from "react-icons/fi";
+import {
+  FiHome,
+  FiTrendingUp,
+  FiCompass,
+  FiStar,
+  FiSettings,
+  FiMenu,
+} from "react-icons/fi";
 import { IconType } from "react-icons";
 import Link from "next/link";
 
@@ -34,13 +41,28 @@ const LinkItems: Array<LinkItemProps> = [
   { name: "Usuarios", icon: FiSettings, route: "/users" },
 ];
 
-export const LayoutPage: React.FC<LayoutPageProps> = ({ children }: { children: ReactNode }) => {
+export const LayoutPage: React.FC<LayoutPageProps> = ({
+  children,
+}: {
+  children: ReactNode;
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box minH="100vh">
-      <SidebarContent onClose={() => onClose} display={{ base: "none", md: "block" }} />
-      <Drawer autoFocus={false} isOpen={isOpen} placement="left" onClose={onClose} returnFocusOnClose={false} onOverlayClick={onClose} size="full">
+    <Box minH="100vh" bg={useColorModeValue("gray.50", "#0B0E11")}>
+      <SidebarContent
+        onClose={() => onClose}
+        display={{ base: "none", md: "block" }}
+      />
+      <Drawer
+        autoFocus={false}
+        isOpen={isOpen}
+        placement="left"
+        onClose={onClose}
+        returnFocusOnClose={false}
+        onOverlayClick={onClose}
+        size="full"
+      >
         <DrawerContent>
           <SidebarContent onClose={onClose} />
         </DrawerContent>
@@ -62,23 +84,27 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Box
-      // bg={useColorModeValue("white", "gray.900")}
-      bg={useColorModeValue("gray.50", "")}
-      borderRight="1px"
-      borderRightColor={useColorModeValue("gray.200", "gray.700")}
+      bg={useColorModeValue("gray.100", "#151A21")}
       w={{ base: "full", md: 60 }}
       pos="fixed"
       h="full"
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
+        <Text
+          fontSize="2xl"
+          fontFamily="monospace"
+          fontWeight="bold"
+          textColor={useColorModeValue("blue.900", "blue.500")}
+        >
           Nyleo
         </Text>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       <Flex align="center" p="4" mx="4" borderRadius="lg">
-        <Button onClick={toggleColorMode}>Modo {colorMode === "dark" ? "Claro" : "Oscuro"}</Button>
+        <Button onClick={toggleColorMode}>
+          Modo {colorMode === "dark" ? "Claro" : "Oscuro"}
+        </Button>
       </Flex>
 
       {LinkItems.map((link) => (
@@ -103,6 +129,7 @@ const NavItem = ({ icon, children, route, ...rest }: NavItemProps) => {
         p="4"
         mx="4"
         borderRadius="lg"
+        textColor={useColorModeValue("blue.800", "blue.50")}
         role="group"
         cursor="pointer"
         _hover={{
@@ -143,7 +170,12 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       justifyContent="flex-start"
       {...rest}
     >
-      <IconButton variant="outline" onClick={onOpen} aria-label="open menu" icon={<FiMenu />} />
+      <IconButton
+        variant="outline"
+        onClick={onOpen}
+        aria-label="open menu"
+        icon={<FiMenu />}
+      />
 
       <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
         Nyleo

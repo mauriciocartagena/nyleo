@@ -1,4 +1,5 @@
 /* eslint-disable global-require */
+
 module.exports = {
   darkMode: "class",
   content: ["./src/**/*.tsx", "./public/index.html"],
@@ -8,7 +9,16 @@ module.exports = {
 
   theme: {
     fontFamily: {
-      sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif"],
+      sans: [
+        "Inter",
+        "-apple-system",
+        "BlinkMacSystemFont",
+        "Segoe UI",
+        "Roboto",
+        "Helvetica",
+        "Arial",
+        "sans-serif",
+      ],
       mono: ["Menlo", "Monaco", "Courier New", "monospace"],
     },
     fontSize: {
@@ -28,6 +38,19 @@ module.exports = {
     colors: {
       button: "var(--color-button-text)",
       transparent: "transparent",
+      // blue: {
+      //   DEFAULT: "#3B82F6",
+      //   50: "#EBF2FE",
+      //   100: "#D7E6FD",
+      //   200: "#B0CDFB",
+      //   300: "#89B4FA",
+      //   400: "#629BF8",
+      //   500: "#3B82F6",
+      //   600: "#0B61EE",
+      //   700: "#084BB8",
+      //   800: "#063583",
+      //   900: "#041F4D",
+      // },
       primary: {
         100: "var(--color-primary-100)",
         200: "var(--color-primary-200)",

@@ -225,8 +225,8 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
               onClick={() => {
                 setOpen(true);
               }}
+              color="create"
               style={{
-                backgroundColor: "#2374e1",
                 fontSize: ".9375rem",
                 padding: "0.5rem 1rem",
               }}

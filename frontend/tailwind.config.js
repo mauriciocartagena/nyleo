@@ -37,20 +37,8 @@ module.exports = {
     },
     colors: {
       button: "var(--color-button-text)",
+      create: "var(--color-button-create)",
       transparent: "transparent",
-      // blue: {
-      //   DEFAULT: "#3B82F6",
-      //   50: "#EBF2FE",
-      //   100: "#D7E6FD",
-      //   200: "#B0CDFB",
-      //   300: "#89B4FA",
-      //   400: "#629BF8",
-      //   500: "#3B82F6",
-      //   600: "#0B61EE",
-      //   700: "#084BB8",
-      //   800: "#063583",
-      //   900: "#041F4D",
-      // },
       primary: {
         100: "var(--color-primary-100)",
         200: "var(--color-primary-200)",
@@ -60,6 +48,7 @@ module.exports = {
         800: "var(--color-primary-800)",
         900: "var(--color-primary-900)",
       },
+
       secondary: {
         DEFAULT: "var(--color-secondary)",
         "washed-out": "var(--color-secondary-washed-out)",
@@ -68,6 +57,11 @@ module.exports = {
         DEFAULT: "var(--color-accent)",
         hover: "var(--color-accent-hover)",
         disabled: "var(--color-accent-disabled)",
+      },
+      caccent: {
+        DEFAULT: "var(--color-caccent)",
+        hover: "var(--color-caccent-hover)",
+        disabled: "var(--color-caccent-disabled)",
       },
       black: "#000",
     },

@@ -110,7 +110,12 @@ const StudentCreateModal: React.FC<StudentCreateModalProps> = ({
               </div>
             </div>
             <div className={`flex pt-4 space-x-3 col-span-full items-center`}>
-              <Button loading={isSubmitting} type="submit" className={`mr-3`}>
+              <Button
+                loading={isSubmitting}
+                type="submit"
+                className={`mr-3`}
+                color="create"
+              >
                 Registrar
               </Button>
               <ButtonLink type="button" onClick={onRequestClose}>

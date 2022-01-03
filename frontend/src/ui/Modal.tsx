@@ -1,11 +1,11 @@
+import { Button, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 import ReactModal from "react-modal";
-import { Button } from "@chakra-ui/react";
 
 const customStyles = {
   default: {
     overlay: {
-      backgroundColor: "rgba(0, 0, 0,0.9)",
+      backgroundColor: "rgba(244, 244, 244, 0.9)",
       zIndex: 1000,
     },
     content: {
@@ -26,7 +26,7 @@ const customStyles = {
   },
   userPreview: {
     overlay: {
-      backgroundColor: "rgba(0, 0, 0, 0.8)",
+      backgroundColor: "rgba(0, 0, 0,0.9)",
       zIndex: 1000,
     },
     content: {
@@ -36,23 +36,34 @@ const customStyles = {
       bottom: "auto",
       marginRight: "-50%",
       borderRadius: 8,
-      padding: 0,
+      padding: "40px 40px 40px 40px",
       transform: "translate(-50%, -50%)",
-      backgroundColor: "var(--color-primary-900)",
+      backgroundColor: "var(--color-primary-800)",
       border: "none",
       maxHeight: "80vh",
       width: "90%",
-      maxWidth: 435,
+      maxWidth: 530,
     },
   },
 };
 
-export const Modal: React.FC<ReactModal["props"] & { variant?: keyof typeof customStyles }> = ({ children, variant = "default", ...props }) => {
+export const Modal: React.FC<
+  ReactModal["props"] & { variant?: keyof typeof customStyles }
+> = ({ children, variant = "default", ...props }) => {
   return (
-    <ReactModal style={customStyles[variant]} ariaHideApp={false} shouldCloseOnEsc shouldFocusAfterRender {...props}>
+    <ReactModal
+      style={customStyles[variant]}
+      ariaHideApp={false}
+      shouldCloseOnEsc
+      shouldFocusAfterRender
+      {...props}
+    >
       <div className={`flex flex-col w-full`}>
         <div className={`flex justify-end absolute right-3 top-3`}>
-          <Button onClick={(e) => props?.onRequestClose?.(e)} data-testid="close-modal">
+          <Button
+            onClick={(e) => props?.onRequestClose?.(e)}
+            data-testid="close-modal"
+          >
             x
           </Button>
         </div>

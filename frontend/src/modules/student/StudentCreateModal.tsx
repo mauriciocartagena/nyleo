@@ -1,13 +1,13 @@
 import { Form, Formik } from "formik";
-import React from "react";
-import { Modal } from "../../ui/Modal";
-import { InputField } from "../../form-fields/InputField";
-import { Button } from "../../ui/Button";
-import { useCrearEstudianteMutation } from "../../generated/graphql";
-import { toErrorMapEstudiante } from "../../utils/toErrorMapEstudiante";
-import { ButtonLink } from "../../ui/ButtonLink";
 import { withUrqlClient } from "next-urql";
+import React from "react";
+import { InputField } from "../../form-fields/InputField";
+import { useCrearEstudianteMutation } from "../../generated/graphql";
+import { Button } from "../../ui/Button";
+import { ButtonLink } from "../../ui/ButtonLink";
+import { Modal } from "../../ui/Modal";
 import { createUrlClient } from "../../utils/createUrqlClient";
+import { toErrorMapEstudiante } from "../../utils/toErrorMapEstudiante";
 
 interface StudentCreateModalProps {
   onRequestClose: () => void;

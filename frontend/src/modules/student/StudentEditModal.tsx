@@ -8,6 +8,7 @@ import { toErrorMapEstudiante } from "../../utils/toErrorMapEstudiante";
 import { ButtonLink } from "../../ui/ButtonLink";
 import { withUrqlClient } from "next-urql";
 import { createUrlClient } from "../../utils/createUrqlClient";
+import { useColorModeValue } from "@chakra-ui/react";
 
 interface StudentRequiredProps {
   id_persona: number;
@@ -39,7 +40,11 @@ const StudentEditModal: React.FC<StudentEditModalProps> = ({
   const [, actualizarEstudiante] = useActualizarEstudianteMutation();
 
   return (
-    <Modal isOpen onRequestClose={onRequestClose}>
+    <Modal
+      isOpen
+      onRequestClose={onRequestClose}
+      variant={useColorModeValue("default", "userPreview")}
+    >
       <Formik<StudentFormData>
         initialValues={{
           nombre: studentData.nombre,

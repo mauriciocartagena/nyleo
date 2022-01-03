@@ -15,7 +15,7 @@ const ButtonDelete: React.FC<ButtonDeleteProps> = ({ id_persona }) => {
   return (
     <Button
       size="small"
-      style={{ backgroundColor: "RGB(200, 53, 56)", color: "white" }}
+      color="primary"
       icon={
         <RiDeleteBin6Line
           size={17}

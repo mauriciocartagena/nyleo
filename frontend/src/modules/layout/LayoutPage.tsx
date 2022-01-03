@@ -49,7 +49,7 @@ export const LayoutPage: React.FC<LayoutPageProps> = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box minH="100vh" bg={useColorModeValue("gray.50", "#18191a")}>
+    <Box minH="100vh" bg={useColorModeValue("#f0f2f5", "#18191a")}>
       <SidebarContent
         onClose={() => onClose}
         display={{ base: "none", md: "block" }}
@@ -82,11 +82,9 @@ interface SidebarProps extends BoxProps {
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const { colorMode, toggleColorMode } = useColorMode();
-  // 18191a
-  // 242526
   return (
     <Box
-      bg={useColorModeValue("gray.100", "#18191a")}
+      bg={useColorModeValue("#f0f2f5", "#18191a")}
       w={{ base: "full", md: 60 }}
       pos="fixed"
       h="full"

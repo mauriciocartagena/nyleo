@@ -36,6 +36,8 @@ import { UserOptions } from "jspdf-autotable";
 import { ButtonExport } from "../../ui/ButtonExport";
 import StudentCreateModal from "./StudentCreateModal";
 import { Button } from "../../ui/Button";
+import { GrDocumentCsv, GrDocumentExcel, GrDocumentPdf } from "../../icons";
+// GrDocumentCsv
 interface DataTableProps {
   columns: any;
   data: any;
@@ -135,43 +137,85 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
         </Heading>
       </Center>
 
-      <Box shadow="md" rounded="lg" overflowY="auto" overflowX="auto">
+      <Box rounded="lg" overflowY="auto" overflowX="auto">
         <Box p={3} overflowY="auto" overflowX="auto">
           <ButtonExport
             formatName="csv"
             exportData={exportData}
             allData={true}
             name="Exportar todo en CSV"
+            icon={
+              <GrDocumentCsv
+                width={20}
+                height={20}
+                color={useColorModeValue("#000", "#fff")}
+              />
+            }
           />
           <ButtonExport
             formatName="csv"
             exportData={exportData}
             allData={false}
             name="Exportar vista actual como CSV"
+            icon={
+              <GrDocumentCsv
+                width={20}
+                height={20}
+                color={useColorModeValue("#000", "#fff")}
+              />
+            }
           />
           <ButtonExport
             formatName="xlsx"
             exportData={exportData}
             allData={true}
             name="Exportar todo en XLSX"
+            icon={
+              <GrDocumentExcel
+                width={20}
+                height={20}
+                color={useColorModeValue("#000", "#fff")}
+              />
+            }
           />
           <ButtonExport
             formatName="xlsx"
             exportData={exportData}
             allData={false}
             name="Exportar vista actual como XLSX"
+            icon={
+              <GrDocumentExcel
+                width={20}
+                height={20}
+                color={useColorModeValue("#000", "#fff")}
+              />
+            }
           />
           <ButtonExport
             formatName="pdf"
             exportData={exportData}
             allData={true}
             name="Exportar todo en PDF"
+            icon={
+              <GrDocumentPdf
+                width={20}
+                height={20}
+                color={useColorModeValue("#000", "#fff")}
+              />
+            }
           />
           <ButtonExport
             formatName="pdf"
             exportData={exportData}
             allData={false}
             name="Exportar vista actual como PDF"
+            icon={
+              <GrDocumentPdf
+                width={20}
+                height={20}
+                color={useColorModeValue("#000", "#fff")}
+              />
+            }
           />
         </Box>
 

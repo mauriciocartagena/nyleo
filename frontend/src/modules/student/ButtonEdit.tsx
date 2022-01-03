@@ -31,13 +31,7 @@ const ButtonEdit: React.FC<ButtonEditProps> = ({
     <>
       <Button
         size="small"
-        style={{
-          backgroundColor: useColorModeValue(
-            "#e4e6eb",
-            "RGB(255, 255, 255,0.1)"
-          ),
-          color: useColorModeValue("#000", "#fff"),
-        }}
+        color="secondary-800"
         onClick={async () => {
           setOpen(true);
         }}

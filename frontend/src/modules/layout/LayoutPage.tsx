@@ -49,7 +49,7 @@ export const LayoutPage: React.FC<LayoutPageProps> = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box minH="100vh" bg={useColorModeValue("gray.50", "#0B0E11")}>
+    <Box minH="100vh" bg={useColorModeValue("gray.50", "#18191a")}>
       <SidebarContent
         onClose={() => onClose}
         display={{ base: "none", md: "block" }}
@@ -82,9 +82,11 @@ interface SidebarProps extends BoxProps {
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const { colorMode, toggleColorMode } = useColorMode();
+  // 18191a
+  // 242526
   return (
     <Box
-      bg={useColorModeValue("gray.100", "#151A21")}
+      bg={useColorModeValue("gray.100", "#18191a")}
       w={{ base: "full", md: 60 }}
       pos="fixed"
       h="full"
@@ -129,25 +131,15 @@ const NavItem = ({ icon, children, route, ...rest }: NavItemProps) => {
         p="4"
         mx="4"
         borderRadius="lg"
-        textColor={useColorModeValue("blue.800", "blue.50")}
+        textColor={useColorModeValue("#000", "#fff")}
         role="group"
         cursor="pointer"
         _hover={{
-          bg: "blue.500",
-          color: "white",
+          bg: useColorModeValue("RGBA(0,0,0,0.05)", "RGBA(255,255,255,0.1)"),
         }}
         {...rest}
       >
-        {icon && (
-          <Icon
-            mr="4"
-            fontSize="16"
-            _groupHover={{
-              color: "white",
-            }}
-            as={icon}
-          />
-        )}
+        {icon && <Icon mr="4" fontSize="16" as={icon} />}
         {children}
       </Flex>
     </Link>

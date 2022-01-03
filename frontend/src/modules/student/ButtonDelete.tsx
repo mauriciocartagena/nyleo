@@ -3,6 +3,7 @@ import { Button } from "../../ui/Button";
 import { useEliminarEstudianteMutation } from "../../generated/graphql";
 import { createUrlClient } from "../../utils/createUrqlClient";
 import { withUrqlClient } from "next-urql";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 interface ButtonDeleteProps {
   id_persona: number;
@@ -15,6 +16,14 @@ const ButtonDelete: React.FC<ButtonDeleteProps> = ({ id_persona }) => {
     <Button
       size="small"
       style={{ backgroundColor: "RGB(200, 53, 56)", color: "white" }}
+      icon={
+        <RiDeleteBin6Line
+          size={17}
+          style={{
+            marginRight: "-0.2rem",
+          }}
+        />
+      }
       onClick={async () => {
         try {
           await eliminarEstudiante({ id_persona });

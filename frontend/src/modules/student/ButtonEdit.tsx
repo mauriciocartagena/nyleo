@@ -3,6 +3,8 @@ import { Button } from "../../ui/Button";
 import { createUrlClient } from "../../utils/createUrqlClient";
 import { withUrqlClient } from "next-urql";
 import StudentEditModal from "./StudentEditModal";
+import { MdEdit } from "react-icons/md";
+import { useColorModeValue } from "@chakra-ui/react";
 
 interface ButtonEditProps {
   id_persona: number;
@@ -29,10 +31,25 @@ const ButtonEdit: React.FC<ButtonEditProps> = ({
     <>
       <Button
         size="small"
-        style={{ backgroundColor: "RGB(38, 95, 158)", color: "white" }}
+        style={{
+          backgroundColor: useColorModeValue(
+            "#e4e6eb",
+            "RGB(255, 255, 255,0.1)"
+          ),
+          color: useColorModeValue("#000", "#fff"),
+        }}
         onClick={async () => {
           setOpen(true);
         }}
+        icon={
+          <MdEdit
+            size={17}
+            style={{
+              marginRight: "-0.2rem",
+            }}
+          />
+        }
+        name="Editar Estudiante"
       >
         Editar
       </Button>

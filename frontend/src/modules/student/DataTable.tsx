@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { usePagination, useSortBy, useTable } from "react-table";
 import XLSX from "xlsx";
 import Papa from "papaparse";
+import { IoIosAddCircle } from "react-icons/io";
+
 import {
   Table,
   Tbody,
@@ -20,7 +22,6 @@ import {
   Select,
   Stack,
   useColorModeValue,
-  Button,
 } from "@chakra-ui/react";
 import {
   ArrowLeftIcon,
@@ -34,6 +35,7 @@ import "jspdf-autotable";
 import { UserOptions } from "jspdf-autotable";
 import { ButtonExport } from "../../ui/ButtonExport";
 import StudentCreateModal from "./StudentCreateModal";
+import { Button } from "../../ui/Button";
 interface DataTableProps {
   columns: any;
   data: any;
@@ -128,12 +130,7 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
   return (
     <>
       <Center p="4">
-        <Heading
-          fontStyle="normal"
-          fontSize="4xl"
-          fontWeight="extrabold"
-          textColor={useColorModeValue("blue.800", "#3B82F6")}
-        >
+        <Heading fontStyle="normal" fontSize="2.6rem" fontWeight="extrabold">
           Lista de Estudiantes
         </Heading>
       </Center>
@@ -181,13 +178,16 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
         <Box alignContent="center" pb={3}>
           <Flex justifyContent="flex-end">
             <Button
-              style={{
-                backgroundColor: "RGB(58, 143, 54)",
-                color: "white",
-              }}
               onClick={() => {
                 setOpen(true);
               }}
+              style={{
+                backgroundColor: "#2374e1",
+                fontSize: ".9375rem",
+                padding: "0.5rem 1rem",
+              }}
+              icon={<IoIosAddCircle size={20} />}
+              name="Nuevo Estudiante"
             >
               Nuevo Estudiante
             </Button>
@@ -206,14 +206,14 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
             zIndex="1"
             top="0px"
             style={{ overflow: "scroll" }}
-            bg={useColorModeValue("gray.200", "#151A21")}
+            bg={useColorModeValue("gray.200", "#242526")}
           >
             {headerGroups.map((headerGroup) => (
               <Tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <Th
                     textAlign="center"
-                    textColor={useColorModeValue("gray.900", "#3B82F6")}
+                    textColor={useColorModeValue("gray.900", "#b0b3b8")}
                     p="1em"
                     className="th1"
                     key={columns}
@@ -227,7 +227,7 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
           </Thead>
           <Tbody
             {...getTableBodyProps()}
-            bg={useColorModeValue("gray.50", "#242C37")}
+            bg={useColorModeValue("gray.50", "#2c3138")}
           >
             {rows.map((row, i) => {
               prepareRow(row);

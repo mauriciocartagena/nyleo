@@ -5,7 +5,7 @@ import ReactModal from "react-modal";
 const customStyles = {
   default: {
     overlay: {
-      backgroundColor: "rgba(244, 244, 244, 0.9)",
+      backgroundColor: "rgba(244, 244, 244, 0.8)",
       zIndex: 1000,
     },
     content: {
@@ -17,7 +17,7 @@ const customStyles = {
       borderRadius: 8,
       padding: "40px 40px 40px 40px",
       transform: "translate(-50%, -50%)",
-      backgroundColor: "var(--color-primary-800)",
+      backgroundColor: "#fff",
       border: "none",
       maxHeight: "80vh",
       width: "90%",
@@ -38,7 +38,7 @@ const customStyles = {
       borderRadius: 8,
       padding: "40px 40px 40px 40px",
       transform: "translate(-50%, -50%)",
-      backgroundColor: "var(--color-primary-800)",
+      backgroundColor: "#18191a",
       border: "none",
       maxHeight: "80vh",
       width: "90%",
@@ -63,6 +63,12 @@ export const Modal: React.FC<
           <Button
             onClick={(e) => props?.onRequestClose?.(e)}
             data-testid="close-modal"
+            style={{
+              backgroundColor: useColorModeValue(
+                "RGB(222, 224, 231)",
+                "rgba(255, 255, 255, 0.1)"
+              ),
+            }}
           >
             x
           </Button>

@@ -8,6 +8,7 @@ import { ButtonLink } from "../../ui/ButtonLink";
 import { Modal } from "../../ui/Modal";
 import { createUrlClient } from "../../utils/createUrqlClient";
 import { toErrorMapEstudiante } from "../../utils/toErrorMapEstudiante";
+import { useColorModeValue } from "@chakra-ui/react";
 
 interface StudentCreateModalProps {
   onRequestClose: () => void;
@@ -26,7 +27,11 @@ const StudentCreateModal: React.FC<StudentCreateModalProps> = ({
 }) => {
   const [, crearEstudiante] = useCrearEstudianteMutation();
   return (
-    <Modal isOpen onRequestClose={onRequestClose}>
+    <Modal
+      isOpen
+      onRequestClose={onRequestClose}
+      variant={useColorModeValue("default", "userPreview")}
+    >
       <Formik<StudentFormData>
         initialValues={{
           nombre: "",
@@ -60,6 +65,13 @@ const StudentCreateModal: React.FC<StudentCreateModalProps> = ({
               autoFocus
               maxLength={60}
               value={values.nombre}
+              style={{
+                color: useColorModeValue("#000", "#fff"),
+                backgroundColor: useColorModeValue(
+                  "RGB(236, 238, 242)",
+                  "RGB(44, 45, 45)"
+                ),
+              }}
             />
 
             <div className={`flex mt-3`}>
@@ -67,6 +79,13 @@ const StudentCreateModal: React.FC<StudentCreateModalProps> = ({
                 name="primer_apellido"
                 label="Primer Apellido"
                 placeholder="Ingrese Primer apellido"
+                style={{
+                  color: useColorModeValue("#000", "#fff"),
+                  backgroundColor: useColorModeValue(
+                    "RGB(236, 238, 242)",
+                    "RGB(44, 45, 45)"
+                  ),
+                }}
                 maxLength={60}
                 value={values.primer_apellido}
               />
@@ -78,6 +97,13 @@ const StudentCreateModal: React.FC<StudentCreateModalProps> = ({
                 placeholder="Ingrese Segundo apellido"
                 maxLength={60}
                 value={values.segundo_apellido}
+                style={{
+                  color: useColorModeValue("#000", "#fff"),
+                  backgroundColor: useColorModeValue(
+                    "RGB(236, 238, 242)",
+                    "RGB(44, 45, 45)"
+                  ),
+                }}
               />
             </div>
             <div className={`flex mt-3`}>
@@ -87,6 +113,14 @@ const StudentCreateModal: React.FC<StudentCreateModalProps> = ({
                 placeholder="Ingrese Email"
                 maxLength={60}
                 value={values.email}
+                style={{
+                  fontWeight: "bold",
+                  color: useColorModeValue("#000", "#fff"),
+                  backgroundColor: useColorModeValue(
+                    "RGB(236, 238, 242)",
+                    "RGB(44, 45, 45)"
+                  ),
+                }}
               />
             </div>
             <div className={`grid grid-cols-2 gap-4 focus:outline-none w-full`}>
@@ -97,6 +131,13 @@ const StudentCreateModal: React.FC<StudentCreateModalProps> = ({
                   placeholder="Ingrese DNI"
                   maxLength={30}
                   value={values.dni}
+                  style={{
+                    color: useColorModeValue("#000", "#fff"),
+                    backgroundColor: useColorModeValue(
+                      "RGB(236, 238, 242)",
+                      "RGB(44, 45, 45)"
+                    ),
+                  }}
                 />
               </div>
               <div className={`flex mt-3`}>
@@ -106,6 +147,13 @@ const StudentCreateModal: React.FC<StudentCreateModalProps> = ({
                   placeholder="Ingrese Numero"
                   maxLength={60}
                   value={values.numero}
+                  style={{
+                    color: useColorModeValue("#000", "#fff"),
+                    backgroundColor: useColorModeValue(
+                      "RGB(236, 238, 242)",
+                      "RGB(44, 45, 45)"
+                    ),
+                  }}
                 />
               </div>
             </div>

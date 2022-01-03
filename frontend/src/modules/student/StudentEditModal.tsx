@@ -81,6 +81,13 @@ const StudentEditModal: React.FC<StudentEditModalProps> = ({
               autoFocus
               maxLength={60}
               value={values.nombre}
+              style={{
+                color: useColorModeValue("#000", "#fff"),
+                backgroundColor: useColorModeValue(
+                  "RGB(236, 238, 242)",
+                  "RGB(44, 45, 45)"
+                ),
+              }}
             />
 
             <div className={`flex mt-3`}>
@@ -90,6 +97,13 @@ const StudentEditModal: React.FC<StudentEditModalProps> = ({
                 placeholder="Ingrese Primer apellido"
                 maxLength={60}
                 value={values.primer_apellido}
+                style={{
+                  color: useColorModeValue("#000", "#fff"),
+                  backgroundColor: useColorModeValue(
+                    "RGB(236, 238, 242)",
+                    "RGB(44, 45, 45)"
+                  ),
+                }}
               />
             </div>
             <div className={`flex mt-3`}>
@@ -99,6 +113,13 @@ const StudentEditModal: React.FC<StudentEditModalProps> = ({
                 placeholder="Ingrese Segundo apellido"
                 maxLength={60}
                 value={values.segundo_apellido}
+                style={{
+                  color: useColorModeValue("#000", "#fff"),
+                  backgroundColor: useColorModeValue(
+                    "RGB(236, 238, 242)",
+                    "RGB(44, 45, 45)"
+                  ),
+                }}
               />
             </div>
             <div className={`flex mt-3`}>
@@ -108,6 +129,13 @@ const StudentEditModal: React.FC<StudentEditModalProps> = ({
                 placeholder="Ingrese Email"
                 maxLength={60}
                 value={values.email}
+                style={{
+                  color: useColorModeValue("#000", "#fff"),
+                  backgroundColor: useColorModeValue(
+                    "RGB(236, 238, 242)",
+                    "RGB(44, 45, 45)"
+                  ),
+                }}
               />
             </div>
             <div className={`grid grid-cols-2 gap-4 focus:outline-none w-full`}>
@@ -118,6 +146,13 @@ const StudentEditModal: React.FC<StudentEditModalProps> = ({
                   placeholder="Ingrese DNI"
                   maxLength={30}
                   value={values.dni}
+                  style={{
+                    color: useColorModeValue("#000", "#fff"),
+                    backgroundColor: useColorModeValue(
+                      "RGB(236, 238, 242)",
+                      "RGB(44, 45, 45)"
+                    ),
+                  }}
                 />
               </div>
               <div className={`flex mt-3`}>
@@ -127,11 +162,23 @@ const StudentEditModal: React.FC<StudentEditModalProps> = ({
                   placeholder="Ingrese Numero"
                   maxLength={60}
                   value={values.numero}
+                  style={{
+                    color: useColorModeValue("#000", "#fff"),
+                    backgroundColor: useColorModeValue(
+                      "RGB(236, 238, 242)",
+                      "RGB(44, 45, 45)"
+                    ),
+                  }}
                 />
               </div>
             </div>
             <div className={`flex pt-4 space-x-3 col-span-full items-center`}>
-              <Button loading={isSubmitting} type="submit" className={`mr-3`}>
+              <Button
+                loading={isSubmitting}
+                type="submit"
+                className={`mr-3`}
+                color="create"
+              >
                 Editar
               </Button>
               <ButtonLink type="button" onClick={onRequestClose}>

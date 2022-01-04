@@ -105,6 +105,7 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
       getExportFileBlob,
       initialState: {
         hiddenColumns: ["id_persona"],
+        pageIndex: 0,
       },
     },
     useSortBy,
@@ -116,12 +117,13 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
+    // rows,
     prepareRow,
     canPreviousPage,
     canNextPage,
     pageOptions,
     pageCount,
+    page,
     gotoPage,
     setPageSize,
     nextPage,
@@ -129,6 +131,7 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
     exportData,
     state: { pageIndex, pageSize },
   } = tableInstance;
+
   return (
     <>
       <Center p="4">
@@ -259,7 +262,6 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
                     textAlign="center"
                     textColor={useColorModeValue("gray.900", "#b0b3b8")}
                     p="1em"
-                    className="th1"
                     key={columns}
                     {...column.getHeaderProps()}
                   >
@@ -273,7 +275,7 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
             {...getTableBodyProps()}
             bg={useColorModeValue("gray.50", "#2c3138")}
           >
-            {rows.map((row, i) => {
+            {page.map((row, i) => {
               prepareRow(row);
               return (
                 <Tr {...row.getRowProps()}>

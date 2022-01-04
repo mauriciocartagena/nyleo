@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { usePagination, useSortBy, useTable } from "react-table";
+import { usePagination, useSortBy, useTable, useFilters } from "react-table";
 import XLSX from "xlsx";
 import Papa from "papaparse";
 import { IoIosAddCircle } from "react-icons/io";
@@ -49,6 +49,27 @@ interface JsPDFCustom extends jsPDF {
 
 export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
   const [open, setOpen] = useState(false);
+
+  function DefaultColumnFilter({
+    column: { filterValue, preFilteredRows, setFilter },
+  }) {
+    const count = preFilteredRows.length;
+
+    return (
+      <input
+        value={filterValue || ""}
+        onChange={(e) => {
+          setFilter(e.target.value || undefined);
+        }}
+        placeholder={`Buscar ${count} aprox...`}
+      />
+    );
+  }
+
+  const defaultColumn = {
+    Filter: DefaultColumnFilter,
+  };
+
   const getExportFileBlob = ({ columns, data, fileType, fileName }) => {
     if (fileType === "csv") {
       // CSV example
@@ -102,12 +123,14 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
     {
       columns: columns,
       data: data,
+      defaultColumn,
       getExportFileBlob,
       initialState: {
         hiddenColumns: ["id_persona"],
         pageIndex: 0,
       },
     },
+    useFilters,
     useSortBy,
     usePagination,
     useExportData
@@ -266,6 +289,16 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
                     {...column.getHeaderProps()}
                   >
                     {column.render("Header")}
+                    {column.canFilter ? column.render("Filter") : null}
+                    {
+                      <span>
+                        {column.isSorted
+                          ? column.isSortedDesc
+                            ? " abajo"
+                            : " arriba"
+                          : ""}
+                      </span>
+                    }
                   </Th>
                 ))}
               </Tr>

@@ -31,7 +31,7 @@ const ButtonEdit: React.FC<ButtonEditProps> = ({
     <>
       <Button
         size="small"
-        color="secondary-800"
+        color="primary-blue"
         onClick={async () => {
           setOpen(true);
         }}

@@ -25,6 +25,7 @@ const colorClassnames = {
     "text-button bg-secondary hover:bg-secondary-washed-out disabled:text-secondary-washed-out",
   create:
     "text-button bg-create hover:bg-caccent-hover disabled:text-caccent-disabled disabled:bg-caccent-hover",
+  "primary-blue":"text-button bg-primary-blue hover:bg-primary-blue-hover disabled:text-primary-blue-disabled disabled:bg-primary-blue-hover",
 };
 
 export type ButtonProps = DetailedHTMLProps<
@@ -41,7 +42,7 @@ export type ButtonProps = DetailedHTMLProps<
 export const Button: React.FC<ButtonProps> = ({
   children,
   size = "big",
-  color = "primary",
+  color ="primary",
   disabled,
   loading,
   icon,

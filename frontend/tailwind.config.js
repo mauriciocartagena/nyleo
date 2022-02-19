@@ -63,6 +63,16 @@ module.exports = {
         hover: "var(--color-caccent-hover)",
         disabled: "var(--color-caccent-disabled)",
       },
+      "primary-blue": {
+        DEFAULT: "var(--color-primary-blue)",
+        hover: "var(--color-primary-blue-hover)",
+        disabled: "var(--color-primary-blue-disabled)",
+      },
+      success: {
+        DEFAULT: "var(--color-success)",
+        hover: "var(--color-success-hover)",
+        disabled: "var(--color-success-disabled)",
+      },
       black: "#000",
     },
     spacing: {

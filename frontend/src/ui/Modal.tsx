@@ -5,7 +5,7 @@ import ReactModal from "react-modal";
 const customStyles = {
   default: {
     overlay: {
-      backgroundColor: "rgba(244, 244, 244, 0.8)",
+      backgroundColor: "rgba(0, 0, 0, 0.6)",
       zIndex: 1000,
     },
     content: {

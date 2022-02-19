@@ -49,7 +49,7 @@ export const LayoutPage: React.FC<LayoutPageProps> = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box minH="100vh" bg={useColorModeValue("#f0f2f5", "#18191a")}>
+    <Box minH="100vh" bg={useColorModeValue("#F2F4F6", "#18191a")}>
       <SidebarContent
         onClose={() => onClose}
         display={{ base: "none", md: "block" }}
@@ -69,7 +69,7 @@ export const LayoutPage: React.FC<LayoutPageProps> = ({
       </Drawer>
       {/* mobilenav */}
       <MobileNav display={{ base: "flex", md: "none" }} onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
+      <Box ml={{ base: 0, md: 60 }} p="4" >
         {children}
       </Box>
     </Box>
@@ -84,7 +84,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Box
-      bg={useColorModeValue("#f0f2f5", "#18191a")}
+      bg={useColorModeValue("#ffffff", "#18191a")}
       w={{ base: "full", md: 60 }}
       pos="fixed"
       h="full"

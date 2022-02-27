@@ -10,9 +10,9 @@ import {
 import { getConnection } from "typeorm";
 import { Persona } from "../entities/Persona";
 import { Estudiante } from "../entities/Estudiante";
-import { EstudianteInput } from "./EstudianteInput";
+import { EstudianteInput } from "./Inputs/Estudiante/EstudianteInput";
 import { validateRegisterEstudiante } from "../utils/validateRegisterEstudiante";
-import { EstudianteInputEditar } from "./EstudianteInputEditar";
+import { EstudianteInputEditar } from "./Inputs/Estudiante/EstudianteInputEditar";
 import { validateEditarEstudiante } from "../utils/validateEditarEstudiante";
 
 @ObjectType()

@@ -1,4 +1,4 @@
-import { EstudianteInput } from "../resolvers/EstudianteInput";
+import { EstudianteInput } from "../resolvers/Inputs/Estudiante/EstudianteInput";
 
 export const validateRegisterEstudiante = (input: EstudianteInput) => {
   if (input.nombre.length <= 2) {

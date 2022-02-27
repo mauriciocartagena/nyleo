@@ -34,7 +34,7 @@ interface LinkItemProps {
 }
 const LinkItems: Array<LinkItemProps> = [
   { name: "Estudiantes", icon: FiHome, route: "/student" },
-  { name: "Materias", icon: FiTrendingUp, route: "/subjects" },
+  { name: "Materias", icon: FiTrendingUp, route: "/subject" },
   { name: "Horarios", icon: FiCompass, route: "/schedule" },
   { name: "Turnos", icon: FiStar, route: "/turns" },
   { name: "Cursos", icon: FiSettings, route: "/courses" },
@@ -69,7 +69,7 @@ export const LayoutPage: React.FC<LayoutPageProps> = ({
       </Drawer>
       {/* mobilenav */}
       <MobileNav display={{ base: "flex", md: "none" }} onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4" >
+      <Box ml={{ base: 0, md: 60 }} p="4">
         {children}
       </Box>
     </Box>

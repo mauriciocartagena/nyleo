@@ -1,4 +1,3 @@
-import { Button } from "@chakra-ui/react";
 import ButtonDelete from "./ButtonDelete";
 import ButtonEdit from "./ButtonEdit";
 

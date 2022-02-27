@@ -311,6 +311,11 @@ export type EliminarEstudianteMutationVariables = Exact<{
 
 export type EliminarEstudianteMutation = { __typename?: 'Mutation', eliminarEstudiante: boolean };
 
+export type CategoriasQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CategoriasQuery = { __typename?: 'Query', categorias: Array<{ __typename?: 'Categoria', id_categoria: number, nombre: string }> };
+
 export type EstudiantesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -369,6 +374,18 @@ export const EliminarEstudianteDocument = gql`
 
 export function useEliminarEstudianteMutation() {
   return Urql.useMutation<EliminarEstudianteMutation, EliminarEstudianteMutationVariables>(EliminarEstudianteDocument);
+};
+export const CategoriasDocument = gql`
+    query Categorias {
+  categorias {
+    id_categoria
+    nombre
+  }
+}
+    `;
+
+export function useCategoriasQuery(options: Omit<Urql.UseQueryArgs<CategoriasQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<CategoriasQuery>({ query: CategoriasDocument, ...options });
 };
 export const EstudiantesDocument = gql`
     query Estudiantes {

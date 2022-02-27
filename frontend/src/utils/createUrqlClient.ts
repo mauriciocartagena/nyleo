@@ -11,14 +11,22 @@ export const createUrlClient = (ssrExchange: any) => ({
     cacheExchange({
       updates: {
         Mutation: {
+          // All Entities Created
           crearEstudiante: (_result, args, cache, info) => {
             cache.invalidate("Query", "estudiantes");
           },
-          eliminarEstudiante: (_result, args, cache) => {
-            cache.invalidate({ __typename: "Query", estudiantes: true });
+          crearCategoria: (_result, args, cache, info) => {
+            cache.invalidate("Query", "categorias");
           },
+
+          // All Entities Updated
           actualizarEstudiante: (_result, args, cache) => {
             cache.invalidate("Query", "estudiantes");
+          },
+
+          // All Entities Deleted
+          eliminarEstudiante: (_result, args, cache) => {
+            cache.invalidate({ __typename: "Query", estudiantes: true });
           },
         },
       },

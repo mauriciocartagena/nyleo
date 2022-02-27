@@ -1,0 +1,4 @@
+fragment RegularCategoria on Categoria {
+  id_categoria
+  nombre
+}

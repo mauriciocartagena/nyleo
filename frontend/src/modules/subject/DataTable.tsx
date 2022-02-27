@@ -36,6 +36,7 @@ import { UserOptions } from "jspdf-autotable";
 import { ButtonExport } from "../../ui/ButtonExport";
 import { Button } from "../../ui/Button";
 import { GrDocumentCsv, GrDocumentExcel, GrDocumentPdf } from "../../icons";
+import SubjectCreateModal from "./SubjectCreateModal";
 
 // GrDocumentCsv
 interface DataTableProps {
@@ -454,9 +455,9 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
           </Stack>
         </Flex>
       </Flex>
-      {/* {open ? (
-        <StudentCreateModal pageProps onRequestClose={() => setOpen(false)} />
-      ) : null} */}
+      {open ? (
+        <SubjectCreateModal pageProps onRequestClose={() => setOpen(false)} />
+      ) : null}
     </>
   );
 };

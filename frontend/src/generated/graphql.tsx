@@ -23,6 +23,16 @@ export type Categoria = {
   nombre: Scalars['String'];
 };
 
+export type CategoriaInput = {
+  nombre: Scalars['String'];
+};
+
+export type CategoriaResponse = {
+  __typename?: 'CategoriaResponse';
+  categoria?: Maybe<Categoria>;
+  errors?: Maybe<Array<FieldErrorCategoria>>;
+};
+
 export type Curso = {
   __typename?: 'Curso';
   id_curso: Scalars['Int'];
@@ -61,6 +71,12 @@ export type FieldError = {
   message: Scalars['String'];
 };
 
+export type FieldErrorCategoria = {
+  __typename?: 'FieldErrorCategoria';
+  field: Scalars['String'];
+  message: Scalars['String'];
+};
+
 export type FieldErrorEstudiante = {
   __typename?: 'FieldErrorEstudiante';
   field: Scalars['String'];
@@ -90,7 +106,7 @@ export type Mutation = {
   actualizarEstudiante: EstudianteResponse;
   actualizarGrupo: Array<Grupo>;
   actualizarTurno?: Maybe<Turno>;
-  crearCategoria: Categoria;
+  crearCategoria: CategoriaResponse;
   crearCurso: Curso;
   crearEstudiante: EstudianteResponse;
   crearGrupo?: Maybe<Grupo>;
@@ -143,7 +159,7 @@ export type MutationActualizarTurnoArgs = {
 
 
 export type MutationCrearCategoriaArgs = {
-  nombre: Scalars['String'];
+  input: CategoriaInput;
 };
 
 
@@ -288,6 +304,8 @@ export type UsuarioPasswordInput = {
   usuario: Scalars['String'];
 };
 
+export type RegularCategoriaFragment = { __typename?: 'Categoria', id_categoria: number, nombre: string };
+
 export type RegularEstudianteFragment = { __typename?: 'Persona', id_persona: number, nombre: string, primer_apellido: string, segundo_apellido: string, dni: string, numero: string, email: string };
 
 export type ActualizarEstudianteMutationVariables = Exact<{
@@ -296,6 +314,13 @@ export type ActualizarEstudianteMutationVariables = Exact<{
 
 
 export type ActualizarEstudianteMutation = { __typename?: 'Mutation', actualizarEstudiante: { __typename?: 'EstudianteResponse', errors?: Array<{ __typename?: 'FieldErrorEstudiante', field: string, message: string }> | null | undefined, persona?: { __typename?: 'Persona', id_persona: number, nombre: string, primer_apellido: string, segundo_apellido: string, dni: string, numero: string, email: string } | null | undefined } };
+
+export type CrearCategoriaMutationVariables = Exact<{
+  input: CategoriaInput;
+}>;
+
+
+export type CrearCategoriaMutation = { __typename?: 'Mutation', crearCategoria: { __typename?: 'CategoriaResponse', errors?: Array<{ __typename?: 'FieldErrorCategoria', field: string, message: string }> | null | undefined, categoria?: { __typename?: 'Categoria', id_categoria: number, nombre: string } | null | undefined } };
 
 export type CrearEstudianteMutationVariables = Exact<{
   input: EstudianteInput;
@@ -321,6 +346,12 @@ export type EstudiantesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type EstudiantesQuery = { __typename?: 'Query', estudiantes: Array<{ __typename?: 'Persona', id_persona: number, nombre: string, primer_apellido: string, segundo_apellido: string, dni: string, numero: string, email: string }> };
 
+export const RegularCategoriaFragmentDoc = gql`
+    fragment RegularCategoria on Categoria {
+  id_categoria
+  nombre
+}
+    `;
 export const RegularEstudianteFragmentDoc = gql`
     fragment RegularEstudiante on Persona {
   id_persona
@@ -348,6 +379,23 @@ export const ActualizarEstudianteDocument = gql`
 
 export function useActualizarEstudianteMutation() {
   return Urql.useMutation<ActualizarEstudianteMutation, ActualizarEstudianteMutationVariables>(ActualizarEstudianteDocument);
+};
+export const CrearCategoriaDocument = gql`
+    mutation CrearCategoria($input: CategoriaInput!) {
+  crearCategoria(input: $input) {
+    errors {
+      field
+      message
+    }
+    categoria {
+      ...RegularCategoria
+    }
+  }
+}
+    ${RegularCategoriaFragmentDoc}`;
+
+export function useCrearCategoriaMutation() {
+  return Urql.useMutation<CrearCategoriaMutation, CrearCategoriaMutationVariables>(CrearCategoriaDocument);
 };
 export const CrearEstudianteDocument = gql`
     mutation CrearEstudiante($input: EstudianteInput!) {

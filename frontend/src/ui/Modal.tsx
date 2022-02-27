@@ -22,6 +22,7 @@ const customStyles = {
       maxHeight: "80vh",
       width: "90%",
       maxWidth: 530,
+      boxShadow: "0 10px 40px rgb(41 50 65 / 6%)",
     },
   },
   userPreview: {
@@ -64,10 +65,10 @@ export const Modal: React.FC<
             onClick={(e) => props?.onRequestClose?.(e)}
             data-testid="close-modal"
             style={{
-              backgroundColor: useColorModeValue(
-                "RGB(222, 224, 231)",
-                "rgba(255, 255, 255, 0.1)"
-              ),
+              color: "#83888F",
+              border: "none",
+              fontSize: "1.5rem",
+              cursor: "pointer",
             }}
           >
             x

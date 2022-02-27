@@ -82,11 +82,9 @@ const StudentEditModal: React.FC<StudentEditModalProps> = ({
               maxLength={60}
               value={values.nombre}
               style={{
-                color: useColorModeValue("#000", "#fff"),
-                backgroundColor: useColorModeValue(
-                  "RGB(236, 238, 242)",
-                  "RGB(44, 45, 45)"
-                ),
+                color: "#69707A",
+                backgroundColor: useColorModeValue("#FCFCFC", "#000"),
+                border: "1px solid #D4D6D9",
               }}
             />
 
@@ -98,11 +96,9 @@ const StudentEditModal: React.FC<StudentEditModalProps> = ({
                 maxLength={60}
                 value={values.primer_apellido}
                 style={{
-                  color: useColorModeValue("#000", "#fff"),
-                  backgroundColor: useColorModeValue(
-                    "RGB(236, 238, 242)",
-                    "RGB(44, 45, 45)"
-                  ),
+                  color: "#69707A",
+                  backgroundColor: useColorModeValue("#FCFCFC", "#000"),
+                  border: "1px solid #D4D6D9",
                 }}
               />
             </div>
@@ -114,11 +110,9 @@ const StudentEditModal: React.FC<StudentEditModalProps> = ({
                 maxLength={60}
                 value={values.segundo_apellido}
                 style={{
-                  color: useColorModeValue("#000", "#fff"),
-                  backgroundColor: useColorModeValue(
-                    "RGB(236, 238, 242)",
-                    "RGB(44, 45, 45)"
-                  ),
+                  color: "#69707A",
+                  backgroundColor: useColorModeValue("#FCFCFC", "#000"),
+                  border: "1px solid #D4D6D9",
                 }}
               />
             </div>
@@ -130,11 +124,9 @@ const StudentEditModal: React.FC<StudentEditModalProps> = ({
                 maxLength={60}
                 value={values.email}
                 style={{
-                  color: useColorModeValue("#000", "#fff"),
-                  backgroundColor: useColorModeValue(
-                    "RGB(236, 238, 242)",
-                    "RGB(44, 45, 45)"
-                  ),
+                  color: "#69707A",
+                  backgroundColor: useColorModeValue("#FCFCFC", "#000"),
+                  border: "1px solid #D4D6D9",
                 }}
               />
             </div>
@@ -147,11 +139,9 @@ const StudentEditModal: React.FC<StudentEditModalProps> = ({
                   maxLength={30}
                   value={values.dni}
                   style={{
-                    color: useColorModeValue("#000", "#fff"),
-                    backgroundColor: useColorModeValue(
-                      "RGB(236, 238, 242)",
-                      "RGB(44, 45, 45)"
-                    ),
+                    color: "#69707A",
+                    backgroundColor: useColorModeValue("#FCFCFC", "#000"),
+                    border: "1px solid #D4D6D9",
                   }}
                 />
               </div>
@@ -163,11 +153,9 @@ const StudentEditModal: React.FC<StudentEditModalProps> = ({
                   maxLength={60}
                   value={values.numero}
                   style={{
-                    color: useColorModeValue("#000", "#fff"),
-                    backgroundColor: useColorModeValue(
-                      "RGB(236, 238, 242)",
-                      "RGB(44, 45, 45)"
-                    ),
+                    color: "#69707A",
+                    backgroundColor: useColorModeValue("#FCFCFC", "#000"),
+                    border: "1px solid #D4D6D9",
                   }}
                 />
               </div>

@@ -303,10 +303,17 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
                     textAlign="left"
                     boxSizing="content-box"
                     padding="1rem"
-                    borderWidth="0 0 1px 0"
-                    textColor={useColorModeValue("gray.900", "#b0b3b8")}
+                    border="1px solid rgba(82, 151, 255, 0.2)"
+                    borderWidth="1px 0 1px 0"
+                    boxSize="content-box"
                     p="1rem 1rem"
+                    color="#69707A"
                     key={columns}
+                    fontSize="1rem"
+                    letterSpacing="0.00rem"
+                    fontFamily="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif Apple Color Emoji Segoe UI Emoji Segoe UI Symbol"
+                    fontWeight="600"
+                    textTransform="capitalize"
                     {...column.getHeaderProps()}
                   >
                     {column.render("Header")}
@@ -329,7 +336,7 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
             {page.map((row, i) => {
               prepareRow(row);
               return (
-                <Tr {...row.getRowProps()}>
+                <Tr {...row.getRowProps()} color="#69707A">
                   {row.cells.map((cell) => {
                     return (
                       <Td

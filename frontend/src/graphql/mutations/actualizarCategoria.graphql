@@ -1,0 +1,11 @@
+mutation ActualizarCategoria($input: CategoriaInputEditar!) {
+  actualizarCategoria(input: $input) {
+    errors {
+      field
+      message
+    }
+    categoria {
+      ...RegularCategoria
+    }
+  }
+}

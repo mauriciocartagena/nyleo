@@ -27,6 +27,11 @@ export type CategoriaInput = {
   nombre: Scalars['String'];
 };
 
+export type CategoriaInputEditar = {
+  id_categoria: Scalars['Float'];
+  nombre: Scalars['String'];
+};
+
 export type CategoriaResponse = {
   __typename?: 'CategoriaResponse';
   categoria?: Maybe<Categoria>;
@@ -101,7 +106,7 @@ export type LoginUsuarioPasswordInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  actualizarCategoria?: Maybe<Categoria>;
+  actualizarCategoria: CategoriaResponse;
   actualizarCurso: Curso;
   actualizarEstudiante: EstudianteResponse;
   actualizarGrupo: Array<Grupo>;
@@ -122,8 +127,7 @@ export type Mutation = {
 
 
 export type MutationActualizarCategoriaArgs = {
-  id_categoria: Scalars['Float'];
-  nombre?: InputMaybe<Scalars['String']>;
+  input: CategoriaInputEditar;
 };
 
 
@@ -308,6 +312,13 @@ export type RegularCategoriaFragment = { __typename?: 'Categoria', id_categoria:
 
 export type RegularEstudianteFragment = { __typename?: 'Persona', id_persona: number, nombre: string, primer_apellido: string, segundo_apellido: string, dni: string, numero: string, email: string };
 
+export type ActualizarCategoriaMutationVariables = Exact<{
+  input: CategoriaInputEditar;
+}>;
+
+
+export type ActualizarCategoriaMutation = { __typename?: 'Mutation', actualizarCategoria: { __typename?: 'CategoriaResponse', errors?: Array<{ __typename?: 'FieldErrorCategoria', field: string, message: string }> | null | undefined, categoria?: { __typename?: 'Categoria', id_categoria: number, nombre: string } | null | undefined } };
+
 export type ActualizarEstudianteMutationVariables = Exact<{
   input: EstudianteInputEditar;
 }>;
@@ -363,6 +374,23 @@ export const RegularEstudianteFragmentDoc = gql`
   email
 }
     `;
+export const ActualizarCategoriaDocument = gql`
+    mutation ActualizarCategoria($input: CategoriaInputEditar!) {
+  actualizarCategoria(input: $input) {
+    errors {
+      field
+      message
+    }
+    categoria {
+      ...RegularCategoria
+    }
+  }
+}
+    ${RegularCategoriaFragmentDoc}`;
+
+export function useActualizarCategoriaMutation() {
+  return Urql.useMutation<ActualizarCategoriaMutation, ActualizarCategoriaMutationVariables>(ActualizarCategoriaDocument);
+};
 export const ActualizarEstudianteDocument = gql`
     mutation ActualizarEstudiante($input: EstudianteInputEditar!) {
   actualizarEstudiante(input: $input) {

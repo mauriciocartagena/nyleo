@@ -11,6 +11,8 @@ import { getConnection } from "typeorm";
 import { Categoria } from "../entities/Categoria";
 import { CategoriaInput } from "./Inputs/Categoria/CategoriaInput";
 import { validateRegisterCategoria } from "../utils/validateRegisterCategoria";
+import { CategoriaInputEditar } from "./Inputs/Categoria/CategoriaInputEditar";
+import { validateEditarCategoria } from "../utils/validateEditarCategoria";
 
 @ObjectType()
 class FieldErrorCategoria {
@@ -90,24 +92,67 @@ export class CategoriaResolver {
     }
   }
 
-  @Mutation(() => Categoria, { nullable: true })
+  @Mutation(() => CategoriaResponse)
   async actualizarCategoria(
-    @Arg("id_categoria") id_categoria: number,
-    @Arg("nombre", () => String, { nullable: true }) nombre: string
-  ): Promise<Categoria | null> {
+    @Arg("input") input: CategoriaInputEditar
+  ): Promise<CategoriaResponse> {
     const conn = getConnection();
 
-    const categoria = await conn.manager.findOne(Categoria, { id_categoria });
+    const errors = validateEditarCategoria(input);
+
+    if (errors) {
+      return {
+        errors,
+      };
+    }
+
+    const categoria = await conn.manager.findOne(Categoria, input.id_categoria);
 
     if (!categoria) {
-      return null;
+      return {
+        errors: [
+          {
+            field: "Error",
+            message: "No se encontró la categoria",
+          },
+        ],
+      };
     }
-    if (typeof nombre !== "undefined") {
-      categoria.nombre = nombre;
 
-      await conn.manager.update(Categoria, { id_categoria }, categoria);
+    try {
+      const response = await conn
+        .createQueryBuilder()
+        .update(Categoria)
+        .set({
+          nombre: input.nombre,
+        })
+        .where("id_categoria=" + input.id_categoria)
+        .returning("*")
+        .execute();
+
+      return { categoria: response.raw[0] };
+    } catch (error) {
+      if (error.detail.includes("already exists")) {
+        if (error.detail.includes("nombre")) {
+          return {
+            errors: [
+              {
+                field: "nombre",
+                message: "El nombre ya está en uso",
+              },
+            ],
+          };
+        }
+      }
+      return {
+        errors: [
+          {
+            field: "Error",
+            message: "Error al actualizar la categoria",
+          },
+        ],
+      };
     }
-    return categoria;
   }
 
   @Mutation(() => Boolean)

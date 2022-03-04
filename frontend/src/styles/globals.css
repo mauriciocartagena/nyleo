@@ -82,23 +82,23 @@ p.small {
 }
 
 /* for firefox */
-* {
+/* * {
   scrollbar-width: thin;
   scrollbar-color: #69707a #1f1f1f;
-}
+} */
 
 /* for non-firefox */
-::-webkit-scrollbar {
-  overflow: overlay;
-  width: 8px;
-  /* shouldnt hardcode width, pls find way to make it dynamic, thin wasn't working for me...*/
-}
+/* ::-webkit-scrollbar { */
+/* overflow: overlay;
+  width: 8px; */
+/* shouldnt hardcode width, pls find way to make it dynamic, thin wasn't working for me...*/
+/* } */
 
-::-webkit-scrollbar-track {
-  display: initial;
-}
+/* ::-webkit-scrollbar-track {
+  display: initial; */
+/* } */
 
-::-webkit-scrollbar-thumb {
+/* ::-webkit-scrollbar-thumb {
   background: #69707a;
   padding: 1rem;
   border-radius: 6px;
@@ -106,7 +106,7 @@ p.small {
   -moz-border-radius: 6px;
   -ms-border-radius: 6px;
   -o-border-radius: 6px;
-}
+} */
 
 #__next {
   overflow-y: auto;

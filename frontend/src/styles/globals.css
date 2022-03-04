@@ -8,7 +8,7 @@ h2,
 h3,
 h4,
 p {
-    line-height: 1.6;
+  line-height: 1.6;
 }
 
 h1,
@@ -16,124 +16,129 @@ h2,
 h3,
 h4,
 p.bold {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 :root {
-    font-size: 14px;
+  font-size: 14px;
 
-    --color-button-text: #fff;
-    --color-primary-100: #dee3ea;
-    --color-primary-200: #b2bdcd;
-    --color-primary-300: #5d7290;
-    --color-primary-600: #323d4d;
-    --color-primary-700: #242c37;
-    --color-primary-800: #151a21;
-    --color-primary-900: #0b0e11;
-    --color-secondary-washed-out: #879eed;
-    --color-secondary: #5575e7;
-    --color-accent-glow: rgba(253, 77, 77, 0.3);
-    --color-accent: hsl(0, 98%, 65%);
-    --color-accent-hover: hsl(0, 97%, 70%);
-    --color-accent-disabled: hsl(0, 73%, 85%);
-    --screen-height-reduction: 0px;
-    --color-primary-100-translucent: rgba(222, 227, 234, 0.15);
-    --color-button-create: hsl(220, 80%, 48%);
-    --color-caccent: hsl(220, 80%, 48%);
-    --color-caccent-hover: hsl(220, 80%, 53%);
-    --color-caccent-disabled: hsl(220, 80%, 68%);
+  --color-button-text: #fff;
+  --color-primary-100: #dee3ea;
+  --color-primary-200: #b2bdcd;
+  --color-primary-300: #5d7290;
+  --color-primary-600: #323d4d;
+  --color-primary-700: #242c37;
+  --color-primary-800: #151a21;
+  --color-primary-900: #0b0e11;
+  --color-secondary-washed-out: #879eed;
+  --color-secondary: #5575e7;
+  --color-accent-glow: rgba(253, 77, 77, 0.3);
+  --color-accent: hsl(0, 98%, 65%);
+  --color-accent-hover: hsl(0, 97%, 70%);
+  --color-accent-disabled: hsl(0, 73%, 85%);
+  --screen-height-reduction: 0px;
+  --color-primary-100-translucent: rgba(222, 227, 234, 0.15);
+  --color-button-create: hsl(220, 80%, 48%);
+  --color-caccent: hsl(220, 80%, 48%);
+  --color-caccent-hover: hsl(220, 80%, 53%);
+  --color-caccent-disabled: hsl(220, 80%, 68%);
 
-    --color-button-text: #fff;
-    --color-primary-blue: #0288D1;
-    --color-primary-blue-hover: #027ABC;
-    --color-primary-blue-disabled: rgba(2, 136, 209, 0.5);
-    --color-primary-blue-glow: rgba(2, 136, 209, 0.3);
-    --color-primary-blue-glow-hover: rgba(2, 136, 209, 0.5);
-    --color-primary-blue-glow-disabled: rgba(2, 136, 209, 0.5);
-    --color-primary-blue-glow-active: rgba(2, 136, 209, 0.7);
-    --color-primary-blue-glow-active-hover: rgba(2, 136, 209, 0.9);
+  --color-scroll-bar: rgb(105, 112, 122);
 
-
+  --color-button-text: #fff;
+  --color-primary-blue: #0288d1;
+  --color-primary-blue-hover: #027abc;
+  --color-primary-blue-disabled: rgba(2, 136, 209, 0.5);
+  --color-primary-blue-glow: rgba(2, 136, 209, 0.3);
+  --color-primary-blue-glow-hover: rgba(2, 136, 209, 0.5);
+  --color-primary-blue-glow-disabled: rgba(2, 136, 209, 0.5);
+  --color-primary-blue-glow-active: rgba(2, 136, 209, 0.7);
+  --color-primary-blue-glow-active-hover: rgba(2, 136, 209, 0.9);
 }
 
 h1 {
-    font-size: 4rem;
+  font-size: 4rem;
 }
 
 h2 {
-    font-size: 2.8rem;
+  font-size: 2.8rem;
 }
 
 h3 {
-    font-size: 2rem;
+  font-size: 2rem;
 }
 
 h4 {
-    font-size: 1.4rem;
+  font-size: 1.4rem;
 }
 
 p {
-    font-size: 1rem;
-    font-weight: 500;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 p.small {
-    font-size: 0.85rem;
+  font-size: 0.85rem;
 }
 
 /* for firefox */
 * {
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-primary-700) rgba(0, 0, 0, 0);
+  scrollbar-width: thin;
+  scrollbar-color: #69707a #1f1f1f;
 }
 
 /* for non-firefox */
 ::-webkit-scrollbar {
-    overflow: overlay;
-    width: 8px;
-    /* shouldnt hardcode width, pls find way to make it dynamic, thin wasn't working for me...*/
+  overflow: overlay;
+  width: 8px;
+  /* shouldnt hardcode width, pls find way to make it dynamic, thin wasn't working for me...*/
 }
 
 ::-webkit-scrollbar-track {
-    display: initial;
+  display: initial;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--color-primary-700);
-    border-radius: 5px;
+  background: #69707a;
+  padding: 1rem;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
 }
 
 #__next {
-    overflow-y: auto;
+  overflow-y: auto;
 }
 
 ::-webkit-resizer {
-    background: var(--color-primary-700);
+  background: var(--color-primary-700);
 }
 
 #nprogress {
-    position: relative;
-    z-index: 9999999;
+  position: relative;
+  z-index: 9999999;
 }
 
 #nprogress .bar {
-    background: var(--color-accent-hover) !important;
+  background: var(--color-accent-hover) !important;
 }
 
 #nprogress .peg {
-    box-shadow: 0 0 10px var(--color-accent-hover),
+  box-shadow: 0 0 10px var(--color-accent-hover),
     0 0 5px var(--color-accent-hover) !important;
 }
 
 #nprogress .spinner-icon {
-    border-top-color: var(--color-accent-hover) !important;
-    border-left-color: var(--color-accent-hover) !important;
+  border-top-color: var(--color-accent-hover) !important;
+  border-left-color: var(--color-accent-hover) !important;
 }
 
 .h-screen {
-    height: calc(100vh - var(--screen-height-reduction));
+  height: calc(100vh - var(--screen-height-reduction));
 }
 
 button:focus {
-    outline: none;
+  outline: none;
 }

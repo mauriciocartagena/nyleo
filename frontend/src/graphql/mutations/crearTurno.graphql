@@ -1,0 +1,11 @@
+mutation CrearTurno($input: TurnoInput!) {
+  crearTurno(input: $input) {
+    errors {
+      field
+      message
+    }
+    turno {
+      ...RegularTurno
+    }
+  }
+}

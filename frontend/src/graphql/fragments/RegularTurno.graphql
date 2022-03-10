@@ -1,0 +1,6 @@
+fragment RegularTurno on Turno {
+  id_turno
+  nombre
+  hora_inicio
+  hora_final
+}

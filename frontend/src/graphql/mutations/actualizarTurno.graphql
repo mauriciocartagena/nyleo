@@ -1,0 +1,11 @@
+mutation ActualizarTurno($input: TurnoInputEditar!) {
+  actualizarTurno(input: $input) {
+    errors {
+      field
+      message
+    }
+    turno {
+      ...RegularTurno
+    }
+  }
+}

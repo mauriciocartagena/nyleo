@@ -88,6 +88,12 @@ export type FieldErrorEstudiante = {
   message: Scalars['String'];
 };
 
+export type FieldErrorTurno = {
+  __typename?: 'FieldErrorTurno';
+  field: Scalars['String'];
+  message: Scalars['String'];
+};
+
 export type Grupo = {
   __typename?: 'Grupo';
   dia_final: Scalars['String'];
@@ -110,12 +116,12 @@ export type Mutation = {
   actualizarCurso: Curso;
   actualizarEstudiante: EstudianteResponse;
   actualizarGrupo: Array<Grupo>;
-  actualizarTurno?: Maybe<Turno>;
+  actualizarTurno: TurnoResponse;
   crearCategoria: CategoriaResponse;
   crearCurso: Curso;
   crearEstudiante: EstudianteResponse;
   crearGrupo?: Maybe<Grupo>;
-  crearTurno: Turno;
+  crearTurno: TurnoResponse;
   eliminarCategoria: Scalars['Boolean'];
   eliminarCurso: Scalars['Boolean'];
   eliminarEstudiante: Scalars['Boolean'];
@@ -155,10 +161,7 @@ export type MutationActualizarGrupoArgs = {
 
 
 export type MutationActualizarTurnoArgs = {
-  hora_final: Scalars['String'];
-  hora_inicio: Scalars['String'];
-  id_turno: Scalars['Float'];
-  nombre: Scalars['String'];
+  input: TurnoInputEditar;
 };
 
 
@@ -189,9 +192,7 @@ export type MutationCrearGrupoArgs = {
 
 
 export type MutationCrearTurnoArgs = {
-  hora_final: Scalars['String'];
-  hora_inicio: Scalars['String'];
-  nombre: Scalars['String'];
+  input: TurnoInput;
 };
 
 
@@ -289,6 +290,25 @@ export type Turno = {
   nombre: Scalars['String'];
 };
 
+export type TurnoInput = {
+  hora_final: Scalars['String'];
+  hora_inicio: Scalars['String'];
+  nombre: Scalars['String'];
+};
+
+export type TurnoInputEditar = {
+  hora_final: Scalars['String'];
+  hora_inicio: Scalars['String'];
+  id_turno: Scalars['Float'];
+  nombre: Scalars['String'];
+};
+
+export type TurnoResponse = {
+  __typename?: 'TurnoResponse';
+  errors?: Maybe<Array<FieldErrorTurno>>;
+  turno?: Maybe<Turno>;
+};
+
 export type UserResponse = {
   __typename?: 'UserResponse';
   errors?: Maybe<Array<FieldError>>;
@@ -312,6 +332,8 @@ export type RegularCategoriaFragment = { __typename?: 'Categoria', id_categoria:
 
 export type RegularEstudianteFragment = { __typename?: 'Persona', id_persona: number, nombre: string, primer_apellido: string, segundo_apellido: string, dni: string, numero: string, email: string };
 
+export type RegularTurnoFragment = { __typename?: 'Turno', id_turno: number, nombre: string, hora_inicio: string, hora_final: string };
+
 export type ActualizarCategoriaMutationVariables = Exact<{
   input: CategoriaInputEditar;
 }>;
@@ -326,6 +348,13 @@ export type ActualizarEstudianteMutationVariables = Exact<{
 
 export type ActualizarEstudianteMutation = { __typename?: 'Mutation', actualizarEstudiante: { __typename?: 'EstudianteResponse', errors?: Array<{ __typename?: 'FieldErrorEstudiante', field: string, message: string }> | null | undefined, persona?: { __typename?: 'Persona', id_persona: number, nombre: string, primer_apellido: string, segundo_apellido: string, dni: string, numero: string, email: string } | null | undefined } };
 
+export type ActualizarTurnoMutationVariables = Exact<{
+  input: TurnoInputEditar;
+}>;
+
+
+export type ActualizarTurnoMutation = { __typename?: 'Mutation', actualizarTurno: { __typename?: 'TurnoResponse', errors?: Array<{ __typename?: 'FieldErrorTurno', field: string, message: string }> | null | undefined, turno?: { __typename?: 'Turno', id_turno: number, nombre: string, hora_inicio: string, hora_final: string } | null | undefined } };
+
 export type CrearCategoriaMutationVariables = Exact<{
   input: CategoriaInput;
 }>;
@@ -339,6 +368,13 @@ export type CrearEstudianteMutationVariables = Exact<{
 
 
 export type CrearEstudianteMutation = { __typename?: 'Mutation', crearEstudiante: { __typename?: 'EstudianteResponse', errors?: Array<{ __typename?: 'FieldErrorEstudiante', field: string, message: string }> | null | undefined, persona?: { __typename?: 'Persona', id_persona: number, nombre: string, primer_apellido: string, segundo_apellido: string, dni: string, numero: string, email: string } | null | undefined } };
+
+export type CrearTurnoMutationVariables = Exact<{
+  input: TurnoInput;
+}>;
+
+
+export type CrearTurnoMutation = { __typename?: 'Mutation', crearTurno: { __typename?: 'TurnoResponse', errors?: Array<{ __typename?: 'FieldErrorTurno', field: string, message: string }> | null | undefined, turno?: { __typename?: 'Turno', id_turno: number, nombre: string, hora_inicio: string, hora_final: string } | null | undefined } };
 
 export type EliminarEstudianteMutationVariables = Exact<{
   id_persona: Scalars['Int'];
@@ -357,6 +393,11 @@ export type EstudiantesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type EstudiantesQuery = { __typename?: 'Query', estudiantes: Array<{ __typename?: 'Persona', id_persona: number, nombre: string, primer_apellido: string, segundo_apellido: string, dni: string, numero: string, email: string }> };
 
+export type TurnosQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type TurnosQuery = { __typename?: 'Query', turnos: Array<{ __typename?: 'Turno', id_turno: number, nombre: string, hora_inicio: string, hora_final: string }> };
+
 export const RegularCategoriaFragmentDoc = gql`
     fragment RegularCategoria on Categoria {
   id_categoria
@@ -372,6 +413,14 @@ export const RegularEstudianteFragmentDoc = gql`
   dni
   numero
   email
+}
+    `;
+export const RegularTurnoFragmentDoc = gql`
+    fragment RegularTurno on Turno {
+  id_turno
+  nombre
+  hora_inicio
+  hora_final
 }
     `;
 export const ActualizarCategoriaDocument = gql`
@@ -408,6 +457,23 @@ export const ActualizarEstudianteDocument = gql`
 export function useActualizarEstudianteMutation() {
   return Urql.useMutation<ActualizarEstudianteMutation, ActualizarEstudianteMutationVariables>(ActualizarEstudianteDocument);
 };
+export const ActualizarTurnoDocument = gql`
+    mutation ActualizarTurno($input: TurnoInputEditar!) {
+  actualizarTurno(input: $input) {
+    errors {
+      field
+      message
+    }
+    turno {
+      ...RegularTurno
+    }
+  }
+}
+    ${RegularTurnoFragmentDoc}`;
+
+export function useActualizarTurnoMutation() {
+  return Urql.useMutation<ActualizarTurnoMutation, ActualizarTurnoMutationVariables>(ActualizarTurnoDocument);
+};
 export const CrearCategoriaDocument = gql`
     mutation CrearCategoria($input: CategoriaInput!) {
   crearCategoria(input: $input) {
@@ -441,6 +507,23 @@ export const CrearEstudianteDocument = gql`
 
 export function useCrearEstudianteMutation() {
   return Urql.useMutation<CrearEstudianteMutation, CrearEstudianteMutationVariables>(CrearEstudianteDocument);
+};
+export const CrearTurnoDocument = gql`
+    mutation CrearTurno($input: TurnoInput!) {
+  crearTurno(input: $input) {
+    errors {
+      field
+      message
+    }
+    turno {
+      ...RegularTurno
+    }
+  }
+}
+    ${RegularTurnoFragmentDoc}`;
+
+export function useCrearTurnoMutation() {
+  return Urql.useMutation<CrearTurnoMutation, CrearTurnoMutationVariables>(CrearTurnoDocument);
 };
 export const EliminarEstudianteDocument = gql`
     mutation EliminarEstudiante($id_persona: Int!) {
@@ -479,4 +562,15 @@ export const EstudiantesDocument = gql`
 
 export function useEstudiantesQuery(options: Omit<Urql.UseQueryArgs<EstudiantesQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<EstudiantesQuery>({ query: EstudiantesDocument, ...options });
+};
+export const TurnosDocument = gql`
+    query Turnos {
+  turnos {
+    ...RegularTurno
+  }
+}
+    ${RegularTurnoFragmentDoc}`;
+
+export function useTurnosQuery(options: Omit<Urql.UseQueryArgs<TurnosQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<TurnosQuery>({ query: TurnosDocument, ...options });
 };

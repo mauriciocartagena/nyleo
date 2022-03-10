@@ -9,10 +9,10 @@ import {
 } from "type-graphql";
 import { getConnection } from "typeorm";
 import { Turno } from "../entities/Turno";
-import { TurnoInput } from "./Inputs/turno/TurnoInput";
 import { validateRegisterTurno } from "../utils/validateRegisterTurno";
 import { TurnoInputEditar } from "./Inputs/turno/TurnoInputEditar";
 import { validateEditarTurno } from "../utils/validateEditarTurno";
+import { TurnoInput } from "./Inputs/turno/TurnoInput";
 
 @ObjectType()
 class FieldErrorTurno {
@@ -50,9 +50,7 @@ export class TurnoResolver {
   }
 
   @Mutation(() => TurnoResponse)
-  async crearTurno(
-    @Arg("input") input: TurnoInputEditar
-  ): Promise<TurnoResponse> {
+  async crearTurno(@Arg("input") input: TurnoInput): Promise<TurnoResponse> {
     const conn = getConnection();
 
     const errors = validateRegisterTurno(input);

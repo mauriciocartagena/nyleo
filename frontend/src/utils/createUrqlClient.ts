@@ -1,5 +1,6 @@
 import { dedupExchange, fetchExchange } from "urql";
 import { cacheExchange } from "@urql/exchange-graphcache";
+import { ActualizarTurnoMutation } from "../generated/graphql";
 
 export const createUrlClient = (ssrExchange: any) => ({
   url: "http://localhost:4000/graphql",
@@ -18,6 +19,9 @@ export const createUrlClient = (ssrExchange: any) => ({
           crearCategoria: (_result, args, cache, info) => {
             cache.invalidate("Query", "categorias");
           },
+          crearTurno: (_result, args, cache, info) => {
+            cache.invalidate("Query", "turnos");
+          },
 
           // All Entities Updated
           actualizarEstudiante: (_result, args, cache) => {
@@ -25,6 +29,9 @@ export const createUrlClient = (ssrExchange: any) => ({
           },
           actualizarCategoria: (_result, args, cache) => {
             cache.invalidate("Query", "categorias");
+          },
+          actualizarTurno: (_result, args, cache) => {
+            cache.invalidate("Query", "turnos");
           },
 
           // All Entities Deleted

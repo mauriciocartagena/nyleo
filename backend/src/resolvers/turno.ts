@@ -1,6 +1,35 @@
-import { Arg, Query, Resolver, Int, Mutation } from 'type-graphql';
-import { getConnection } from 'typeorm';
-import { Turno } from '../entities/Turno';
+import {
+  Arg,
+  Query,
+  Resolver,
+  Int,
+  Mutation,
+  Field,
+  ObjectType,
+} from "type-graphql";
+import { getConnection } from "typeorm";
+import { Turno } from "../entities/Turno";
+import { TurnoInput } from "./Inputs/turno/TurnoInput";
+import { validateRegisterTurno } from "../utils/validateRegisterTurno";
+import { TurnoInputEditar } from "./Inputs/turno/TurnoInputEditar";
+import { validateEditarTurno } from "../utils/validateEditarTurno";
+
+@ObjectType()
+class FieldErrorTurno {
+  @Field()
+  field: string;
+  @Field()
+  message: string;
+}
+
+@ObjectType()
+class TurnoResponse {
+  @Field(() => [FieldErrorTurno], { nullable: true })
+  errors?: FieldErrorTurno[];
+
+  @Field(() => Turno, { nullable: true })
+  turno?: Turno;
+}
 
 @Resolver()
 export class TurnoResolver {
@@ -12,51 +41,119 @@ export class TurnoResolver {
   }
 
   @Query(() => Turno, { nullable: true })
-  async turno(@Arg('id_turno', () => Int) id_turno: number): Promise<Turno | null | undefined> {
+  async turno(
+    @Arg("id_turno", () => Int) id_turno: number
+  ): Promise<Turno | null | undefined> {
     const conn = getConnection();
 
     return conn.manager.findOne(Turno, { id_turno });
   }
 
-  @Mutation(() => Turno)
-  async crearTurno(@Arg('nombre') nombre: string, @Arg('hora_inicio') hora_inicio: string, @Arg('hora_final') hora_final: string): Promise<Turno | null> {
+  @Mutation(() => TurnoResponse)
+  async crearTurno(
+    @Arg("input") input: TurnoInputEditar
+  ): Promise<TurnoResponse> {
     const conn = getConnection();
 
-    const turno = conn.manager.create(Turno, {
-      nombre,
-      hora_inicio,
-      hora_final,
-    });
+    const errors = validateRegisterTurno(input);
 
-    return conn.manager.save(turno);
+    if (errors) {
+      return { errors: errors };
+    }
+
+    try {
+      const turno = conn.manager.create(Turno, input);
+
+      const resp = await conn.manager.save(Turno, turno);
+
+      return { turno: resp };
+    } catch (error) {
+      if (error.detail.includes("already exists")) {
+        if (error.detail.includes("nombre")) {
+          return {
+            errors: [
+              {
+                field: "nombre",
+                message: "El nombre ya existe",
+              },
+            ],
+          };
+        }
+      }
+      return {
+        errors: [
+          {
+            field: "Error",
+            message: "Error al crear el turno",
+          },
+        ],
+      };
+    }
   }
 
-  @Mutation(() => Turno, { nullable: true })
+  @Mutation(() => TurnoResponse)
   async actualizarTurno(
-    @Arg('id_turno') id_turno: number,
-    @Arg('nombre') nombre: string,
-    @Arg('hora_inicio') hora_inicio: string,
-    @Arg('hora_final') hora_final: string
-  ): Promise<Turno | null> {
+    @Arg("input") input: TurnoInputEditar
+  ): Promise<TurnoResponse> {
     const conn = getConnection();
 
-    const turno = await conn.manager.findOne(Turno, { id_turno });
+    const errors = validateEditarTurno(input);
+
+    if (errors) {
+      return { errors: errors };
+    }
+
+    const turno = await conn.manager.findOne(Turno, {
+      id_turno: input.id_turno,
+    });
 
     if (!turno) {
-      return null;
+      return {
+        errors: [
+          {
+            field: "Error",
+            message: "El turno no existe",
+          },
+        ],
+      };
     }
-    if (typeof nombre !== 'undefined' && nombre !== '' && nombre !== null && hora_inicio !== null && hora_final !== null) {
-      turno.nombre = nombre;
-      turno.hora_inicio = hora_inicio;
-      turno.hora_final = hora_final;
 
-      await conn.manager.update(Turno, { id_turno }, turno);
+    try {
+      const response = await conn
+        .createQueryBuilder()
+        .update(Turno)
+        .set(input)
+        .where("id_turno = " + input.id_turno)
+        .returning("*")
+        .execute();
+
+      return { turno: response.raw[0] };
+    } catch (error) {
+      if (error.detail.includes("already exists")) {
+        if (error.detail.includes("nombre")) {
+          return {
+            errors: [
+              {
+                field: "nombre",
+                message: "El nombre ya existe",
+              },
+            ],
+          };
+        }
+      }
+      return {
+        errors: [
+          {
+            field: "Error",
+            message: "Error al actualizar el turno",
+          },
+        ],
+      };
     }
-    return turno;
   }
 
   @Mutation(() => Boolean)
-  async eliminarTurno(@Arg('id_turno') id_turno: number): Promise<boolean> {
+  async eliminarTurno(@Arg("id_turno") id_turno: number): Promise<boolean> {
     const conn = getConnection();
     try {
       await conn.manager.delete(Turno, { id_turno });

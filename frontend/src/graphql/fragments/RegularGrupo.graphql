@@ -1,0 +1,13 @@
+fragment RegularGrupo on Grupo {
+  id_grupo
+  fecha_inicio
+  fecha_final
+  dia_inicio
+  dia_final
+  id_turno {
+    ...RegularTurno
+  }
+  id_categoria {
+    ...RegularCategoria
+  }
+}

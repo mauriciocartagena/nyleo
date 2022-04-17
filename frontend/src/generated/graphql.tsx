@@ -88,6 +88,12 @@ export type FieldErrorEstudiante = {
   message: Scalars['String'];
 };
 
+export type FieldErrorGrupo = {
+  __typename?: 'FieldErrorGrupo';
+  field: Scalars['String'];
+  message: Scalars['String'];
+};
+
 export type FieldErrorTurno = {
   __typename?: 'FieldErrorTurno';
   field: Scalars['String'];
@@ -105,6 +111,31 @@ export type Grupo = {
   id_turno: Turno;
 };
 
+export type GrupoInput = {
+  dia_final: Scalars['String'];
+  dia_inicio: Scalars['String'];
+  fecha_final: Scalars['DateTime'];
+  fecha_inicio: Scalars['DateTime'];
+  id_categoria: Scalars['Float'];
+  id_turno: Scalars['Float'];
+};
+
+export type GrupoInputEditar = {
+  dia_final: Scalars['String'];
+  dia_inicio: Scalars['String'];
+  fecha_final: Scalars['DateTime'];
+  fecha_inicio: Scalars['DateTime'];
+  id_categoria: Scalars['Float'];
+  id_grupo: Scalars['Float'];
+  id_turno: Scalars['Float'];
+};
+
+export type GrupoResponse = {
+  __typename?: 'GrupoResponse';
+  errors?: Maybe<Array<FieldErrorGrupo>>;
+  grupo?: Maybe<Grupo>;
+};
+
 export type LoginUsuarioPasswordInput = {
   password: Scalars['String'];
   usuario: Scalars['String'];
@@ -115,12 +146,12 @@ export type Mutation = {
   actualizarCategoria: CategoriaResponse;
   actualizarCurso: Curso;
   actualizarEstudiante: EstudianteResponse;
-  actualizarGrupo: Array<Grupo>;
+  actualizarGrupo: GrupoResponse;
   actualizarTurno: TurnoResponse;
   crearCategoria: CategoriaResponse;
   crearCurso: Curso;
   crearEstudiante: EstudianteResponse;
-  crearGrupo?: Maybe<Grupo>;
+  crearGrupo: GrupoResponse;
   crearTurno: TurnoResponse;
   eliminarCategoria: Scalars['Boolean'];
   eliminarCurso: Scalars['Boolean'];
@@ -150,13 +181,7 @@ export type MutationActualizarEstudianteArgs = {
 
 
 export type MutationActualizarGrupoArgs = {
-  dia_final: Scalars['String'];
-  dia_inicio: Scalars['String'];
-  fecha_final: Scalars['DateTime'];
-  fecha_inicio: Scalars['DateTime'];
-  id_categoria: Scalars['Int'];
-  id_grupo: Scalars['Int'];
-  id_turno: Scalars['Int'];
+  input: GrupoInputEditar;
 };
 
 
@@ -182,12 +207,7 @@ export type MutationCrearEstudianteArgs = {
 
 
 export type MutationCrearGrupoArgs = {
-  dia_final: Scalars['String'];
-  dia_inicio: Scalars['String'];
-  fecha_final: Scalars['DateTime'];
-  fecha_inicio: Scalars['DateTime'];
-  id_categoria: Scalars['Int'];
-  id_turno: Scalars['Int'];
+  input: GrupoInput;
 };
 
 
@@ -332,6 +352,12 @@ export type RegularCategoriaFragment = { __typename?: 'Categoria', id_categoria:
 
 export type RegularEstudianteFragment = { __typename?: 'Persona', id_persona: number, nombre: string, primer_apellido: string, segundo_apellido: string, dni: string, numero: string, email: string };
 
+export type RegularGrupoFragment = { __typename?: 'Grupo', id_grupo: number, fecha_inicio: any, fecha_final: any, dia_inicio: string, dia_final: string, id_turno: { __typename?: 'Turno', id_turno: number, nombre: string, hora_inicio: string, hora_final: string }, id_categoria: { __typename?: 'Categoria', id_categoria: number, nombre: string } };
+
+export type RegularGrupoCreateFragment = { __typename?: 'Grupo', id_grupo: number, fecha_inicio: any, fecha_final: any, dia_inicio: string, dia_final: string };
+
+export type RegularGrupoUpdateFragment = { __typename?: 'Grupo', id_grupo: number, fecha_inicio: any, fecha_final: any, dia_inicio: string, dia_final: string };
+
 export type RegularTurnoFragment = { __typename?: 'Turno', id_turno: number, nombre: string, hora_inicio: string, hora_final: string };
 
 export type ActualizarCategoriaMutationVariables = Exact<{
@@ -347,6 +373,13 @@ export type ActualizarEstudianteMutationVariables = Exact<{
 
 
 export type ActualizarEstudianteMutation = { __typename?: 'Mutation', actualizarEstudiante: { __typename?: 'EstudianteResponse', errors?: Array<{ __typename?: 'FieldErrorEstudiante', field: string, message: string }> | null | undefined, persona?: { __typename?: 'Persona', id_persona: number, nombre: string, primer_apellido: string, segundo_apellido: string, dni: string, numero: string, email: string } | null | undefined } };
+
+export type ActualizarGrupoMutationVariables = Exact<{
+  input: GrupoInputEditar;
+}>;
+
+
+export type ActualizarGrupoMutation = { __typename?: 'Mutation', actualizarGrupo: { __typename?: 'GrupoResponse', errors?: Array<{ __typename?: 'FieldErrorGrupo', field: string, message: string }> | null | undefined, grupo?: { __typename?: 'Grupo', id_grupo: number, fecha_inicio: any, fecha_final: any, dia_inicio: string, dia_final: string } | null | undefined } };
 
 export type ActualizarTurnoMutationVariables = Exact<{
   input: TurnoInputEditar;
@@ -369,6 +402,13 @@ export type CrearEstudianteMutationVariables = Exact<{
 
 export type CrearEstudianteMutation = { __typename?: 'Mutation', crearEstudiante: { __typename?: 'EstudianteResponse', errors?: Array<{ __typename?: 'FieldErrorEstudiante', field: string, message: string }> | null | undefined, persona?: { __typename?: 'Persona', id_persona: number, nombre: string, primer_apellido: string, segundo_apellido: string, dni: string, numero: string, email: string } | null | undefined } };
 
+export type CrearGrupoMutationVariables = Exact<{
+  input: GrupoInput;
+}>;
+
+
+export type CrearGrupoMutation = { __typename?: 'Mutation', crearGrupo: { __typename?: 'GrupoResponse', errors?: Array<{ __typename?: 'FieldErrorGrupo', field: string, message: string }> | null | undefined, grupo?: { __typename?: 'Grupo', id_grupo: number, fecha_inicio: any, fecha_final: any, dia_inicio: string, dia_final: string } | null | undefined } };
+
 export type CrearTurnoMutationVariables = Exact<{
   input: TurnoInput;
 }>;
@@ -383,6 +423,13 @@ export type EliminarEstudianteMutationVariables = Exact<{
 
 export type EliminarEstudianteMutation = { __typename?: 'Mutation', eliminarEstudiante: boolean };
 
+export type EliminarGrupoMutationVariables = Exact<{
+  id_grupo: Scalars['Int'];
+}>;
+
+
+export type EliminarGrupoMutation = { __typename?: 'Mutation', eliminarGrupo: boolean };
+
 export type CategoriasQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -393,17 +440,16 @@ export type EstudiantesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type EstudiantesQuery = { __typename?: 'Query', estudiantes: Array<{ __typename?: 'Persona', id_persona: number, nombre: string, primer_apellido: string, segundo_apellido: string, dni: string, numero: string, email: string }> };
 
+export type GruposQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GruposQuery = { __typename?: 'Query', grupos: Array<{ __typename?: 'Grupo', id_grupo: number, fecha_inicio: any, fecha_final: any, dia_inicio: string, dia_final: string, id_turno: { __typename?: 'Turno', id_turno: number, nombre: string, hora_inicio: string, hora_final: string }, id_categoria: { __typename?: 'Categoria', id_categoria: number, nombre: string } }> };
+
 export type TurnosQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type TurnosQuery = { __typename?: 'Query', turnos: Array<{ __typename?: 'Turno', id_turno: number, nombre: string, hora_inicio: string, hora_final: string }> };
 
-export const RegularCategoriaFragmentDoc = gql`
-    fragment RegularCategoria on Categoria {
-  id_categoria
-  nombre
-}
-    `;
 export const RegularEstudianteFragmentDoc = gql`
     fragment RegularEstudiante on Persona {
   id_persona
@@ -421,6 +467,46 @@ export const RegularTurnoFragmentDoc = gql`
   nombre
   hora_inicio
   hora_final
+}
+    `;
+export const RegularCategoriaFragmentDoc = gql`
+    fragment RegularCategoria on Categoria {
+  id_categoria
+  nombre
+}
+    `;
+export const RegularGrupoFragmentDoc = gql`
+    fragment RegularGrupo on Grupo {
+  id_grupo
+  fecha_inicio
+  fecha_final
+  dia_inicio
+  dia_final
+  id_turno {
+    ...RegularTurno
+  }
+  id_categoria {
+    ...RegularCategoria
+  }
+}
+    ${RegularTurnoFragmentDoc}
+${RegularCategoriaFragmentDoc}`;
+export const RegularGrupoCreateFragmentDoc = gql`
+    fragment RegularGrupoCreate on Grupo {
+  id_grupo
+  fecha_inicio
+  fecha_final
+  dia_inicio
+  dia_final
+}
+    `;
+export const RegularGrupoUpdateFragmentDoc = gql`
+    fragment RegularGrupoUpdate on Grupo {
+  id_grupo
+  fecha_inicio
+  fecha_final
+  dia_inicio
+  dia_final
 }
     `;
 export const ActualizarCategoriaDocument = gql`
@@ -456,6 +542,23 @@ export const ActualizarEstudianteDocument = gql`
 
 export function useActualizarEstudianteMutation() {
   return Urql.useMutation<ActualizarEstudianteMutation, ActualizarEstudianteMutationVariables>(ActualizarEstudianteDocument);
+};
+export const ActualizarGrupoDocument = gql`
+    mutation ActualizarGrupo($input: GrupoInputEditar!) {
+  actualizarGrupo(input: $input) {
+    errors {
+      field
+      message
+    }
+    grupo {
+      ...RegularGrupoUpdate
+    }
+  }
+}
+    ${RegularGrupoUpdateFragmentDoc}`;
+
+export function useActualizarGrupoMutation() {
+  return Urql.useMutation<ActualizarGrupoMutation, ActualizarGrupoMutationVariables>(ActualizarGrupoDocument);
 };
 export const ActualizarTurnoDocument = gql`
     mutation ActualizarTurno($input: TurnoInputEditar!) {
@@ -508,6 +611,23 @@ export const CrearEstudianteDocument = gql`
 export function useCrearEstudianteMutation() {
   return Urql.useMutation<CrearEstudianteMutation, CrearEstudianteMutationVariables>(CrearEstudianteDocument);
 };
+export const CrearGrupoDocument = gql`
+    mutation CrearGrupo($input: GrupoInput!) {
+  crearGrupo(input: $input) {
+    errors {
+      field
+      message
+    }
+    grupo {
+      ...RegularGrupoCreate
+    }
+  }
+}
+    ${RegularGrupoCreateFragmentDoc}`;
+
+export function useCrearGrupoMutation() {
+  return Urql.useMutation<CrearGrupoMutation, CrearGrupoMutationVariables>(CrearGrupoDocument);
+};
 export const CrearTurnoDocument = gql`
     mutation CrearTurno($input: TurnoInput!) {
   crearTurno(input: $input) {
@@ -533,6 +653,15 @@ export const EliminarEstudianteDocument = gql`
 
 export function useEliminarEstudianteMutation() {
   return Urql.useMutation<EliminarEstudianteMutation, EliminarEstudianteMutationVariables>(EliminarEstudianteDocument);
+};
+export const EliminarGrupoDocument = gql`
+    mutation EliminarGrupo($id_grupo: Int!) {
+  eliminarGrupo(id_grupo: $id_grupo)
+}
+    `;
+
+export function useEliminarGrupoMutation() {
+  return Urql.useMutation<EliminarGrupoMutation, EliminarGrupoMutationVariables>(EliminarGrupoDocument);
 };
 export const CategoriasDocument = gql`
     query Categorias {
@@ -562,6 +691,17 @@ export const EstudiantesDocument = gql`
 
 export function useEstudiantesQuery(options: Omit<Urql.UseQueryArgs<EstudiantesQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<EstudiantesQuery>({ query: EstudiantesDocument, ...options });
+};
+export const GruposDocument = gql`
+    query Grupos {
+  grupos {
+    ...RegularGrupo
+  }
+}
+    ${RegularGrupoFragmentDoc}`;
+
+export function useGruposQuery(options: Omit<Urql.UseQueryArgs<GruposQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<GruposQuery>({ query: GruposDocument, ...options });
 };
 export const TurnosDocument = gql`
     query Turnos {

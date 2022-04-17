@@ -1,0 +1,3 @@
+mutation EliminarGrupo($id_grupo: Int!) {
+  eliminarGrupo(id_grupo: $id_grupo)
+}

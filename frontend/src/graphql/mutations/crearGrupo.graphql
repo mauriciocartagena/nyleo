@@ -1,0 +1,11 @@
+mutation CrearGrupo($input: GrupoInput!) {
+  crearGrupo(input: $input) {
+    errors {
+      field
+      message
+    }
+    grupo {
+      ...RegularGrupoCreate
+    }
+  }
+}

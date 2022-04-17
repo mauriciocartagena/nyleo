@@ -1,0 +1,11 @@
+mutation ActualizarGrupo($input: GrupoInputEditar!) {
+  actualizarGrupo(input: $input) {
+    errors {
+      field
+      message
+    }
+    grupo {
+      ...RegularGrupoUpdate
+    }
+  }
+}

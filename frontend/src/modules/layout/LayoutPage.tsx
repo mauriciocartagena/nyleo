@@ -18,10 +18,10 @@ import {
 import {
   FiHome,
   FiTrendingUp,
-  FiCompass,
   FiStar,
   FiSettings,
   FiMenu,
+  FiLayers,
 } from "react-icons/fi";
 import { IconType } from "react-icons";
 import Link from "next/link";
@@ -35,7 +35,7 @@ interface LinkItemProps {
 const LinkItems: Array<LinkItemProps> = [
   { name: "Estudiantes", icon: FiHome, route: "/student" },
   { name: "Materias", icon: FiTrendingUp, route: "/subject" },
-  { name: "Horarios", icon: FiCompass, route: "/schedule" },
+  { name: "Horarios", icon: FiLayers, route: "/schedule" },
   { name: "Turnos", icon: FiStar, route: "/turns" },
   { name: "Cursos", icon: FiSettings, route: "/courses" },
   { name: "Usuarios", icon: FiSettings, route: "/users" },

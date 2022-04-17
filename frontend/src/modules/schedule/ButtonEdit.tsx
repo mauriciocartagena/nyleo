@@ -2,27 +2,27 @@ import React, { useState } from "react";
 import { Button } from "../../ui/Button";
 import { createUrlClient } from "../../utils/createUrqlClient";
 import { withUrqlClient } from "next-urql";
-import StudentEditModal from "./StudentEditModal";
+import ScheduleEditModal from "./ScheduleEditModal";
 import { MdEdit } from "react-icons/md";
 
 interface ButtonEditProps {
-  id_persona: number;
-  nombre: string;
-  primer_apellido: string;
-  segundo_apellido: string;
-  dni: string;
-  email: string;
-  numero: string;
+  id_grupo: number;
+  id_turno: number;
+  id_categoria: number;
+  fecha_inicio: string;
+  fecha_final: string;
+  dia_inicio: string;
+  dia_final: string;
 }
 
 const ButtonEdit: React.FC<ButtonEditProps> = ({
-  id_persona,
-  nombre,
-  primer_apellido,
-  segundo_apellido,
-  dni,
-  email,
-  numero,
+  id_grupo,
+  id_turno,
+  id_categoria,
+  fecha_inicio,
+  fecha_final,
+  dia_inicio,
+  dia_final,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -42,20 +42,20 @@ const ButtonEdit: React.FC<ButtonEditProps> = ({
             }}
           />
         }
-        name="Editar Estudiante"
+        name="Editar Grupo"
       >
         Editar
       </Button>
       {open ? (
-        <StudentEditModal
-          studentData={{
-            id_persona,
-            nombre,
-            primer_apellido,
-            segundo_apellido,
-            dni,
-            email,
-            numero,
+        <ScheduleEditModal
+          scheduleData={{
+            id_grupo,
+            id_turno,
+            id_categoria,
+            fecha_inicio,
+            fecha_final,
+            dia_inicio,
+            dia_final,
           }}
           pageProps
           onRequestClose={() => setOpen(false)}

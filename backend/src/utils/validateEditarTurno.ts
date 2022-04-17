@@ -1,4 +1,4 @@
-import { TurnoInputEditar } from "../resolvers/Inputs/turno/TurnoInputEditar";
+import { TurnoInputEditar } from "../resolvers/Inputs/Turno/TurnoInputEditar";
 
 export const validateEditarTurno = (input: TurnoInputEditar) => {
   if (input.nombre.length <= 2) {

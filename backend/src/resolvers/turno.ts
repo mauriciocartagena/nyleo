@@ -10,7 +10,7 @@ import {
 import { getConnection } from "typeorm";
 import { Turno } from "../entities/Turno";
 import { validateRegisterTurno } from "../utils/validateRegisterTurno";
-import { TurnoInputEditar } from "./Inputs/turno/TurnoInputEditar";
+import { TurnoInputEditar } from "./Inputs/Turno/TurnoInputEditar";
 import { validateEditarTurno } from "../utils/validateEditarTurno";
 import { TurnoInput } from "./Inputs/turno/TurnoInput";
 

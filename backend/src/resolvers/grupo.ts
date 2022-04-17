@@ -1,8 +1,37 @@
-import { Query, Arg, Int, Mutation, Resolver } from "type-graphql";
+import {
+  Query,
+  Arg,
+  Int,
+  Mutation,
+  Resolver,
+  ObjectType,
+  Field,
+} from "type-graphql";
 import { Grupo } from "../entities/Grupo";
 import { getConnection } from "typeorm";
 import { Categoria } from "../entities/Categoria";
 import { Turno } from "../entities/Turno";
+import { GrupoInput } from "./Inputs/Grupo/GrupoInput";
+import { validateRegisterGrupo } from "../utils/validateRegisterGrupo";
+import { GrupoInputEditar } from "./Inputs/Grupo/GrupoInputEditar";
+import { validateEditarGrupo } from "../utils/validateEditarGrupo";
+
+@ObjectType()
+class FieldErrorGrupo {
+  @Field()
+  field: string;
+  @Field()
+  message: string;
+}
+
+@ObjectType()
+class GrupoResponse {
+  @Field(() => [FieldErrorGrupo], { nullable: true })
+  errors?: FieldErrorGrupo[];
+
+  @Field(() => Grupo, { nullable: true })
+  grupo?: Grupo;
+}
 @Resolver()
 export class GrupoResolver {
   @Query(() => [Grupo, { Categoria, Turno }])
@@ -23,78 +52,72 @@ export class GrupoResolver {
     return conn.manager.findOne(Grupo, { id_grupo });
   }
 
-  @Mutation(() => Grupo, { nullable: true })
-  async crearGrupo(
-    @Arg("fecha_inicio") fecha_inicio: Date,
-    @Arg("fecha_final") fecha_final: Date,
-    @Arg("dia_final") dia_final: string,
-    @Arg("dia_inicio") dia_inicio: string,
-    @Arg("id_categoria", () => Int) id_categoria: number,
-    @Arg("id_turno", () => Int) id_turno: number
-  ): Promise<Grupo[]> {
+  @Mutation(() => GrupoResponse)
+  async crearGrupo(@Arg("input") input: GrupoInput): Promise<GrupoResponse> {
     const conn = getConnection();
 
-    const grupo = await conn
-      .createQueryBuilder()
-      .insert()
-      .into("grupo")
-      .values({
-        fecha_inicio,
-        fecha_final,
-        dia_inicio,
-        dia_final,
-        id_categoria,
-        id_turno,
-      })
-      .returning("*")
-      .execute();
+    const errors = validateRegisterGrupo(input);
 
-    return grupo.raw[0];
-  }
+    if (errors) {
+      return { errors: errors };
+    }
 
-  @Mutation(() => [Grupo])
-  async actualizarGrupo(
-    @Arg("id_grupo", () => Int) id_grupo: number,
-    @Arg("fecha_inicio") fecha_inicio: Date,
-    @Arg("fecha_final") fecha_final: Date,
-    @Arg("dia_inicio") dia_inicio: string,
-    @Arg("dia_final") dia_final: string,
-    @Arg("id_categoria", () => Int) id_categoria: number,
-    @Arg("id_turno", () => Int) id_turno: number
-  ): Promise<Grupo[] | null> {
-    const conn = getConnection();
-
-    let grupo;
-
-    if (
-      typeof id_grupo !== "undefined" &&
-      id_grupo !== null &&
-      id_categoria !== null &&
-      id_turno !== null &&
-      fecha_inicio !== null &&
-      fecha_final !== null &&
-      dia_inicio !== "" &&
-      dia_final !== ""
-    ) {
-      grupo = await conn
+    try {
+      const resp = await conn
         .createQueryBuilder()
-        .update("Grupo")
-        .set({
-          fecha_inicio,
-          fecha_final,
-          dia_inicio,
-          dia_final,
-          id_categoria: id_categoria,
-          id_turno: id_turno,
-        })
-        .where("id_grupo = :id_grupo", { id_grupo })
+        .insert()
+        .into("grupo")
+        .values(input)
         .returning("*")
         .execute();
 
-      return grupo.raw;
+      return { grupo: resp.raw[0] };
+    } catch (error) {
+      return {
+        errors: [
+          {
+            field: "Error",
+            message: "Ponganse en contacto con el administrador.",
+          },
+        ],
+      };
+    }
+  }
+
+  @Mutation(() => GrupoResponse)
+  async actualizarGrupo(
+    @Arg("input") input: GrupoInputEditar
+  ): Promise<GrupoResponse> {
+    const conn = getConnection();
+
+    const errors = validateEditarGrupo(input);
+
+    if (errors) {
+      return { errors: errors };
     }
 
-    return null;
+    try {
+      const resp = await conn
+        .createQueryBuilder()
+        .update("Grupo")
+        .set(input)
+        .where("id_grupo = :id_grupo", input)
+        .returning("*")
+        .execute();
+
+      return {
+        grupo: resp.raw[0],
+      };
+    } catch (error) {
+      return {
+        errors: [
+          {
+            field: "Error",
+            message: "Error al actualizar el turno",
+          },
+        ],
+      };
+    }
   }
   @Mutation(() => Boolean)
   async eliminarGrupo(

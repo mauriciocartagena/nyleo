@@ -9,9 +9,8 @@ import {
 } from "type-graphql";
 import { getConnection } from "typeorm";
 import { Turno } from "../entities/Turno";
-import { TurnoInput } from "./Inputs/turno/TurnoInput";
 import { validateRegisterTurno } from "../utils/validateRegisterTurno";
-import { TurnoInputEditar } from "./Inputs/turno/TurnoInputEditar";
+import { TurnoInputEditar } from "./Inputs/Turno/TurnoInputEditar";
 import { validateEditarTurno } from "../utils/validateEditarTurno";
 
 @ObjectType()

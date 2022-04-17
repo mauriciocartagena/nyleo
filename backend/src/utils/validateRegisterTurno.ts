@@ -1,4 +1,4 @@
-import { TurnoInput } from "../resolvers/Inputs/turno/TurnoInput";
+import { TurnoInput } from "../resolvers/Inputs/Turno/TurnoInput";
 
 export const validateRegisterTurno = (input: TurnoInput) => {
   if (input.nombre.length <= 2) {
